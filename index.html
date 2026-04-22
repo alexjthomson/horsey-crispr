@@ -1,0 +1,2262 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Horsey Genome Mapper</title>
+        <style>
+            :root {
+                --bg: #23262b;
+                --surface: #2b2f36;
+                --surface-alt: #343943;
+                --surface-soft: #3a404c;
+                --border: #454c5a;
+                --border-strong: #5b6578;
+                --accent: #7dd3fc;
+                --accent-strong: #38bdf8;
+                --text: #eef2f7;
+                --text-soft: #d7dde7;
+                --muted: #a1acbb;
+                --dim: #7b8595;
+                --shadow: rgba(0, 0, 0, 0.28);
+                --green-hi: #86efac;
+                --red-lo: #fca5a5;
+                --A: #facc15;
+                --T: #fb7185;
+                --C: #60a5fa;
+                --G: #4ade80;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background: linear-gradient(180deg, #1d2025 0%, var(--bg) 100%);
+                color: var(--text);
+                font-family:
+                    Inter,
+                    ui-sans-serif,
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    sans-serif;
+                font-size: 14px;
+                line-height: 1.5;
+                min-height: 100vh;
+            }
+
+            #header {
+                padding: 18px 14px 10px;
+            }
+
+            .header-inner {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                box-shadow: 0 18px 40px var(--shadow);
+                padding: 18px 20px;
+                display: flex;
+                align-items: center;
+                gap: 18px;
+            }
+
+            #header h1 {
+                color: var(--accent);
+                font-size: 22px;
+                letter-spacing: 0.03em;
+                font-weight: 700;
+            }
+
+            #header .legend {
+                margin-left: auto;
+                display: flex;
+                gap: 16px;
+                flex-wrap: wrap;
+                font-size: 13px;
+                color: var(--muted);
+            }
+
+            #header .legend span b {
+                font-size: 13px;
+            }
+
+            #app {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                padding: 18px;
+                margin-bottom: 14px;
+                box-shadow: 0 16px 36px var(--shadow);
+            }
+
+            .field {
+                margin-bottom: 10px;
+            }
+
+            .field label {
+                display: block;
+                color: var(--text-soft);
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+
+            .info {
+                color: var(--muted);
+                font-size: 13px;
+                line-height: 1.65;
+            }
+
+            .button-row {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-top: 12px;
+                align-items: center;
+            }
+
+            .toggle-option {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                margin-left: 4px;
+                padding: 8px 12px;
+                border: 1px solid var(--border-strong);
+                border-radius: 10px;
+                background: #20242a;
+                color: var(--text-soft);
+                font-size: 13px;
+                font-weight: 600;
+            }
+
+            .toggle-option input {
+                width: auto;
+                margin: 0;
+                accent-color: var(--accent-strong);
+            }
+
+            .editor-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 12px;
+            }
+
+            .helix-editor {
+                margin-bottom: 0;
+                padding: 14px;
+                background: var(--surface-alt);
+                border-color: var(--border-strong);
+                box-shadow: none;
+            }
+
+            .editor-title,
+            .result-title {
+                color: var(--accent);
+                font-weight: 700;
+                font-size: 16px;
+            }
+
+            .helix-name {
+                color: var(--accent);
+                font-weight: 700;
+                margin-bottom: 10px;
+                font-size: 13px;
+                letter-spacing: 0.04em;
+            }
+
+            .collapsible-toggle {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                background: transparent;
+                border: 0;
+                color: inherit;
+                cursor: pointer;
+                padding: 0;
+                margin-bottom: 12px;
+                text-align: left;
+                font: inherit;
+            }
+
+            .collapsible-toggle:hover .editor-title {
+                color: #bae6fd;
+            }
+
+            .collapse-indicator {
+                color: var(--muted);
+                font-size: 12px;
+                font-weight: 600;
+            }
+
+            .is-collapsed {
+                display: none;
+            }
+
+            input,
+            textarea {
+                background: #20242a;
+                border: 1px solid var(--border-strong);
+                border-radius: 10px;
+                color: var(--text);
+                font-family: inherit;
+                font-size: 13px;
+                padding: 10px 12px;
+                width: 100%;
+            }
+
+            input:focus,
+            textarea:focus {
+                outline: none;
+                border-color: var(--accent);
+                box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.16);
+            }
+
+            textarea {
+                resize: vertical;
+                line-height: 1.55;
+                min-height: 170px;
+            }
+
+            button.btn {
+                padding: 9px 16px;
+                background: linear-gradient(180deg, #1c4f69 0%, #173d51 100%);
+                border: 1px solid var(--accent-strong);
+                border-radius: 10px;
+                color: var(--text);
+                cursor: pointer;
+                font-family: inherit;
+                font-size: 13px;
+                font-weight: 600;
+                transition:
+                    transform 0.08s ease,
+                    filter 0.12s ease;
+            }
+
+            button.btn:hover {
+                filter: brightness(1.08);
+                transform: translateY(-1px);
+            }
+
+            button.btn-ghost {
+                background: transparent;
+                border-color: var(--border-strong);
+                color: var(--text-soft);
+            }
+
+            .base {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 7px;
+                font-weight: 800;
+                line-height: 1;
+                flex-shrink: 0;
+                user-select: none;
+            }
+
+            .base-A {
+                background: var(--A);
+                color: #1b1b1b;
+            }
+
+            .base-T {
+                background: var(--T);
+                color: #1b1b1b;
+            }
+
+            .base-C {
+                background: var(--C);
+                color: #fff;
+            }
+
+            .base-G {
+                background: var(--G);
+                color: #1b1b1b;
+            }
+
+            .base-sm {
+                width: 22px;
+                height: 22px;
+                font-size: 11px;
+            }
+
+            .editable-base {
+                cursor: pointer;
+                box-shadow: inset 0 0 0 1px transparent;
+                transition:
+                    transform 0.08s ease,
+                    box-shadow 0.08s ease;
+            }
+
+            .editable-base:hover,
+            .editable-base:focus-visible {
+                transform: translateY(-1px);
+                box-shadow:
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+                    0 0 0 2px rgba(125, 211, 252, 0.65);
+                outline: none;
+            }
+
+            .result-helix {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                padding: 14px 16px;
+                margin-bottom: 10px;
+                box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+            }
+
+            .result-header {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .strand-row {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 4px;
+                flex-wrap: wrap;
+            }
+
+            .strand-label {
+                color: var(--dim);
+                font-size: 11px;
+                font-weight: 700;
+                min-width: 26px;
+            }
+
+            .result-genes {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 12px;
+            }
+
+            .result-gene {
+                position: relative;
+                background: #232831;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 10px;
+                min-width: 112px;
+                cursor: pointer;
+                text-align: left;
+                color: inherit;
+            }
+
+            .result-gene:hover,
+            .result-gene:focus-visible {
+                border-color: var(--accent) !important;
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.14);
+            }
+
+            .result-gene .rpos {
+                color: var(--dim);
+                font-size: 10px;
+                font-weight: 600;
+            }
+
+            .result-gene .rname {
+                font-size: 11px;
+                font-weight: 800;
+                margin: 4px 0 6px;
+                letter-spacing: 0.02em;
+            }
+
+            .result-gene .rval {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                font-size: 11px;
+                flex-wrap: wrap;
+            }
+
+            .gene-tooltip {
+                position: absolute;
+                left: 0;
+                top: calc(100% + 8px);
+                z-index: 20;
+                width: min(300px, 60vw);
+                padding: 10px 12px;
+                background: #1e242c;
+                color: var(--text);
+                border: 1px solid var(--accent);
+                border-radius: 10px;
+                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+                font-size: 12px;
+                line-height: 1.6;
+                display: none;
+                white-space: normal;
+                pointer-events: none;
+            }
+
+            .gene-tooltip::before {
+                content: "";
+                position: absolute;
+                top: -5px;
+                left: 16px;
+                width: 8px;
+                height: 8px;
+                background: #1e242c;
+                border-left: 1px solid var(--accent);
+                border-top: 1px solid var(--accent);
+                transform: rotate(45deg);
+            }
+
+            .result-gene.has-desc:hover .gene-tooltip,
+            .result-gene.has-desc:focus-visible .gene-tooltip {
+                display: block;
+            }
+
+            .muted {
+                color: var(--muted);
+            }
+
+            .dim {
+                color: var(--dim);
+            }
+
+            @media (max-width: 720px) {
+                .header-inner {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                #header .legend {
+                    margin-left: 0;
+                }
+            }
+
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #1f2329;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #596273;
+                border-radius: 999px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <div class="header-inner">
+                <h1>Horsey C.R.I.S.P.R Editor</h1>
+                <div class="legend">
+                    <span><b style="color: #facc15">A</b> = Yellow</span>
+                    <span><b style="color: #fb7185">T</b> = Red</span>
+                    <span><b style="color: #60a5fa">C</b> = Blue</span>
+                    <span><b style="color: #4ade80">G</b> = Green</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="app">
+            <div id="editor"></div>
+        </div>
+
+        <script>
+            "use strict";
+
+            const HELIX_COUNT = 20;
+            const makeUniformGenome = (base = "A") =>
+                Array.from({ length: HELIX_COUNT }, (_, helixIndex) => {
+                    const geneCount = HELIX_MAP[helixIndex]?.length ?? 0;
+                    const strand = base.repeat(geneCount);
+                    return [strand, strand];
+                });
+            const EMPTY_GENOME = () => makeUniformGenome("");
+            const VALID_BASE_RE = /[^ATCG]/g;
+            const BASES = ["A", "T", "C", "G"];
+            const BASE_INDEX = Object.freeze({ A: 0, T: 1, C: 2, G: 3 });
+
+            const CAT_COLOR = Object.freeze({
+                Body: "#f97316",
+                Legs: "#a78bfa",
+                Arms: "#fb7185",
+                Neck: "#34d399",
+                Tail: "#f59e0b",
+                Feet: "#38bdf8",
+                Head: "#e879f9",
+                Face: "#818cf8",
+                Mouth: "#fb923c",
+                Antlers: "#86efac",
+                Hat: "#fbbf24",
+                Color: "#6ee7b7",
+                Pattern: "#67e8f9",
+                Locomotion: "#f472b6",
+                Behavior: "#94a3b8",
+                Signals: "#c084fc",
+            });
+
+            const GENE_DESCRIPTIONS = {
+                NARCOLEPSY:
+                    "Horse randomly falls asleep when idle if nonzero. G enables narcolepsy; others are normal.",
+                RAMPAGE:
+                    "Controls aggression and rampage state. Also written at runtime when lassoed, forcing aggressive behaviour.",
+                HIGH_INTELLECT:
+                    "Enables progression to genius behaviour. Required for philosophical/refusal states.",
+                BRAIN_SPASTIC:
+                    "Applies random positional jitter each tick, causing twitching and erratic movement.",
+                WHITE_IS_LETHAL:
+                    "Foals may die at birth if white coat is expressed.",
+                FLU_IMMUNITY: "Grants immunity to flu mechanic. G = immune.",
+                LIMP: "Affects gait asymmetry. Higher values produce visible limping.",
+                LEG_AND_ARM_LIMP: "Applies limp to all limbs simultaneously.",
+                OMNIVORE: "Enables carnivorous behaviour (horse may eat NPCs).",
+                LITTER_SIZE: "Controls number of offspring per birth.",
+                SPINAL_LOCO:
+                    "Controls locomotion mode: 0=legs, 1=partial spine, 2=serpentine.",
+                LOCO_SYNC:
+                    "Synchronises limb timing. 1 = coordinated, 0 = chaotic.",
+                L_LEG_SIGNAL: "Broadcast signal for leg movement phases.",
+                L_ARM_SIGNAL: "Broadcast signal for arm/front limb phases.",
+                L_TAIL_SIGNAL: "Tail synchronisation signal.",
+                L_NECK_SIGNAL: "Neck movement synchronisation signal.",
+                L_NECK_BTOF_EVENT:
+                    "Primary locomotion timing signal (core gait clock).",
+                L_LEG_FTOB_REACT:
+                    "Leg listens for this signal to start forward phase.",
+                L_LEG_FTOB_EVENT: "Leg emits this signal after forward phase.",
+                L_LEG_BTOF_REACT:
+                    "Leg listens for this signal to start recovery phase.",
+                L_LEG_BTOF_EVENT: "Leg emits this signal after recovery phase.",
+                L_ARM_FTOB_REACT:
+                    "Arm listens for this signal to start forward phase.",
+                L_ARM_FTOB_EVENT: "Arm emits this signal after forward phase.",
+                L_ARM_BTOF_REACT:
+                    "Arm listens for this signal to start recovery phase.",
+                L_ARM_BTOF_EVENT: "Arm emits this signal after recovery phase.",
+                L_TAIL_FTOB_REACT: "Tail forward-phase trigger listener.",
+                L_TAIL_FTOB_EVENT: "Tail forward-phase completion signal.",
+                L_TAIL_BTOF_REACT: "Tail recovery-phase trigger listener.",
+                L_TAIL_BTOF_EVENT: "Tail recovery-phase completion signal.",
+                L_NECK_FTOB_REACT: "Neck forward-phase trigger listener.",
+                L_NECK_FTOB_EVENT: "Neck forward-phase completion signal.",
+                L_NECK_BTOF_REACT: "Neck recovery-phase trigger listener.",
+                BREAK_FORCE: "Controls stamina drain rate.",
+                MUSCLE_USE: "Global force multiplier for movement.",
+                STIFF_JOINTS: "Reduces joint flexibility.",
+                OSTODERM: "Adds bony skin plates (visual only).",
+                TAIL_BOTTOM:
+                    "Tail attachment point + internal structural anchor.",
+                NECK_STIFF: "Disables neck flexibility.",
+                GUT_IS_UDDER: "Transforms body mesh into udder shape (visual).",
+                GIANT_DWARF: "Applies dwarf/normal/giant scaling preset.",
+                WHITE: "Activates white coat expression.",
+                AGOUTI: "Restricts pigment to extremities (bay pattern).",
+                COON_EYE: "Applies dark eye mask marking.",
+                EAR_COMP: "Applies alternate colour to ears.",
+                SWAP_BASE_SPOT: "Swaps base and spot colours.",
+                SWAP_ALT_SPOT: "Swaps alternate colour layer with spots.",
+                OLD_AGE: "Applies progressive physical degradation over time.",
+                TAIL_ALT: "Switches between different tail meshes.",
+                TAIL_SHAPE: "Controls tail curvature.",
+                TAIL_ASPECT: "Controls tail thickness.",
+            };
+
+            const GENES = {
+                SIZE: { m: 95, s: 100, g: [100, 50, 35, 75], cat: "Body" },
+                ASPECT: { m: 95, s: 100, g: [200, 310, 150, 250], cat: "Body" },
+                SKINNY: { m: 100, s: 100, g: [100, 200, 100, 75], cat: "Body" },
+                BONES: { m: 95, s: 100, g: [0, -14, 14, 0], cat: "Body" },
+                BONES2: { m: 60, s: 100, g: [0, 16, -16, 0], cat: "Body" },
+                CHEST_BIG: {
+                    m: 100,
+                    s: 100,
+                    g: [104, 102, 108, 102],
+                    cat: "Body",
+                },
+                CHEST_SMALL: {
+                    m: 100,
+                    s: 100,
+                    g: [95, 100, 90, 95],
+                    cat: "Body",
+                },
+                GIANT_DWARF: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 66, 133, 100],
+                    cat: "Body",
+                },
+                MUSCLE_USE: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 50, 80, 100],
+                    cat: "Body",
+                },
+                GUT: { m: 100, s: 100, g: [0, 25, 45, 0], cat: "Body" },
+                GUT_IS_UDDER: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Body" },
+                DERRIERE: { m: 85, s: 100, g: [0, 40, 70, 10], cat: "Body" },
+                OSTODERM: { m: 100, s: 1, g: [1, 0, 1, 2], cat: "Body" },
+                OSTO_SIZE: { m: 100, s: 100, g: [30, 15, 45, 30], cat: "Body" },
+                SPLAY: { m: 100, s: 1, g: [0, 10, -5, 45], cat: "Legs" },
+                LEG_IN: { m: 50, s: 100, g: [0, 18, 6, 0], cat: "Legs" },
+                LEG_IN2: { m: 100, s: 100, g: [0, 13, 0, 1], cat: "Legs" },
+                LEG_TAG: { m: 100, s: 1, g: [1, 2, 4, 3], cat: "Legs" },
+                LEG_TYPE: { m: 100, s: 1, g: [1, 2, 0, 1], cat: "Legs" },
+                LEG_LENGTH: {
+                    m: 90,
+                    s: 100,
+                    g: [80, 50, 120, 100],
+                    cat: "Legs",
+                },
+                LEG_STRETCH: { m: 60, s: 100, g: [0, 14, -14, 0], cat: "Legs" },
+                LEG_STRETCH2: {
+                    m: 100,
+                    s: 100,
+                    g: [0, -16, 16, 0],
+                    cat: "Legs",
+                },
+                LEG_STRENGTH: {
+                    m: 60,
+                    s: 100,
+                    g: [95, 120, 80, 104],
+                    cat: "Legs",
+                },
+                LEG_HAS_FOOT: { m: 100, s: 1, g: [1, 1, 0, 0], cat: "Legs" },
+                LEG_JOINT_TYPE: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Legs" },
+                LEG_FLEXIBILITY: {
+                    m: 80,
+                    s: 1,
+                    g: [30, 20, 40, 50],
+                    cat: "Legs",
+                },
+                LEG_FLEX_BIAS: {
+                    m: 100,
+                    s: 1,
+                    g: [15, 20, 10, -10],
+                    cat: "Legs",
+                },
+                LEG_THRUST_BACK: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Legs" },
+                LEG_IS_CIRCLE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Legs" },
+                LEG_COUNT: { m: 100, s: 1, g: [1, 1, 2, 7], cat: "Legs" },
+                LEG_SKEW: { m: 60, s: 100, g: [0, 24, -16, 0], cat: "Legs" },
+                LEG_PENCIL: { m: 100, s: 100, g: [0, 10, 0, 0], cat: "Legs" },
+                LEG_AND_ARM_LIMP: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 0, 0, 1],
+                    cat: "Legs",
+                },
+                HAS_KNEE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Legs" },
+                KNEE_MIN: { m: 100, s: 1, g: [0, -90, -15, 0], cat: "Legs" },
+                KNEE_MAX: { m: 100, s: 1, g: [20, 90, 45, 20], cat: "Legs" },
+                STIFF_JOINTS: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 18, 50, 0],
+                    cat: "Legs",
+                },
+                QUADRUPED: { m: 100, s: 1, g: [1, 0, 1, 0], cat: "Locomotion" },
+                BIPED: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Locomotion" },
+                SPEED_FACTOR: {
+                    m: 75,
+                    s: 100,
+                    g: [100, 30, 50, 133],
+                    cat: "Locomotion",
+                },
+                BREAK_FORCE: {
+                    m: 100,
+                    s: 10,
+                    g: [0, 50, 0, 30],
+                    cat: "Locomotion",
+                },
+                SPINAL_LOCO: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 1, 0, 2],
+                    cat: "Locomotion",
+                },
+                LOCO_SYNC: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Locomotion" },
+                RAMPAGE: { m: 100, s: 1, g: [0, 0, 0, 1], cat: "Locomotion" },
+                BRAIN_SPASTIC: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 1, 2, 0],
+                    cat: "Locomotion",
+                },
+                NARCOLEPSY: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 0, 1, 0],
+                    cat: "Locomotion",
+                },
+                ARM_TAG: { m: 100, s: 1, g: [1, 2, 4, 3], cat: "Arms" },
+                ARM_TYPE: { m: 100, s: 1, g: [1, 2, 0, 0], cat: "Arms" },
+                ARM_LENGTH: {
+                    m: 90,
+                    s: 100,
+                    g: [80, 50, 120, 25],
+                    cat: "Arms",
+                },
+                ARM_STRETCH: { m: 60, s: 100, g: [0, 14, -14, 0], cat: "Arms" },
+                ARM_STRETCH2: {
+                    m: 100,
+                    s: 100,
+                    g: [0, -16, 16, 0],
+                    cat: "Arms",
+                },
+                ARM_STRENGTH: {
+                    m: 60,
+                    s: 100,
+                    g: [95, 120, 80, 104],
+                    cat: "Arms",
+                },
+                ARM_HAS_HAND: { m: 100, s: 1, g: [1, 0, 1, 0], cat: "Arms" },
+                ARM_JOINT_TYPE: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Arms" },
+                ARM_FLEXIBILITY: {
+                    m: 100,
+                    s: 1,
+                    g: [30, 20, 40, 30],
+                    cat: "Arms",
+                },
+                ARM_FLEX_BIAS: {
+                    m: 100,
+                    s: 1,
+                    g: [15, 20, 10, 0],
+                    cat: "Arms",
+                },
+                ARM_FORWARD: { m: 100, s: 1, g: [-20, 0, 60, 40], cat: "Arms" },
+                ARM_SKEW: { m: 100, s: 100, g: [0, 20, -20, 0], cat: "Arms" },
+                ARM_NODE_SCALE: {
+                    m: 50,
+                    s: 100,
+                    g: [100, 70, 130, 100],
+                    cat: "Arms",
+                },
+                HAS_ELBOW: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Arms" },
+                ELBOW_RANGE: { m: 100, s: 1, g: [30, 90, 10, 30], cat: "Arms" },
+                UPARM_TAG: { m: 100, s: 1, g: [0, 2, 1, 4], cat: "Arms" },
+                UPARM_Y: { m: 80, s: 100, g: [30, 10, 30, 50], cat: "Arms" },
+                UPARM_ANGLE: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 30, -30, -45],
+                    cat: "Arms",
+                },
+                UPARM_GOOFY: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Arms" },
+                NECK_TAG: { m: 100, s: 1, g: [4, 3, 1, 2], cat: "Neck" },
+                NECK_TYPE: { m: 100, s: 1, g: [1, 1, 2, 0], cat: "Neck" },
+                NECK_LENGTH: {
+                    m: 90,
+                    s: 100,
+                    g: [60, 70, 90, 30],
+                    cat: "Neck",
+                },
+                NECK_GIRAFFE: {
+                    m: 90,
+                    s: 100,
+                    g: [110, 0, 85, 120],
+                    cat: "Neck",
+                },
+                NECK_THICKNESS: {
+                    m: 60,
+                    s: 100,
+                    g: [95, 110, 120, 80],
+                    cat: "Neck",
+                },
+                NECK_ANGLE: { m: 90, s: 1, g: [45, 30, 60, 75], cat: "Neck" },
+                NECK_COCK: { m: 100, s: 1, g: [0, 30, 20, -25], cat: "Neck" },
+                NECK_JOINT_TYPE: { m: 100, s: 1, g: [1, 0, 2, 0], cat: "Neck" },
+                NECK_FLEXIBILITY: {
+                    m: 100,
+                    s: 1,
+                    g: [23, 10, 40, 0],
+                    cat: "Neck",
+                },
+                NECK_FLEX_BIAS: {
+                    m: 100,
+                    s: 1,
+                    g: [-8, 0, -25, 30],
+                    cat: "Neck",
+                },
+                NECK_SLOUCH: { m: 60, s: 100, g: [0, 50, 20, 0], cat: "Neck" },
+                NECK_ONTOP: { m: 100, s: 100, g: [0, 50, 70, 20], cat: "Neck" },
+                NECK_STIFF: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Neck" },
+                NECK_SPEED: { m: 100, s: 10, g: [60, 25, 50, 10], cat: "Neck" },
+                TAIL_TAG: { m: 100, s: 1, g: [3, 4, 2, 1], cat: "Tail" },
+                TAIL_EXISTS: { m: 100, s: 1, g: [1, 0, 1, 2], cat: "Tail" },
+                TAIL_SIZE: {
+                    m: 60,
+                    s: 100,
+                    g: [100, 80, 120, 140],
+                    cat: "Tail",
+                },
+                TAIL_SHORT: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 50, 35, 100],
+                    cat: "Tail",
+                },
+                TAIL_ASPECT: {
+                    m: 90,
+                    s: 100,
+                    g: [20, 10, 30, 20],
+                    cat: "Tail",
+                },
+                TAIL_ANGLE: { m: 100, s: 1, g: [45, 90, 135, 60], cat: "Tail" },
+                TAIL_JOINT_TYPE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Tail" },
+                TAIL_STIFF: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Tail" },
+                TAIL_SPEED: { m: 100, s: 10, g: [60, 200, 60, 0], cat: "Tail" },
+                TAIL_FLEXIBILITY: {
+                    m: 100,
+                    s: 1,
+                    g: [135, 90, 45, 15],
+                    cat: "Tail",
+                },
+                TAIL_SHAPE: { m: 100, s: 1, g: [2, 1, 5, 6], cat: "Tail" },
+                TAIL_BOTTOM: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Tail" },
+                TAIL_SEGMENTS: { m: 100, s: 1, g: [3, 0, 3, 5], cat: "Tail" },
+                TAIL_WAG: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Tail" },
+                TAIL_ALT: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Tail" },
+                HAS_FOOT: { m: 100, s: 1, g: [1, 0, 1, 0], cat: "Feet" },
+                FOOT_SIZE: { m: 60, s: 100, g: [0, 20, 12, 30], cat: "Feet" },
+                FOOT_CLOWN: { m: 100, s: 100, g: [0, 30, 0, 0], cat: "Feet" },
+                FOOT_THICKNESS: {
+                    m: 80,
+                    s: 100,
+                    g: [20, 15, 30, 7],
+                    cat: "Feet",
+                },
+                FOOT_TOE: { m: 100, s: 100, g: [100, 0, 50, 100], cat: "Feet" },
+                FOOT_IS_CIRCLE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Feet" },
+                FOOT_BACKWARDS: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Feet" },
+                FOOT_IS_HOOF: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Feet" },
+                HAS_HAND: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Feet" },
+                HAND_WIDTH: { m: 100, s: 100, g: [0, 7, 20, 0], cat: "Feet" },
+                HAND_LENGTH: {
+                    m: 90,
+                    s: 100,
+                    g: [20, 30, 15, 20],
+                    cat: "Feet",
+                },
+                HAND_FINGER: { m: 80, s: 100, g: [0, 100, 0, 50], cat: "Feet" },
+                SKIN_HANDS: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Feet" },
+                HEAD_SIZE: {
+                    m: 95,
+                    s: 100,
+                    g: [100, 50, 133, 75],
+                    cat: "Head",
+                },
+                HEAD_THICK_SKULL: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 20, 0, 0],
+                    cat: "Head",
+                },
+                HEAD_X_GROWTH: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 5, 10, -5],
+                    cat: "Head",
+                },
+                HEAD_Y_GROWTH: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 5, -5, 0],
+                    cat: "Head",
+                },
+                HEAD_ASPECT: {
+                    m: 85,
+                    s: 100,
+                    g: [200, 175, 250, 300],
+                    cat: "Head",
+                },
+                HEAD_SQUARE: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 150, 100, 0],
+                    cat: "Head",
+                },
+                HEAD_HAS_BACK: { m: 100, s: 1, g: [11, 0, 0, 1], cat: "Head" },
+                HEAD_GIANT: {
+                    m: 90,
+                    s: 100,
+                    g: [100, 200, 180, 100],
+                    cat: "Head",
+                },
+                HEAD_SHRUNK: {
+                    m: 90,
+                    s: 100,
+                    g: [100, 70, 50, 100],
+                    cat: "Head",
+                },
+                HEAD_JOINTED: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Head" },
+                HEAD_CHIMERA: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Head" },
+                SKIN_HEAD: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Head" },
+                EYE_STYLE: { m: 100, s: 1, g: [1, 2, 1, 0], cat: "Face" },
+                BUGEYE: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Face" },
+                EYEBOX_X: { m: 90, s: 100, g: [33, 0, 50, 15], cat: "Face" },
+                EYEBOX_Y: {
+                    m: 100,
+                    s: 100,
+                    g: [-100, 0, -50, -25],
+                    cat: "Face",
+                },
+                EYEBOX_SIZE: {
+                    m: 60,
+                    s: 100,
+                    g: [25, 15, 33, 50],
+                    cat: "Face",
+                },
+                EYE_SIZE: { m: 100, s: 100, g: [50, 75, 125, 50], cat: "Face" },
+                PUPIL_SIZE: {
+                    m: 100,
+                    s: 100,
+                    g: [66, 80, 40, 40],
+                    cat: "Face",
+                },
+                HAS_PUPIL: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Face" },
+                BROW_SIZE: { m: 100, s: 100, g: [0, 150, 125, 0], cat: "Face" },
+                BROW_SLANT: { m: 100, s: 1, g: [0, -15, 15, 0], cat: "Face" },
+                EYE_HUE: { m: 100, s: 1, g: [36, 237, 153, 198], cat: "Face" },
+                EAR_STYLE: { m: 100, s: 1, g: [1, 2, 0, 0], cat: "Face" },
+                EAR_SHAPE: { m: 100, s: 1, g: [2, 1, 4, 2], cat: "Face" },
+                EAR_FLOP: { m: 100, s: 1, g: [0, 30, 60, 200], cat: "Face" },
+                EAR_X: { m: 90, s: 100, g: [0, 100, 50, 0], cat: "Face" },
+                EAR_SIZE: { m: 70, s: 100, g: [20, 30, 10, 40], cat: "Face" },
+                EAR_ASPECT: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 250, 300, 100],
+                    cat: "Face",
+                },
+                EAR_SLANT: { m: 70, s: 100, g: [0, 100, 50, -33], cat: "Face" },
+                EAR_INTERIOR: { m: 100, s: 100, g: [5, 0, 0, 0], cat: "Face" },
+                EAR_COMP: { m: 100, s: 1, g: [0, 0, 2, 1], cat: "Face" },
+                COON_EYE: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Face" },
+                TEETH_SHAPE: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Mouth" },
+                HAS_MOUTH: { m: 100, s: 1, g: [1, 1, 0, 1], cat: "Mouth" },
+                MOUTH_Y: { m: 80, s: 100, g: [70, 84, 50, 100], cat: "Mouth" },
+                MOUTH_SIZE: {
+                    m: 70,
+                    s: 100,
+                    g: [20, 30, 10, 40],
+                    cat: "Mouth",
+                },
+                JAW: { m: 50, s: 100, g: [0, 15, -8, -13], cat: "Mouth" },
+                TEETH_UPPER: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Mouth" },
+                TEETH_UPPER2: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Mouth" },
+                TONGUE: { m: 100, s: 100, g: [0, 40, 60, 0], cat: "Mouth" },
+                TONGUE_SEGS: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Mouth" },
+                NOSE_STYLE: { m: 100, s: 1, g: [1, 2, 3, 0], cat: "Mouth" },
+                NOSE_INNY: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Mouth" },
+                NOSE_Y: { m: 90, s: 100, g: [0, 100, 50, 0], cat: "Mouth" },
+                NOSE_SIZE: { m: 70, s: 100, g: [10, 5, 20, 100], cat: "Mouth" },
+                NOSE_INTERIOR: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 100, 50, 0],
+                    cat: "Mouth",
+                },
+                NOSE_HUE: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Mouth" },
+                FLU_IMMUNITY: { m: 100, s: 1, g: [0, 0, 0, 1], cat: "Mouth" },
+                HAS_ANTLERS: { m: 100, s: 1, g: [1, 0, 1, 1], cat: "Antlers" },
+                ANTLER_X: { m: 100, s: 1, g: [1, 0, 2, 1], cat: "Antlers" },
+                ANTLER_W: {
+                    m: 100,
+                    s: 100,
+                    g: [15, 12, 8, 12],
+                    cat: "Antlers",
+                },
+                ANTLER_H: {
+                    m: 80,
+                    s: 100,
+                    g: [65, 45, 100, 25],
+                    cat: "Antlers",
+                },
+                ANTLER_TAPER: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 100, 50, 100],
+                    cat: "Antlers",
+                },
+                ANTLER_POM: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 150, 200, 100],
+                    cat: "Antlers",
+                },
+                ANTLER_COLOR: { m: 100, s: 1, g: [2, 8, 1, 3], cat: "Antlers" },
+                POM_COLOR: { m: 100, s: 1, g: [2, 0, 1, 17], cat: "Antlers" },
+                POM_USECOLOR: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Antlers" },
+                ANTLER_REC: { m: 100, s: 1, g: [2, 1, 3, 0], cat: "Antlers" },
+                ANTLER_REC2: { m: 100, s: 1, g: [2, 1, 3, 0], cat: "Antlers" },
+                ANTLER_FLIP: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Antlers" },
+                ANTLER_MOD: { m: 100, s: 1, g: [3, 2, 1, 3], cat: "Antlers" },
+                ANTLER_SCALEH: {
+                    m: 80,
+                    s: 100,
+                    g: [100, 75, 40, 100],
+                    cat: "Antlers",
+                },
+                ANTLER_SCALEW: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 75, 50, 100],
+                    cat: "Antlers",
+                },
+                ANTLER_ANGLE: {
+                    m: 100,
+                    s: 1,
+                    g: [45, -45, -25, 25],
+                    cat: "Antlers",
+                },
+                ANTLER_ANGLE2: {
+                    m: 100,
+                    s: 1,
+                    g: [45, -45, 90, -90],
+                    cat: "Antlers",
+                },
+                ANTLER_ANGLE_RAND: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 5, 45, 15],
+                    cat: "Antlers",
+                },
+                ANTLER_T1: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 100, 40, 25],
+                    cat: "Antlers",
+                },
+                ANTLER_T2: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 40, 0, 25],
+                    cat: "Antlers",
+                },
+                HAT_EXISTS: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Hat" },
+                HAT_SIZE: { m: 85, s: 100, g: [60, 40, 100, 20], cat: "Hat" },
+                HAT_RAKE: { m: 100, s: 100, g: [0, 25, -15, 0], cat: "Hat" },
+                HAT_ASPECT: {
+                    m: 85,
+                    s: 100,
+                    g: [100, 300, 200, 100],
+                    cat: "Hat",
+                },
+                HAT_TAPER: { m: 100, s: 100, g: [0, 100, 50, 0], cat: "Hat" },
+                HAT_POM: { m: 100, s: 100, g: [0, 25, 50, 0], cat: "Hat" },
+                HAT_POM_IS_LID: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Hat" },
+                HAT_CLONE: { m: 100, s: 100, g: [0, 33, 66, 0], cat: "Hat" },
+                HAT_BACK_SCALE: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 0, 60, 100],
+                    cat: "Hat",
+                },
+                HAT_FRONT_SCALE: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 0, 60, 100],
+                    cat: "Hat",
+                },
+                HAT_BACK_ANGLE: {
+                    m: 75,
+                    s: 1,
+                    g: [45, 90, 120, 60],
+                    cat: "Hat",
+                },
+                HAT_FRONT_ANGLE: {
+                    m: 100,
+                    s: 1,
+                    g: [-45, -90, -120, -60],
+                    cat: "Hat",
+                },
+                HAT_ANGLE_RAND: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 15, 45, 15],
+                    cat: "Hat",
+                },
+                HAT_FLIP: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Hat" },
+                HAT_T: { m: 100, s: 100, g: [0, 100, 40, 0], cat: "Hat" },
+                BASE_BROWN: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Color" },
+                BASE_BLACK: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Color" },
+                BASE_RED: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Color" },
+                BASE_GREEN: { m: 70, s: 1, g: [0, 1, 2, 3], cat: "Color" },
+                GREEN_KNOCKOUT: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Color" },
+                BASE_CREAM: { m: 50, s: 100, g: [0, 100, 0, 0], cat: "Color" },
+                ALT_BLUE: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Color" },
+                SPOT_YELLOW: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Color" },
+                SKIN_HUE: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Color" },
+                SKIN_HUE2: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Color" },
+                SWAP_BASE_SPOT: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Color" },
+                SWAP_ALT_SPOT: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Color" },
+                WHITE: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Color" },
+                WHITE_IS_LETHAL: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 1, 0, 0],
+                    cat: "Color",
+                },
+                HOOF_COLOR: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Color" },
+                AGOUTI: { m: 100, s: 1, g: [1, 0, 0, 1], cat: "Color" },
+                BELLY_ALT: { m: 100, s: 1, g: [0, 1, 2, 1], cat: "Color" },
+                PAT_SPLIT: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 100, 65, 0],
+                    cat: "Pattern",
+                },
+                PAT_BELLY: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 50, 33, 75],
+                    cat: "Pattern",
+                },
+                PAT_STRIPE: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 90, 51, 0],
+                    cat: "Pattern",
+                },
+                PAT_SPOT: { m: 100, s: 100, g: [0, 90, 51, 0], cat: "Pattern" },
+                PAT_PERLIN: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 100, 60, 0],
+                    cat: "Pattern",
+                },
+                PAT_PERLIN2: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 100, 60, 0],
+                    cat: "Pattern",
+                },
+                PAT_PERLIN_SIZE: {
+                    m: 100,
+                    s: 1,
+                    g: [8, 2, 4, 4],
+                    cat: "Pattern",
+                },
+                HIGH_INTELLECT: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 1, 0, 1],
+                    cat: "Behavior",
+                },
+                OMNIVORE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Behavior" },
+                LITTER_SIZE: { m: 100, s: 1, g: [1, 2, 3, 5], cat: "Behavior" },
+                OLD_AGE: { m: 100, s: 1, g: [0, 0, -1, 2], cat: "Behavior" },
+                LIMP: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Behavior" },
+                L_LEG_SIGNAL: { m: 100, s: 1, g: [1, 1, 1, 2], cat: "Signals" },
+                L_LEG_FTOB_REACT: {
+                    m: 100,
+                    s: 1,
+                    g: [1, 2, 1, 3],
+                    cat: "Signals",
+                },
+                L_LEG_FTOB_EVENT: {
+                    m: 100,
+                    s: 1,
+                    g: [3, 1, 2, 4],
+                    cat: "Signals",
+                },
+                L_LEG_BTOF_REACT: {
+                    m: 100,
+                    s: 1,
+                    g: [2, 1, 2, 3],
+                    cat: "Signals",
+                },
+                L_LEG_BTOF_EVENT: {
+                    m: 100,
+                    s: 1,
+                    g: [2, 3, 1, 4],
+                    cat: "Signals",
+                },
+                L_ARM_SIGNAL: { m: 100, s: 1, g: [2, 2, 2, 1], cat: "Signals" },
+                L_ARM_FTOB_REACT: {
+                    m: 100,
+                    s: 1,
+                    g: [2, 1, 2, 3],
+                    cat: "Signals",
+                },
+                L_ARM_FTOB_EVENT: {
+                    m: 100,
+                    s: 1,
+                    g: [3, 1, 2, 4],
+                    cat: "Signals",
+                },
+                L_ARM_BTOF_REACT: {
+                    m: 100,
+                    s: 1,
+                    g: [1, 2, 1, 3],
+                    cat: "Signals",
+                },
+                L_ARM_BTOF_EVENT: {
+                    m: 100,
+                    s: 1,
+                    g: [2, 3, 1, 4],
+                    cat: "Signals",
+                },
+                L_TAIL_SIGNAL: {
+                    m: 100,
+                    s: 1,
+                    g: [3, 1, 2, 4],
+                    cat: "Signals",
+                },
+                L_TAIL_FTOB_REACT: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 1, 3, 2],
+                    cat: "Signals",
+                },
+                L_TAIL_FTOB_EVENT: {
+                    m: 100,
+                    s: 1,
+                    g: [1, 2, 3, 4],
+                    cat: "Signals",
+                },
+                L_TAIL_BTOF_REACT: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 1, 3, 2],
+                    cat: "Signals",
+                },
+                L_TAIL_BTOF_EVENT: {
+                    m: 100,
+                    s: 1,
+                    g: [2, 1, 3, 4],
+                    cat: "Signals",
+                },
+                L_NECK_SIGNAL: {
+                    m: 100,
+                    s: 1,
+                    g: [4, 1, 2, 3],
+                    cat: "Signals",
+                },
+                L_NECK_FTOB_REACT: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 1, 4, 2],
+                    cat: "Signals",
+                },
+                L_NECK_FTOB_EVENT: {
+                    m: 100,
+                    s: 1,
+                    g: [1, 2, 3, 4],
+                    cat: "Signals",
+                },
+                L_NECK_BTOF_REACT: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 1, 4, 2],
+                    cat: "Signals",
+                },
+                L_NECK_BTOF_EVENT: {
+                    m: 100,
+                    s: 1,
+                    g: [2, 1, 3, 4],
+                    cat: "Signals",
+                },
+            };
+
+            const HELIX_MAP = [
+                [
+                    "BONES",
+                    "BONES2",
+                    "OSTODERM",
+                    "OSTO_SIZE",
+                    "GIANT_DWARF",
+                    "TAIL_BOTTOM",
+                    "LEG_STRETCH2",
+                    "ARM_STRETCH2",
+                    "HEAD_THICK_SKULL",
+                    "NECK_STIFF",
+                ],
+                [
+                    "GUT",
+                    "GUT_IS_UDDER",
+                    "DERRIERE",
+                    "LEG_IS_CIRCLE",
+                    "FOOT_IS_CIRCLE",
+                    "TONGUE",
+                    "TONGUE_SEGS",
+                    "BELLY_ALT",
+                    "PAT_BELLY",
+                    "LITTER_SIZE",
+                    "OLD_AGE",
+                    "OMNIVORE",
+                    "LIMP",
+                ],
+                [
+                    "MUSCLE_USE",
+                    "TAIL_STIFF",
+                    "LEG_FLEXIBILITY",
+                    "LEG_FLEX_BIAS",
+                    "TAIL_FLEXIBILITY",
+                    "TAIL_SPEED",
+                    "LEG_AND_ARM_LIMP",
+                    "ARM_STRENGTH",
+                    "ARM_FLEXIBILITY",
+                    "ARM_FLEX_BIAS",
+                    "NECK_FLEXIBILITY",
+                    "NECK_FLEX_BIAS",
+                    "BRAIN_SPASTIC",
+                ],
+                [
+                    "SPLAY",
+                    "LEG_IN",
+                    "LEG_IN2",
+                    "TAIL_ANGLE",
+                    "TAIL_JOINT_TYPE",
+                    "LEG_JOINT_TYPE",
+                    "HAS_KNEE",
+                    "KNEE_MIN",
+                    "KNEE_MAX",
+                    "ARM_JOINT_TYPE",
+                    "HAS_ELBOW",
+                    "ELBOW_RANGE",
+                    "NECK_JOINT_TYPE",
+                    "HEAD_JOINTED",
+                    "STIFF_JOINTS",
+                ],
+                [
+                    "LEG_TAG",
+                    "LEG_HAS_FOOT",
+                    "LEG_COUNT",
+                    "LEG_THRUST_BACK",
+                    "ARM_TAG",
+                    "ARM_HAS_HAND",
+                    "NECK_TAG",
+                    "NECK_SLOUCH",
+                    "NECK_ONTOP",
+                    "BREAK_FORCE",
+                    "EAR_X",
+                ],
+                [
+                    "QUADRUPED",
+                    "BIPED",
+                    "UPARM_TAG",
+                    "UPARM_Y",
+                    "UPARM_GOOFY",
+                    "ARM_FORWARD",
+                    "UPARM_ANGLE",
+                    "WHITE_IS_LETHAL",
+                ],
+                [
+                    "ASPECT",
+                    "SKINNY",
+                    "CHEST_BIG",
+                    "CHEST_SMALL",
+                    "NECK_TYPE",
+                    "NECK_LENGTH",
+                    "NECK_GIRAFFE",
+                    "NECK_THICKNESS",
+                    "NECK_ANGLE",
+                    "NECK_COCK",
+                ],
+                [
+                    "TAIL_TAG",
+                    "TAIL_EXISTS",
+                    "TAIL_SIZE",
+                    "TAIL_SHORT",
+                    "TAIL_ASPECT",
+                    "TAIL_SHAPE",
+                    "TAIL_SEGMENTS",
+                    "TAIL_WAG",
+                ],
+                [
+                    "LEG_TYPE",
+                    "LEG_LENGTH",
+                    "LEG_STRETCH",
+                    "LEG_SKEW",
+                    "LEG_STRENGTH",
+                    "LEG_PENCIL",
+                    "ARM_TYPE",
+                    "ARM_LENGTH",
+                    "ARM_STRETCH",
+                    "ARM_SKEW",
+                    "ARM_NODE_SCALE",
+                ],
+                [
+                    "HAS_FOOT",
+                    "FOOT_SIZE",
+                    "FOOT_CLOWN",
+                    "FOOT_THICKNESS",
+                    "FOOT_TOE",
+                    "FOOT_BACKWARDS",
+                    "HAS_HAND",
+                    "HAND_WIDTH",
+                    "HAND_LENGTH",
+                    "HAND_FINGER",
+                    "SKIN_HANDS",
+                ],
+                [
+                    "HEAD_SIZE",
+                    "HEAD_X_GROWTH",
+                    "HEAD_Y_GROWTH",
+                    "HEAD_ASPECT",
+                    "HEAD_SQUARE",
+                    "HEAD_HAS_BACK",
+                    "HEAD_GIANT",
+                    "HEAD_SHRUNK",
+                    "HEAD_CHIMERA",
+                    "EYEBOX_X",
+                    "EYEBOX_Y",
+                    "EYEBOX_SIZE",
+                    "SKIN_HEAD",
+                ],
+                [
+                    "EYE_STYLE",
+                    "BUGEYE",
+                    "EYE_SIZE",
+                    "PUPIL_SIZE",
+                    "HAS_PUPIL",
+                    "BROW_SIZE",
+                    "BROW_SLANT",
+                    "EYE_HUE",
+                    "EAR_STYLE",
+                    "EAR_SHAPE",
+                    "EAR_SIZE",
+                    "EAR_ASPECT",
+                    "EAR_SLANT",
+                    "EAR_INTERIOR",
+                    "EAR_FLOP",
+                ],
+                [
+                    "TEETH_SHAPE",
+                    "HAS_MOUTH",
+                    "MOUTH_Y",
+                    "MOUTH_SIZE",
+                    "JAW",
+                    "TEETH_UPPER",
+                    "TEETH_UPPER2",
+                    "NOSE_STYLE",
+                    "NOSE_INNY",
+                    "NOSE_Y",
+                    "NOSE_SIZE",
+                    "NOSE_INTERIOR",
+                    "FLU_IMMUNITY",
+                ],
+                [
+                    "HAS_ANTLERS",
+                    "ANTLER_X",
+                    "ANTLER_W",
+                    "ANTLER_H",
+                    "ANTLER_TAPER",
+                    "ANTLER_POM",
+                    "ANTLER_COLOR",
+                    "POM_COLOR",
+                    "POM_USECOLOR",
+                    "HAT_POM",
+                    "HAT_POM_IS_LID",
+                ],
+                [
+                    "ANTLER_REC",
+                    "ANTLER_REC2",
+                    "ANTLER_FLIP",
+                    "ANTLER_MOD",
+                    "ANTLER_SCALEH",
+                    "ANTLER_SCALEW",
+                    "ANTLER_ANGLE",
+                    "ANTLER_ANGLE2",
+                    "ANTLER_ANGLE_RAND",
+                    "ANTLER_T1",
+                    "ANTLER_T2",
+                ],
+                [
+                    "HAT_EXISTS",
+                    "HAT_SIZE",
+                    "HAT_RAKE",
+                    "HAT_ASPECT",
+                    "HAT_TAPER",
+                    "HAT_CLONE",
+                    "HAT_BACK_SCALE",
+                    "HAT_FRONT_SCALE",
+                    "HAT_BACK_ANGLE",
+                    "HAT_FRONT_ANGLE",
+                    "HAT_ANGLE_RAND",
+                    "HAT_FLIP",
+                    "HAT_T",
+                ],
+                [
+                    "BASE_BROWN",
+                    "BASE_BLACK",
+                    "BASE_RED",
+                    "BASE_GREEN",
+                    "GREEN_KNOCKOUT",
+                    "BASE_CREAM",
+                    "ALT_BLUE",
+                    "SPOT_YELLOW",
+                    "SKIN_HUE",
+                    "SKIN_HUE2",
+                    "SWAP_BASE_SPOT",
+                    "SWAP_ALT_SPOT",
+                    "WHITE",
+                    "NOSE_HUE",
+                    "HOOF_COLOR",
+                ],
+                [
+                    "AGOUTI",
+                    "FOOT_IS_HOOF",
+                    "COON_EYE",
+                    "EAR_COMP",
+                    "TAIL_ALT",
+                    "PAT_SPLIT",
+                    "PAT_STRIPE",
+                    "PAT_SPOT",
+                    "PAT_PERLIN",
+                    "PAT_PERLIN2",
+                    "PAT_PERLIN_SIZE",
+                ],
+                [
+                    "NARCOLEPSY",
+                    "SPEED_FACTOR",
+                    "NECK_SPEED",
+                    "RAMPAGE",
+                    "SPINAL_LOCO",
+                    "HIGH_INTELLECT",
+                    "L_LEG_SIGNAL",
+                    "L_ARM_SIGNAL",
+                    "L_TAIL_SIGNAL",
+                    "L_NECK_SIGNAL",
+                    "LOCO_SYNC",
+                ],
+                [
+                    "L_LEG_FTOB_REACT",
+                    "L_LEG_FTOB_EVENT",
+                    "L_LEG_BTOF_REACT",
+                    "L_LEG_BTOF_EVENT",
+                    "L_ARM_FTOB_REACT",
+                    "L_ARM_FTOB_EVENT",
+                    "L_ARM_BTOF_REACT",
+                    "L_ARM_BTOF_EVENT",
+                    "L_TAIL_FTOB_REACT",
+                    "L_TAIL_FTOB_EVENT",
+                    "L_TAIL_BTOF_REACT",
+                    "L_TAIL_BTOF_EVENT",
+                    "L_NECK_FTOB_REACT",
+                    "L_NECK_FTOB_EVENT",
+                    "L_NECK_BTOF_REACT",
+                    "L_NECK_BTOF_EVENT",
+                ],
+            ];
+
+            for (const [name, description] of Object.entries(
+                GENE_DESCRIPTIONS,
+            )) {
+                if (GENES[name]) {
+                    GENES[name].desc = description;
+                }
+            }
+
+            function createElement(tag, attrs = {}, children = []) {
+                const element = document.createElement(tag);
+
+                for (const [key, value] of Object.entries(attrs)) {
+                    if (value == null) continue;
+                    if (key === "class") element.className = value;
+                    else if (key === "text") element.textContent = value;
+                    else if (key === "html") element.innerHTML = value;
+                    else if (key === "value") element.value = value;
+                    else if (key === "checked")
+                        element.checked = Boolean(value);
+                    else if (key === "style") element.style.cssText = value;
+                    else if (
+                        key.startsWith("on") &&
+                        typeof value === "function"
+                    )
+                        element.addEventListener(key.slice(2), value);
+                    else element.setAttribute(key, value);
+                }
+
+                for (const child of Array.isArray(children)
+                    ? children
+                    : [children]) {
+                    if (child == null) continue;
+                    if (typeof child === "string")
+                        element.insertAdjacentHTML("beforeend", child);
+                    else element.appendChild(child);
+                }
+
+                return element;
+            }
+
+            function sanitizeSequence(value) {
+                return String(value || "")
+                    .toUpperCase()
+                    .replace(VALID_BASE_RE, "");
+            }
+
+            function normalizeGenome(genome) {
+                return genome.map(([strand1 = "", strand2 = ""]) => [
+                    sanitizeSequence(strand1),
+                    sanitizeSequence(strand2),
+                ]);
+            }
+
+            function cycleBase(base) {
+                const currentIndex = BASES.indexOf(base);
+                return BASES[(currentIndex + 1 + BASES.length) % BASES.length];
+            }
+
+            function baseChip(base, size = "sm") {
+                if (!BASES.includes(base)) {
+                    return '<span class="muted">?</span>';
+                }
+                return `<span class="base base-${base} base-${size}">${base}</span>`;
+            }
+
+            function valueColor(value) {
+                if (value == null) return "var(--muted)";
+                if (value > 0) return "var(--green-hi)";
+                if (value < 0) return "var(--red-lo)";
+                return "var(--muted)";
+            }
+
+            function getGeneValue(gene, base) {
+                if (
+                    !gene ||
+                    !Object.prototype.hasOwnProperty.call(BASE_INDEX, base)
+                )
+                    return null;
+                return gene.g[BASE_INDEX[base]];
+            }
+
+            function getHelixIndexFactory() {
+                const labelToIndex = new Map();
+                let nextDynamicIndex = 0;
+
+                return function getHelixIndex(rawLabel) {
+                    const label = String(rawLabel).toUpperCase();
+
+                    if (/^\d{1,2}$/.test(label)) {
+                        const index = Number.parseInt(label, 10);
+                        return index >= 0 && index < HELIX_COUNT ? index : -1;
+                    }
+
+                    if (!labelToIndex.has(label)) {
+                        if (nextDynamicIndex >= HELIX_COUNT) return -1;
+                        labelToIndex.set(label, nextDynamicIndex++);
+                    }
+
+                    return labelToIndex.get(label);
+                };
+            }
+
+            function parseGenome(text) {
+                const genome = EMPTY_GENOME();
+                const lines = String(text || "")
+                    .trim()
+                    .split("\n")
+                    .map((line) => line.trim())
+                    .filter(Boolean);
+
+                const getHelixIndex = getHelixIndexFactory();
+                let currentHelix = -1;
+
+                const patterns = {
+                    newFormat: /^([A-Za-z0-9]+)\s*:\s*([atcg]+)$/i,
+                    numbered: /^(\d{1,2})\s*:\s*([atcg]+)$/i,
+                    verboseBoth:
+                        /^helix\s*([A-Za-z0-9]+)[^:)]*[:\)]\s*([atcg]+)\s*:\s*(?:second\s*strand|strand\s*2)[^:]*:\s*([atcg]+)$/i,
+                    verboseFirst:
+                        /^helix\s*([A-Za-z0-9]+)[^:)]*[:\)]\s*([atcg]+)$/i,
+                    verboseSecond:
+                        /^(?:second\s*strand|strand\s*2)[^:]*:\s*([atcg]+)$/i,
+                    bareStrand: /^[atcg]+$/i,
+                };
+
+                function assignStrand(index, sequence) {
+                    if (index < 0 || index >= HELIX_COUNT) return;
+                    if (!genome[index][0]) genome[index][0] = sequence;
+                    else genome[index][1] = sequence;
+                }
+
+                for (const line of lines) {
+                    let match = line.match(patterns.newFormat);
+                    if (match) {
+                        assignStrand(
+                            getHelixIndex(match[1]),
+                            match[2].toUpperCase(),
+                        );
+                        continue;
+                    }
+
+                    match = line.match(patterns.numbered);
+                    if (match) {
+                        assignStrand(
+                            Number.parseInt(match[1], 10),
+                            match[2].toUpperCase(),
+                        );
+                        continue;
+                    }
+
+                    match = line.match(patterns.verboseBoth);
+                    if (match) {
+                        currentHelix = getHelixIndex(match[1]);
+                        if (currentHelix >= 0) {
+                            genome[currentHelix][0] = match[2].toUpperCase();
+                            genome[currentHelix][1] = match[3].toUpperCase();
+                        }
+                        continue;
+                    }
+
+                    match = line.match(patterns.verboseFirst);
+                    if (match) {
+                        currentHelix = getHelixIndex(match[1]);
+                        if (currentHelix >= 0) {
+                            genome[currentHelix][0] = match[2].toUpperCase();
+                        }
+                        continue;
+                    }
+
+                    match = line.match(patterns.verboseSecond);
+                    if (match && currentHelix >= 0) {
+                        genome[currentHelix][1] = match[1].toUpperCase();
+                        continue;
+                    }
+
+                    if (
+                        currentHelix >= 0 &&
+                        !genome[currentHelix][1] &&
+                        patterns.bareStrand.test(line)
+                    ) {
+                        genome[currentHelix][1] = line.toUpperCase();
+                    }
+                }
+
+                return normalizeGenome(genome);
+            }
+
+            function formatGenomeForExport(genome) {
+                const lines = [];
+                genome.forEach(([strand1, strand2], helixIndex) => {
+                    const label = String(helixIndex).padStart(2, "0");
+                    if (strand1) lines.push(`${label}:${strand1}`);
+                    if (strand2) lines.push(`${label}:${strand2}`);
+                });
+                return lines.join("\n");
+            }
+
+            function createEditableBase(base, onActivate, label) {
+                const button = createElement("button", {
+                    type: "button",
+                    class: `base base-${base} base-sm editable-base`,
+                    title: label,
+                    "aria-label": label,
+                    text: base,
+                });
+                button.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    onActivate();
+                });
+                return button;
+            }
+
+            function createApp(root) {
+                const state = {
+                    genome: EMPTY_GENOME(),
+                    editorCollapsed: true,
+                    autoCopy: false,
+                };
+
+                const inputCard = createElement("div", { class: "card" });
+                const inputField = createElement("div", { class: "field" });
+                inputField.appendChild(
+                    createElement("label", {
+                        text: "Paste genome (20 helices, both strands)",
+                    }),
+                );
+
+                const genomeInput = createElement("textarea", {
+                    rows: "8",
+                    placeholder: `XX:ttttttttttt\nXX:cccccccccccc\nYY:aaaaaaaaaaaa\nYY:gggggggggggg\n\n(or older formats also work)`,
+                });
+                inputField.appendChild(genomeInput);
+                inputCard.appendChild(inputField);
+
+                const analyzeButton = createElement("button", {
+                    class: "btn",
+                    text: "Analyze Genome",
+                });
+                const loadBlankButton = createElement("button", {
+                    class: "btn btn-ghost",
+                    text: "Load Blank Editor",
+                });
+                const clearButton = createElement("button", {
+                    class: "btn btn-ghost",
+                    text: "Clear",
+                });
+                const copyButton = createElement("button", {
+                    class: "btn btn-ghost",
+                    text: "Copy Genome",
+                });
+
+                const autoCopyCheckbox = createElement("input", {
+                    type: "checkbox",
+                    checked: state.autoCopy,
+                    "aria-label": "Automatically copy genome after changes",
+                });
+
+                const autoCopyToggle = createElement(
+                    "label",
+                    { class: "toggle-option" },
+                    [
+                        autoCopyCheckbox,
+                        createElement("span", { text: "Auto-copy on edit" }),
+                    ],
+                );
+
+                inputCard.appendChild(
+                    createElement("div", { class: "button-row" }, [
+                        analyzeButton,
+                        loadBlankButton,
+                        clearButton,
+                        copyButton,
+                        autoCopyToggle,
+                    ]),
+                );
+
+                const editorCard = createElement("div", { class: "card" });
+                const editorToggle = createElement("button", {
+                    class: "collapsible-toggle",
+                    type: "button",
+                });
+                const editorToggleLeft = createElement("div");
+                const editorTitle = createElement("div", {
+                    class: "editor-title",
+                    text: "Genome Editor",
+                });
+                const editorSubtitle = createElement("div", {
+                    class: "info",
+                    text: "Click any base below to cycle A → T → C → G. Changes update the live analysis and the original pasted genome output.",
+                    style: "margin-top:4px",
+                });
+                editorToggleLeft.appendChild(editorTitle);
+                editorToggleLeft.appendChild(editorSubtitle);
+                const editorToggleRight = createElement("span", {
+                    class: "collapse-indicator",
+                });
+                editorToggle.appendChild(editorToggleLeft);
+                editorToggle.appendChild(editorToggleRight);
+
+                const editorBody = createElement("div");
+                const resultsRoot = createElement("div");
+
+                editorCard.appendChild(editorToggle);
+                editorCard.appendChild(editorBody);
+
+                root.innerHTML = "";
+                root.appendChild(inputCard);
+                root.appendChild(editorCard);
+                root.appendChild(resultsRoot);
+
+                function syncTextAreaFromState() {
+                    genomeInput.value = formatGenomeForExport(state.genome);
+                }
+
+                function setCopyButtonLabel(label) {
+                    copyButton.textContent = label;
+                }
+
+                async function copyGenomeToClipboard({
+                    temporaryLabel = true,
+                } = {}) {
+                    syncTextAreaFromState();
+
+                    try {
+                        await navigator.clipboard.writeText(genomeInput.value);
+                        if (temporaryLabel) {
+                            setCopyButtonLabel("Copied");
+                            window.setTimeout(() => {
+                                setCopyButtonLabel("Copy Genome");
+                            }, 1200);
+                        }
+                        return true;
+                    } catch {
+                        if (temporaryLabel) {
+                            genomeInput.focus();
+                            genomeInput.select();
+                            setCopyButtonLabel("Select & Copy");
+                            window.setTimeout(() => {
+                                setCopyButtonLabel("Copy Genome");
+                            }, 1200);
+                        }
+                        return false;
+                    }
+                }
+
+                function maybeAutoCopy() {
+                    if (!state.autoCopy) return;
+                    void copyGenomeToClipboard({ temporaryLabel: true });
+                }
+
+                function updateEditorCollapseUI() {
+                    editorBody.classList.toggle(
+                        "is-collapsed",
+                        state.editorCollapsed,
+                    );
+                    editorToggleRight.textContent = state.editorCollapsed
+                        ? "[ expand ]"
+                        : "[ collapse ]";
+                    editorToggle.setAttribute(
+                        "aria-expanded",
+                        String(!state.editorCollapsed),
+                    );
+                }
+
+                function setBase(helixIndex, strandIndex, baseIndex, nextBase) {
+                    const strand = state.genome[helixIndex][strandIndex] || "";
+                    const chars = strand.split("");
+                    chars[baseIndex] = nextBase;
+                    state.genome[helixIndex][strandIndex] = chars.join("");
+                }
+
+                function cycleGeneAt(helixIndex, geneIndex) {
+                    const [strand1, strand2] = state.genome[helixIndex];
+                    if (strand1[geneIndex]) {
+                        setBase(
+                            helixIndex,
+                            0,
+                            geneIndex,
+                            cycleBase(strand1[geneIndex]),
+                        );
+                    }
+                    if (strand2[geneIndex]) {
+                        setBase(
+                            helixIndex,
+                            1,
+                            geneIndex,
+                            cycleBase(strand2[geneIndex]),
+                        );
+                    }
+                    render();
+                    maybeAutoCopy();
+                }
+
+                function cycleStrandBase(helixIndex, strandIndex, baseIndex) {
+                    const strand = state.genome[helixIndex][strandIndex] || "";
+                    if (!strand[baseIndex]) return;
+                    setBase(
+                        helixIndex,
+                        strandIndex,
+                        baseIndex,
+                        cycleBase(strand[baseIndex]),
+                    );
+                    render();
+                    maybeAutoCopy();
+                }
+
+                function buildStrandPreviewRow(
+                    label,
+                    strand,
+                    helixIndex,
+                    strandIndex,
+                ) {
+                    const row = createElement("div", { class: "strand-row" });
+                    row.appendChild(
+                        createElement("span", {
+                            class: "strand-label",
+                            text: label,
+                        }),
+                    );
+
+                    strand.split("").forEach((base, baseIndex) => {
+                        row.appendChild(
+                            createEditableBase(
+                                base,
+                                () =>
+                                    cycleStrandBase(
+                                        helixIndex,
+                                        strandIndex,
+                                        baseIndex,
+                                    ),
+                                `Helix ${helixIndex} strand ${strandIndex + 1} position ${baseIndex}. Click to cycle base.`,
+                            ),
+                        );
+                    });
+
+                    return row;
+                }
+
+                function renderEditor() {
+                    editorBody.innerHTML = "";
+                    const editorGrid = createElement("div", {
+                        class: "editor-grid",
+                    });
+
+                    state.genome.forEach(([strand1, strand2], helixIndex) => {
+                        const helixCard = createElement("div", {
+                            class: "card helix-editor",
+                        });
+                        helixCard.appendChild(
+                            createElement("div", {
+                                class: "helix-name",
+                                text: `HELIX ${helixIndex}`,
+                            }),
+                        );
+
+                        const strandOneField = createElement("div", {
+                            class: "field",
+                        });
+                        strandOneField.appendChild(
+                            createElement("label", { text: "Strand 1" }),
+                        );
+                        strandOneField.appendChild(
+                            strand1
+                                ? buildStrandPreviewRow(
+                                      "S1",
+                                      strand1,
+                                      helixIndex,
+                                      0,
+                                  )
+                                : createElement("div", {
+                                      class: "info",
+                                      text: "No strand 1 data",
+                                  }),
+                        );
+                        helixCard.appendChild(strandOneField);
+
+                        const strandTwoField = createElement("div", {
+                            class: "field",
+                            style: "margin-bottom:0",
+                        });
+                        strandTwoField.appendChild(
+                            createElement("label", { text: "Strand 2" }),
+                        );
+                        strandTwoField.appendChild(
+                            strand2
+                                ? buildStrandPreviewRow(
+                                      "S2",
+                                      strand2,
+                                      helixIndex,
+                                      1,
+                                  )
+                                : createElement("div", {
+                                      class: "info",
+                                      text: "No strand 2 data",
+                                  }),
+                        );
+                        helixCard.appendChild(strandTwoField);
+
+                        editorGrid.appendChild(helixCard);
+                    });
+
+                    editorBody.appendChild(editorGrid);
+                }
+
+                function renderResults() {
+                    resultsRoot.innerHTML = "";
+
+                    HELIX_MAP.forEach((genes, helixIndex) => {
+                        const [strand1, strand2] = state.genome[helixIndex] || [
+                            "",
+                            "",
+                        ];
+                        const hasData = Boolean(strand1 || strand2);
+
+                        const helixBlock = createElement("div", {
+                            class: "result-helix",
+                        });
+                        const header = createElement("div", {
+                            class: "result-header",
+                            style: `margin-bottom:${hasData ? "8px" : "0"}`,
+                        });
+
+                        header.appendChild(
+                            createElement("span", {
+                                text: `HELIX ${helixIndex}`,
+                                style: "color:var(--accent);font-weight:bold;font-size:13px;min-width:65px",
+                            }),
+                        );
+
+                        if (strand1) {
+                            header.appendChild(
+                                buildStrandPreviewRow(
+                                    "S1",
+                                    strand1,
+                                    helixIndex,
+                                    0,
+                                ),
+                            );
+                        }
+
+                        if (strand2 && strand2 !== strand1) {
+                            header.appendChild(
+                                buildStrandPreviewRow(
+                                    "S2",
+                                    strand2,
+                                    helixIndex,
+                                    1,
+                                ),
+                            );
+                        } else if (strand2 && strand2 === strand1) {
+                            header.appendChild(
+                                createElement("span", {
+                                    class: "dim",
+                                    text: "S2 = S1",
+                                    style: "font-size:10px",
+                                }),
+                            );
+                        }
+
+                        if (!hasData) {
+                            header.appendChild(
+                                createElement("span", {
+                                    class: "dim",
+                                    text: "no data",
+                                    style: "font-size:11px",
+                                }),
+                            );
+                        }
+
+                        helixBlock.appendChild(header);
+
+                        if (hasData) {
+                            const geneList = createElement("div", {
+                                class: "result-genes",
+                            });
+
+                            genes.forEach((geneName, geneIndex) => {
+                                const gene = GENES[geneName];
+                                const categoryColor = gene
+                                    ? CAT_COLOR[gene.cat] || "#64748b"
+                                    : "#475569";
+                                const base1 =
+                                    strand1?.[geneIndex]?.toUpperCase();
+                                const base2 =
+                                    strand2?.[geneIndex]?.toUpperCase();
+                                const value1 = getGeneValue(gene, base1);
+                                const value2 = getGeneValue(gene, base2);
+                                const hasDescription = Boolean(gene?.desc);
+
+                                const card = createElement("button", {
+                                    type: "button",
+                                    class: `result-gene${hasDescription ? " has-desc" : ""}`,
+                                    style: `border-color:${categoryColor}33`,
+                                    title: hasDescription
+                                        ? `${gene.desc} Click to cycle both strands for this gene.`
+                                        : "Click to cycle both strands for this gene.",
+                                    "aria-label": `Gene ${geneName} on helix ${helixIndex} position ${geneIndex}. Click to cycle associated bases.`,
+                                });
+
+                                card.addEventListener("click", () =>
+                                    cycleGeneAt(helixIndex, geneIndex),
+                                );
+
+                                card.appendChild(
+                                    createElement("div", {
+                                        class: "rpos",
+                                        text: `H${helixIndex} · P${geneIndex}`,
+                                    }),
+                                );
+                                card.appendChild(
+                                    createElement("div", {
+                                        class: "rname",
+                                        text: geneName,
+                                        style: `color:${categoryColor}`,
+                                    }),
+                                );
+
+                                const valueRow = createElement("div", {
+                                    class: "rval",
+                                });
+                                if (base1) {
+                                    valueRow.insertAdjacentHTML(
+                                        "beforeend",
+                                        `${baseChip(base1)}<span class="muted">=</span><span style="color:${valueColor(value1)};font-weight:bold">${value1}</span>`,
+                                    );
+                                } else {
+                                    valueRow.appendChild(
+                                        createElement("span", {
+                                            class: "dim",
+                                            text: "—",
+                                        }),
+                                    );
+                                }
+
+                                if (base2 && base2 !== base1) {
+                                    valueRow.insertAdjacentHTML(
+                                        "beforeend",
+                                        `<span class="dim" style="font-size:9px;margin-left:3px">S2:</span>${baseChip(base2)}<span class="muted">=</span><span style="color:${valueColor(value2)};font-weight:bold">${value2}</span>`,
+                                    );
+                                }
+
+                                card.appendChild(valueRow);
+
+                                if (hasDescription) {
+                                    card.appendChild(
+                                        createElement("div", {
+                                            class: "gene-tooltip",
+                                            text: gene.desc,
+                                        }),
+                                    );
+                                }
+
+                                geneList.appendChild(card);
+                            });
+
+                            helixBlock.appendChild(geneList);
+                        }
+
+                        resultsRoot.appendChild(helixBlock);
+                    });
+                }
+
+                function render() {
+                    syncTextAreaFromState();
+                    updateEditorCollapseUI();
+                    renderEditor();
+                    renderResults();
+                }
+
+                analyzeButton.addEventListener("click", () => {
+                    state.genome = parseGenome(genomeInput.value);
+                    render();
+                });
+
+                loadBlankButton.addEventListener("click", () => {
+                    state.genome = makeUniformGenome("A");
+                    render();
+                });
+
+                copyButton.addEventListener("click", async () => {
+                    await copyGenomeToClipboard({ temporaryLabel: true });
+                });
+
+                autoCopyCheckbox.addEventListener("change", () => {
+                    state.autoCopy = autoCopyCheckbox.checked;
+                });
+
+                clearButton.addEventListener("click", () => {
+                    state.genome = EMPTY_GENOME();
+                    genomeInput.value = "";
+                    render();
+                });
+
+                editorToggle.addEventListener("click", () => {
+                    state.editorCollapsed = !state.editorCollapsed;
+                    updateEditorCollapseUI();
+                });
+
+                render();
+            }
+
+            createApp(document.getElementById("editor"));
+        </script>
+    </body>
+</html>

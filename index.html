@@ -1797,6 +1797,10 @@
                     class: "btn btn-ghost",
                     text: "Load Blank Editor",
                 });
+                const randomizeButton = createElement("button", {
+                    class: "btn btn-ghost",
+                    text: "Randomize Genome",
+                });
                 const clearButton = createElement("button", {
                     class: "btn btn-ghost",
                     text: "Clear",
@@ -1825,6 +1829,7 @@
                     createElement("div", { class: "button-row" }, [
                         analyzeButton,
                         loadBlankButton,
+                        randomizeButton,
                         clearButton,
                         copyButton,
                         autoCopyToggle,
@@ -2224,6 +2229,29 @@
                     renderResults();
                 }
 
+                function randomBase() {
+                    return BASES[Math.floor(Math.random() * BASES.length)];
+                }
+
+                function randomGenome() {
+                    return Array.from(
+                        { length: HELIX_COUNT },
+                        (_, helixIndex) => {
+                            const geneCount =
+                                HELIX_MAP[helixIndex]?.length ?? 0;
+                            const strand1 = Array.from(
+                                { length: geneCount },
+                                randomBase,
+                            ).join("");
+                            const strand2 = Array.from(
+                                { length: geneCount },
+                                randomBase,
+                            ).join("");
+                            return [strand1, strand2];
+                        },
+                    );
+                }
+
                 analyzeButton.addEventListener("click", () => {
                     state.genome = parseGenome(genomeInput.value);
                     render();
@@ -2232,6 +2260,12 @@
                 loadBlankButton.addEventListener("click", () => {
                     state.genome = makeUniformGenome("A");
                     render();
+                });
+
+                randomizeButton.addEventListener("click", () => {
+                    state.genome = randomGenome();
+                    render();
+                    maybeAutoCopy();
                 });
 
                 copyButton.addEventListener("click", async () => {

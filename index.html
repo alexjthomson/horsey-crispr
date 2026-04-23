@@ -3,28 +3,86 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Horsey Genome Mapper</title>
+        <title>C.R.I.S.P.R</title>
         <style>
             :root {
-                --bg: #23262b;
-                --surface: #2b2f36;
-                --surface-alt: #343943;
-                --surface-soft: #3a404c;
-                --border: #454c5a;
-                --border-strong: #5b6578;
+                --bg: #1b1f27;
+                --bg-elevated: #222834;
+                --bg-gradient-top: #151922;
+                --surface: #222834;
+                --surface-alt: #293140;
+                --surface-soft: #313a4b;
+                --surface-deep: #1c222c;
+                --surface-overlay: #161c25;
+
+                --border: #394355;
+                --border-strong: #4a566c;
+                --border-soft: rgba(148, 163, 184, 0.12);
+
                 --accent: #7dd3fc;
                 --accent-strong: #38bdf8;
-                --text: #eef2f7;
-                --text-soft: #d7dde7;
-                --muted: #a1acbb;
-                --dim: #7b8595;
-                --shadow: rgba(0, 0, 0, 0.28);
+                --accent-soft: rgba(56, 189, 248, 0.16);
+                --accent-ring: rgba(125, 211, 252, 0.18);
+                --accent-ring-strong: rgba(125, 211, 252, 0.62);
+                --accent-hover: #bae6fd;
+
+                --text: #f3f7fb;
+                --text-soft: #d6deea;
+                --muted: #9aa8bb;
+                --dim: #748297;
+                --inverse-text: #181b22;
+
+                --shadow: rgba(0, 0, 0, 0.3);
+                --shadow-soft: rgba(0, 0, 0, 0.18);
+                --shadow-strong: rgba(0, 0, 0, 0.38);
+
                 --green-hi: #86efac;
                 --red-lo: #fca5a5;
+                --warn: #fbbf24;
+                --warn-soft: #fde68a;
+
                 --A: #facc15;
                 --T: #fb7185;
                 --C: #60a5fa;
                 --G: #4ade80;
+
+                --button-primary-top: #215a75;
+                --button-primary-bottom: #183f53;
+                --button-primary-border: #46c5fb;
+
+                --header-top: #344051;
+                --header-bottom: #2a3443;
+
+                --input-bg: #171d26;
+                --chip-label: #c8d3df;
+
+                --scrollbar-track: #161b22;
+                --scrollbar-thumb: #556276;
+
+                --gene-card-bg: #202733;
+                --tooltip-bg: #161d26;
+
+                --radius-sm: 8px;
+                --radius-md: 12px;
+                --radius-lg: 16px;
+                --radius-xl: 18px;
+
+                --cat-body: #fb923c;
+                --cat-legs: #a78bfa;
+                --cat-arms: #fb7185;
+                --cat-neck: #34d399;
+                --cat-tail: #f59e0b;
+                --cat-feet: #38bdf8;
+                --cat-head: #e879f9;
+                --cat-face: #818cf8;
+                --cat-mouth: #fdba74;
+                --cat-antlers: #86efac;
+                --cat-hat: #fbbf24;
+                --cat-color: #6ee7b7;
+                --cat-pattern: #67e8f9;
+                --cat-locomotion: #f472b6;
+                --cat-behavior: #94a3b8;
+                --cat-signals: #c084fc;
             }
 
             * {
@@ -34,7 +92,17 @@
             }
 
             body {
-                background: linear-gradient(180deg, #1d2025 0%, var(--bg) 100%);
+                background:
+                    radial-gradient(
+                        circle at top,
+                        rgba(56, 189, 248, 0.08),
+                        transparent 30%
+                    ),
+                    linear-gradient(
+                        180deg,
+                        var(--bg-gradient-top) 0%,
+                        var(--bg) 100%
+                    );
                 color: var(--text);
                 font-family:
                     Inter,
@@ -47,43 +115,7 @@
                 font-size: 14px;
                 line-height: 1.5;
                 min-height: 100vh;
-            }
-
-            #header {
-                padding: 18px 14px 10px;
-            }
-
-            .header-inner {
-                max-width: 1200px;
-                margin: 0 auto;
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 14px;
-                box-shadow: 0 18px 40px var(--shadow);
-                padding: 18px 20px;
-                display: flex;
-                align-items: center;
-                gap: 18px;
-            }
-
-            #header h1 {
-                color: var(--accent);
-                font-size: 22px;
-                letter-spacing: 0.03em;
-                font-weight: 700;
-            }
-
-            #header .legend {
-                margin-left: auto;
-                display: flex;
-                gap: 16px;
-                flex-wrap: wrap;
-                font-size: 13px;
-                color: var(--muted);
-            }
-
-            #header .legend span b {
-                font-size: 13px;
+                padding: 24px 18px;
             }
 
             #app {
@@ -92,23 +124,85 @@
             }
 
             .card {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 14px;
+                background:
+                    linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0.015),
+                        rgba(255, 255, 255, 0)
+                    ),
+                    var(--surface);
+                border: 1px solid var(--border-soft);
+                border-radius: var(--radius-xl);
                 padding: 18px;
-                margin-bottom: 14px;
-                box-shadow: 0 16px 36px var(--shadow);
+                margin-bottom: 16px;
+                box-shadow:
+                    0 20px 44px var(--shadow),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(10px);
+            }
+
+            .card-with-header {
+                padding: 0;
+                overflow: visible;
+            }
+
+            .card-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 18px;
+                padding: 18px 22px;
+                background:
+                    linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0.03),
+                        rgba(255, 255, 255, 0)
+                    ),
+                    linear-gradient(
+                        180deg,
+                        var(--header-top) 0%,
+                        var(--header-bottom) 100%
+                    );
+                border-bottom: 1px solid var(--border-strong);
+                border-top-left-radius: var(--radius-xl);
+                border-top-right-radius: var(--radius-xl);
+                box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+            }
+
+            .card-header-title {
+                color: var(--text);
+                font-size: 22px;
+                letter-spacing: 0.02em;
+                font-weight: 800;
+                line-height: 1.2;
+            }
+
+            .card-header-meta {
+                margin-left: auto;
+                display: flex;
+                gap: 16px;
+                flex-wrap: wrap;
+                font-size: 13px;
+                color: var(--text-soft);
+            }
+
+            .card-header-meta span b {
+                font-size: 13px;
+            }
+
+            .card-content {
+                padding: 20px;
             }
 
             .field {
-                margin-bottom: 10px;
+                margin-bottom: 12px;
             }
 
             .field label {
                 display: block;
                 color: var(--text-soft);
                 font-size: 13px;
-                font-weight: 600;
+                font-weight: 700;
                 margin-bottom: 8px;
             }
 
@@ -122,7 +216,7 @@
                 display: flex;
                 gap: 10px;
                 flex-wrap: wrap;
-                margin-top: 12px;
+                margin-top: 14px;
                 align-items: center;
             }
 
@@ -131,13 +225,14 @@
                 align-items: center;
                 gap: 8px;
                 margin-left: 4px;
-                padding: 8px 12px;
-                border: 1px solid var(--border-strong);
-                border-radius: 10px;
-                background: #20242a;
+                padding: 9px 12px;
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                background: var(--input-bg);
                 color: var(--text-soft);
                 font-size: 13px;
                 font-weight: 600;
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
             }
 
             .toggle-option input {
@@ -148,7 +243,7 @@
 
             .editor-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
                 gap: 12px;
             }
 
@@ -156,7 +251,7 @@
                 margin-bottom: 0;
                 padding: 14px;
                 background: var(--surface-alt);
-                border-color: var(--border-strong);
+                border-color: var(--border);
                 box-shadow: none;
             }
 
@@ -170,9 +265,15 @@
             .helix-name {
                 color: var(--accent);
                 font-weight: 700;
-                margin-bottom: 10px;
-                font-size: 13px;
-                letter-spacing: 0.04em;
+                margin-bottom: 4px;
+                font-size: 14px;
+                letter-spacing: 0.02em;
+            }
+
+            .helix-desc {
+                color: var(--muted);
+                font-size: 12px;
+                margin-bottom: 12px;
             }
 
             .collapsible-toggle {
@@ -192,7 +293,7 @@
             }
 
             .collapsible-toggle:hover .editor-title {
-                color: #bae6fd;
+                color: var(--accent-hover);
             }
 
             .collapse-indicator {
@@ -207,21 +308,35 @@
 
             input,
             textarea {
-                background: #20242a;
-                border: 1px solid var(--border-strong);
-                border-radius: 10px;
+                background: var(--input-bg);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
                 color: var(--text);
                 font-family: inherit;
                 font-size: 13px;
-                padding: 10px 12px;
+                padding: 11px 13px;
                 width: 100%;
+                box-shadow:
+                    inset 0 1px 0 rgba(255, 255, 255, 0.02),
+                    0 1px 2px rgba(0, 0, 0, 0.14);
+                transition:
+                    border-color 0.14s ease,
+                    box-shadow 0.14s ease,
+                    background 0.14s ease;
+            }
+
+            input::placeholder,
+            textarea::placeholder {
+                color: var(--dim);
             }
 
             input:focus,
             textarea:focus {
                 outline: none;
                 border-color: var(--accent);
-                box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.16);
+                box-shadow:
+                    0 0 0 3px var(--accent-ring),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.02);
             }
 
             textarea {
@@ -232,28 +347,70 @@
 
             button.btn {
                 padding: 9px 16px;
-                background: linear-gradient(180deg, #1c4f69 0%, #173d51 100%);
-                border: 1px solid var(--accent-strong);
-                border-radius: 10px;
+                background:
+                    linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0.03),
+                        rgba(255, 255, 255, 0)
+                    ),
+                    linear-gradient(
+                        180deg,
+                        var(--button-primary-top) 0%,
+                        var(--button-primary-bottom) 100%
+                    );
+                border: 1px solid var(--button-primary-border);
+                border-radius: var(--radius-md);
                 color: var(--text);
                 cursor: pointer;
                 font-family: inherit;
                 font-size: 13px;
-                font-weight: 600;
+                font-weight: 700;
                 transition:
                     transform 0.08s ease,
-                    filter 0.12s ease;
+                    filter 0.12s ease,
+                    box-shadow 0.12s ease,
+                    border-color 0.12s ease;
+                box-shadow:
+                    0 10px 22px rgba(29, 78, 104, 0.24),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.08);
             }
 
             button.btn:hover {
-                filter: brightness(1.08);
+                filter: brightness(1.06);
                 transform: translateY(-1px);
+                box-shadow:
+                    0 14px 26px rgba(29, 78, 104, 0.32),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
             }
 
             button.btn-ghost {
-                background: transparent;
-                border-color: var(--border-strong);
+                background:
+                    linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0.02),
+                        rgba(255, 255, 255, 0)
+                    ),
+                    var(--surface-deep);
+                border-color: var(--border);
                 color: var(--text-soft);
+                box-shadow:
+                    0 6px 16px rgba(0, 0, 0, 0.16),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            }
+
+            button.btn-mini {
+                padding: 5px 8px;
+                font-size: 11px;
+                border-radius: var(--radius-sm);
+                background: transparent;
+                border: 1px solid var(--warn);
+                color: var(--warn-soft);
+                box-shadow: none;
+            }
+
+            button.btn-mini:hover {
+                filter: brightness(1.08);
+                transform: translateY(-1px);
             }
 
             .base {
@@ -269,22 +426,22 @@
 
             .base-A {
                 background: var(--A);
-                color: #1b1b1b;
+                color: var(--inverse-text);
             }
 
             .base-T {
                 background: var(--T);
-                color: #1b1b1b;
+                color: var(--inverse-text);
             }
 
             .base-C {
                 background: var(--C);
-                color: #fff;
+                color: #ffffff;
             }
 
             .base-G {
                 background: var(--G);
-                color: #1b1b1b;
+                color: var(--inverse-text);
             }
 
             .base-sm {
@@ -306,100 +463,222 @@
                 transform: translateY(-1px);
                 box-shadow:
                     inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-                    0 0 0 2px rgba(125, 211, 252, 0.65);
+                    0 0 0 2px var(--accent-ring-strong);
                 outline: none;
             }
 
             .result-helix {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 14px;
-                padding: 14px 16px;
-                margin-bottom: 10px;
-                box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+                background:
+                    linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0.015),
+                        rgba(255, 255, 255, 0)
+                    ),
+                    var(--surface);
+                border: 1px solid var(--border-soft);
+                border-radius: var(--radius-lg);
+                margin-bottom: 12px;
+                box-shadow:
+                    0 14px 30px var(--shadow-soft),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+                overflow: visible;
             }
 
             .result-header {
                 display: flex;
-                gap: 12px;
-                align-items: center;
-                flex-wrap: wrap;
+                align-items: stretch;
+                justify-content: space-between;
+                gap: 14px;
+                padding: 13px 15px;
+                margin-bottom: 0;
+                background:
+                    linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0.025),
+                        rgba(255, 255, 255, 0)
+                    ),
+                    linear-gradient(
+                        180deg,
+                        var(--header-top) 0%,
+                        var(--header-bottom) 100%
+                    );
+                border-bottom: 1px solid var(--border-strong);
+                border-top-left-radius: var(--radius-lg);
+                border-top-right-radius: var(--radius-lg);
+            }
+
+            .result-header:only-child {
+                border-bottom-left-radius: var(--radius-lg);
+                border-bottom-right-radius: var(--radius-lg);
+                border-bottom: none;
+            }
+
+            .result-heading {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 3px;
+                min-width: 0;
+                flex: 1 1 auto;
+            }
+
+            .helix-title {
+                color: var(--text);
+                font-weight: 800;
+                font-size: 14px;
+                letter-spacing: 0.01em;
+                line-height: 1.25;
+            }
+
+            .helix-subtitle {
+                color: var(--text-soft);
+                font-size: 12px;
+                font-weight: 600;
+                opacity: 0.92;
+            }
+
+            .result-body {
+                padding: 14px 16px 16px;
+                border-bottom-left-radius: var(--radius-lg);
+                border-bottom-right-radius: var(--radius-lg);
+            }
+
+            .strand-stack {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                align-items: flex-end;
+                justify-content: center;
+                flex: 0 0 auto;
+                max-width: 58%;
             }
 
             .strand-row {
                 display: flex;
                 align-items: center;
+                justify-content: flex-end;
                 gap: 6px;
-                margin-bottom: 4px;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
+                min-height: 22px;
             }
 
             .strand-label {
-                color: var(--dim);
-                font-size: 11px;
-                font-weight: 700;
-                min-width: 26px;
+                color: var(--chip-label);
+                font-size: 10px;
+                font-weight: 800;
+                width: 24px;
+                flex: 0 0 24px;
+                text-align: right;
+                letter-spacing: 0.06em;
             }
 
             .result-genes {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 8px;
-                margin-top: 12px;
+                margin-top: 0;
+                align-items: stretch;
             }
 
             .result-gene {
                 position: relative;
-                background: #232831;
+                z-index: 0;
+                background:
+                    linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0.018),
+                        rgba(255, 255, 255, 0)
+                    ),
+                    var(--gene-card-bg);
                 border: 1px solid var(--border);
-                border-radius: 12px;
+                border-radius: var(--radius-md);
                 padding: 10px;
-                min-width: 112px;
+                min-width: 154px;
                 cursor: pointer;
                 text-align: left;
                 color: inherit;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                vertical-align: top;
+                transition:
+                    border-color 0.12s ease,
+                    transform 0.08s ease,
+                    box-shadow 0.12s ease;
             }
 
             .result-gene:hover,
             .result-gene:focus-visible {
+                z-index: 20;
                 border-color: var(--accent) !important;
                 outline: none;
-                box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.14);
+                transform: translateY(-1px);
+                box-shadow:
+                    0 0 0 3px var(--accent-soft),
+                    0 10px 20px rgba(0, 0, 0, 0.18);
             }
 
             .result-gene .rpos {
                 color: var(--dim);
                 font-size: 10px;
                 font-weight: 600;
+                margin-top: 3px;
             }
 
             .result-gene .rname {
-                font-size: 11px;
+                font-size: 12px;
                 font-weight: 800;
-                margin: 4px 0 6px;
+                margin: 0 0 2px;
                 letter-spacing: 0.02em;
+                line-height: 1.3;
             }
 
             .result-gene .rval {
                 display: flex;
-                align-items: center;
+                flex-direction: column;
+                align-items: flex-start;
                 gap: 4px;
                 font-size: 11px;
+                margin-top: 8px;
+            }
+
+            .allele-line {
+                display: flex;
+                align-items: center;
+                gap: 4px;
                 flex-wrap: wrap;
+            }
+
+            .gene-mixed-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                margin-top: 8px;
+                width: 100%;
+            }
+
+            .gene-warning {
+                color: var(--warn-soft);
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.03em;
             }
 
             .gene-tooltip {
                 position: absolute;
                 left: 0;
                 top: calc(100% + 8px);
-                z-index: 20;
-                width: min(300px, 60vw);
+                z-index: 21;
+                width: min(320px, 65vw);
                 padding: 10px 12px;
-                background: #1e242c;
+                background: var(--tooltip-bg);
                 color: var(--text);
                 border: 1px solid var(--accent);
-                border-radius: 10px;
-                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+                border-radius: var(--radius-md);
+                box-shadow: 0 16px 32px var(--shadow-strong);
                 font-size: 12px;
                 line-height: 1.6;
                 display: none;
@@ -414,14 +693,23 @@
                 left: 16px;
                 width: 8px;
                 height: 8px;
-                background: #1e242c;
+                background: var(--tooltip-bg);
                 border-left: 1px solid var(--accent);
                 border-top: 1px solid var(--accent);
                 transform: rotate(45deg);
             }
 
-            .result-gene.has-desc:hover .gene-tooltip,
-            .result-gene.has-desc:focus-visible .gene-tooltip {
+            .tooltip-code {
+                display: block;
+                color: var(--accent);
+                font-weight: 800;
+                font-size: 11px;
+                margin-bottom: 6px;
+                letter-spacing: 0.04em;
+            }
+
+            .result-gene:hover .gene-tooltip,
+            .result-gene:focus-visible .gene-tooltip {
                 display: block;
             }
 
@@ -434,13 +722,35 @@
             }
 
             @media (max-width: 720px) {
-                .header-inner {
+                .card-header {
                     flex-direction: column;
                     align-items: flex-start;
                 }
 
-                #header .legend {
+                .card-header-meta {
                     margin-left: 0;
+                }
+
+                .result-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .strand-stack {
+                    align-items: flex-start;
+                    max-width: 100%;
+                    width: 100%;
+                }
+
+                .strand-row {
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                }
+
+                .strand-label {
+                    width: auto;
+                    flex-basis: 100%;
+                    text-align: left;
                 }
             }
 
@@ -449,28 +759,16 @@
             }
 
             ::-webkit-scrollbar-track {
-                background: #1f2329;
+                background: var(--scrollbar-track);
             }
 
             ::-webkit-scrollbar-thumb {
-                background: #596273;
+                background: var(--scrollbar-thumb);
                 border-radius: 999px;
             }
         </style>
     </head>
     <body>
-        <div id="header">
-            <div class="header-inner">
-                <h1>Horsey C.R.I.S.P.R Editor</h1>
-                <div class="legend">
-                    <span><b style="color: #facc15">A</b> = Yellow</span>
-                    <span><b style="color: #fb7185">T</b> = Red</span>
-                    <span><b style="color: #60a5fa">C</b> = Blue</span>
-                    <span><b style="color: #4ade80">G</b> = Green</span>
-                </div>
-            </div>
-        </div>
-
         <div id="app">
             <div id="editor"></div>
         </div>
@@ -479,16 +777,41 @@
             "use strict";
 
             const HELIX_COUNT = 20;
+            const VALID_BASE_RE = /[^ATCG]/g;
+            const BASES = ["A", "T", "C", "G"];
+            const BASE_INDEX = Object.freeze({ A: 0, T: 1, C: 2, G: 3 });
+
+            const HELIX_DESCRIPTIONS = Object.freeze([
+                "Body Structure",
+                "Gut, Behavior, Pattern",
+                "Flexibility & Muscle",
+                "Joints & Angles",
+                "Limb Tags & Counts",
+                "Locomotion Type & Upper Arms",
+                "Body Size & Neck Shape",
+                "Tail",
+                "Leg & Arm Dimensions",
+                "Feet & Hands",
+                "Head Shape",
+                "Eyes & Ears",
+                "Mouth & Nose",
+                "Antlers & Hat Pom",
+                "Antler Detail",
+                "Hat",
+                "Color",
+                "Pattern & Coat",
+                "Speed & Locomotion Control",
+                "Locomotion Signals",
+            ]);
+
             const makeUniformGenome = (base = "A") =>
                 Array.from({ length: HELIX_COUNT }, (_, helixIndex) => {
                     const geneCount = HELIX_MAP[helixIndex]?.length ?? 0;
                     const strand = base.repeat(geneCount);
                     return [strand, strand];
                 });
+
             const EMPTY_GENOME = () => makeUniformGenome("");
-            const VALID_BASE_RE = /[^ATCG]/g;
-            const BASES = ["A", "T", "C", "G"];
-            const BASE_INDEX = Object.freeze({ A: 0, T: 1, C: 2, G: 3 });
 
             const CAT_COLOR = Object.freeze({
                 Body: "#f97316",
@@ -511,68 +834,121 @@
 
             const GENE_DESCRIPTIONS = {
                 NARCOLEPSY:
-                    "Horse randomly falls asleep when idle if nonzero. G enables narcolepsy; others are normal.",
+                    "Horse randomly falls asleep when idle if nonzero. Internally switches idle behaviour to sleep when active. Values: A/T/C = 0 (safe), G = 1 (narcoleptic). Avoid G for racing builds.",
                 RAMPAGE:
-                    "Controls aggression and rampage state. Also written at runtime when lassoed, forcing aggressive behaviour.",
+                    "Controls aggression threshold at rest. Also used as a runtime state: when lassoed, the game writes 1 to this field, forcing rampage mode. During rampage, locomotion signals are overridden and the horse fights, bolts, and flees.",
                 HIGH_INTELLECT:
-                    "Enables progression to genius behaviour. Required for philosophical/refusal states.",
+                    "Enables progression to genius behaviour. Required for philosophical/refusal states. This gene is a gate: without it active, the horse cannot reach genius state regardless of other factors.",
                 BRAIN_SPASTIC:
-                    "Applies random positional jitter each tick, causing twitching and erratic movement.",
+                    "Applies random positional jitter each tick, causing twitching and erratic movement. Values: A = strong spasms, G = mild spasms, T/C = none. When active, it also clears OLD_AGE runtime effects.",
                 WHITE_IS_LETHAL:
-                    "Foals may die at birth if white coat is expressed.",
-                FLU_IMMUNITY: "Grants immunity to flu mechanic. G = immune.",
-                LIMP: "Affects gait asymmetry. Higher values produce visible limping.",
-                LEG_AND_ARM_LIMP: "Applies limp to all limbs simultaneously.",
-                OMNIVORE: "Enables carnivorous behaviour (horse may eat NPCs).",
-                LITTER_SIZE: "Controls number of offspring per birth.",
+                    "If active and white coat is expressed in a foal, a lethal check is applied at birth and the foal may die. Mirrors lethal white behaviour.",
+                FLU_IMMUNITY:
+                    "Grants immunity to the flu mechanic. Values: A/T/C = susceptible, G = immune.",
+                LIMP: "Affects gait asymmetry. C produces a strong limp, G a slight limp, A/T are normal. Likely worsens with age.",
+                LEG_AND_ARM_LIMP:
+                    "Applies limp to all limbs simultaneously instead of just an asymmetric gait. Full-body limp flag.",
+                OMNIVORE:
+                    "Enables carnivorous behaviour. When active, the horse may chase and eat NPCs or other horses instead of grazing normally.",
+                LITTER_SIZE:
+                    "Directly controls number of offspring per birth. Values: A = 3, T = 2, C = 1, G = 5.",
                 SPINAL_LOCO:
-                    "Controls locomotion mode: 0=legs, 1=partial spine, 2=serpentine.",
+                    "Controls locomotion mode: 0 = legs only, 1 = mild spinal undulation, 2 = full serpentine/worm-like movement. A gives the maximum serpentine mode and is unstable; C/G are safest for normal racing movement.",
                 LOCO_SYNC:
-                    "Synchronises limb timing. 1 = coordinated, 0 = chaotic.",
-                L_LEG_SIGNAL: "Broadcast signal for leg movement phases.",
-                L_ARM_SIGNAL: "Broadcast signal for arm/front limb phases.",
-                L_TAIL_SIGNAL: "Tail synchronisation signal.",
-                L_NECK_SIGNAL: "Neck movement synchronisation signal.",
+                    "Global locomotion synchronisation flag. T enables coordinated limb timing; A/C/G leave limbs free-running, which can produce chaotic motion.",
+                L_LEG_SIGNAL:
+                    "Broadcast signal ID emitted by the legs when they complete a movement phase. Other limbs react when their listener values match this signal.",
+                L_ARM_SIGNAL:
+                    "Broadcast signal ID emitted by the arms/front limbs when they complete a movement phase. Helps coordinate front limb timing.",
+                L_TAIL_SIGNAL:
+                    "Tail synchronisation signal. Controls when the tail moves relative to the gait cycle.",
+                L_NECK_SIGNAL:
+                    "Neck synchronisation signal. Controls when neck motion occurs relative to the rest of the locomotion chain.",
                 L_NECK_BTOF_EVENT:
-                    "Primary locomotion timing signal (core gait clock).",
+                    "Primary locomotion timing signal and likely the master gait clock. One of the most important locomotion genes; incorrect values can desynchronise the whole body.",
                 L_LEG_FTOB_REACT:
-                    "Leg listens for this signal to start forward phase.",
-                L_LEG_FTOB_EVENT: "Leg emits this signal after forward phase.",
+                    "Leg listener value for starting the forward-to-back power stroke when a matching signal is received.",
+                L_LEG_FTOB_EVENT:
+                    "Signal emitted by the leg after completing the forward-to-back power stroke.",
                 L_LEG_BTOF_REACT:
-                    "Leg listens for this signal to start recovery phase.",
-                L_LEG_BTOF_EVENT: "Leg emits this signal after recovery phase.",
+                    "Leg listener value for starting the back-to-front recovery stroke when a matching signal is received.",
+                L_LEG_BTOF_EVENT:
+                    "Signal emitted by the leg after completing the back-to-front recovery stroke.",
                 L_ARM_FTOB_REACT:
-                    "Arm listens for this signal to start forward phase.",
-                L_ARM_FTOB_EVENT: "Arm emits this signal after forward phase.",
+                    "Arm/front limb listener value for starting the forward-to-back power stroke.",
+                L_ARM_FTOB_EVENT:
+                    "Signal emitted by the arm/front limb after completing the forward-to-back power stroke.",
                 L_ARM_BTOF_REACT:
-                    "Arm listens for this signal to start recovery phase.",
-                L_ARM_BTOF_EVENT: "Arm emits this signal after recovery phase.",
-                L_TAIL_FTOB_REACT: "Tail forward-phase trigger listener.",
-                L_TAIL_FTOB_EVENT: "Tail forward-phase completion signal.",
-                L_TAIL_BTOF_REACT: "Tail recovery-phase trigger listener.",
-                L_TAIL_BTOF_EVENT: "Tail recovery-phase completion signal.",
-                L_NECK_FTOB_REACT: "Neck forward-phase trigger listener.",
-                L_NECK_FTOB_EVENT: "Neck forward-phase completion signal.",
-                L_NECK_BTOF_REACT: "Neck recovery-phase trigger listener.",
-                BREAK_FORCE: "Controls stamina drain rate.",
-                MUSCLE_USE: "Global force multiplier for movement.",
-                STIFF_JOINTS: "Reduces joint flexibility.",
-                OSTODERM: "Adds bony skin plates (visual only).",
+                    "Arm/front limb listener value for starting the back-to-front recovery stroke.",
+                L_ARM_BTOF_EVENT:
+                    "Signal emitted by the arm/front limb after completing the back-to-front recovery stroke.",
+                L_TAIL_FTOB_REACT:
+                    "Tail listener value for starting its forward movement phase when a matching signal is received.",
+                L_TAIL_FTOB_EVENT:
+                    "Signal emitted by the tail after completing its forward movement phase.",
+                L_TAIL_BTOF_REACT:
+                    "Tail listener value for starting its recovery movement phase when a matching signal is received.",
+                L_TAIL_BTOF_EVENT:
+                    "Signal emitted by the tail after completing its recovery movement phase.",
+                L_NECK_FTOB_REACT:
+                    "Neck listener value for starting its forward movement phase when a matching signal is received.",
+                L_NECK_FTOB_EVENT:
+                    "Signal emitted by the neck after completing its forward movement phase.",
+                L_NECK_BTOF_REACT:
+                    "Neck listener value for starting its recovery movement phase when a matching signal is received.",
+                BREAK_FORCE:
+                    "Controls stamina drain rate. Higher values make the horse tire faster. T/G give 0, effectively meaning the horse never needs rest.",
+                MUSCLE_USE:
+                    "Global body-wide force multiplier used throughout movement physics. Higher values give more power but can also make motion more erratic. C/G give maximum output.",
+                STIFF_JOINTS:
+                    "Reduces joint flexibility. Higher values restrict range of motion and make movement stiffer.",
+                OSTODERM:
+                    "Adds bony skin plates/osteoderms. Primarily visual based on current evidence, likely toggling plate style or prominence.",
                 TAIL_BOTTOM:
-                    "Tail attachment point + internal structural anchor.",
-                NECK_STIFF: "Disables neck flexibility.",
-                GUT_IS_UDDER: "Transforms body mesh into udder shape (visual).",
-                GIANT_DWARF: "Applies dwarf/normal/giant scaling preset.",
-                WHITE: "Activates white coat expression.",
-                AGOUTI: "Restricts pigment to extremities (bay pattern).",
-                COON_EYE: "Applies dark eye mask marking.",
-                EAR_COMP: "Applies alternate colour to ears.",
-                SWAP_BASE_SPOT: "Swaps base and spot colours.",
-                SWAP_ALT_SPOT: "Swaps alternate colour layer with spots.",
-                OLD_AGE: "Applies progressive physical degradation over time.",
-                TAIL_ALT: "Switches between different tail meshes.",
-                TAIL_SHAPE: "Controls tail curvature.",
-                TAIL_ASPECT: "Controls tail thickness.",
+                    "Controls tail attachment position visually, but also appears to serve as an important internal structural anchor/sentinel in game data.",
+                NECK_STIFF:
+                    "Disables neck flexibility. When active, the neck behaves rigidly and the head does not swing or bob during locomotion.",
+                GUT_IS_UDDER:
+                    "Transforms the body mesh into an udder-like shape by offsetting ventral geometry. Visual effect only.",
+                GIANT_DWARF:
+                    "Applies a body scale preset: dwarf, normal, or giant. Multiplies overall size rather than replacing it.",
+                WHITE: "Activates white coat expression. If WHITE_IS_LETHAL is also active, white foals may die at birth.",
+                AGOUTI: "Restricts pigment to the extremities, producing a bay-like pattern with darker points and lighter body/belly regions.",
+                COON_EYE:
+                    "Applies a dark eye-mask marking. Higher values strengthen the mask.",
+                EAR_COMP:
+                    "Applies alternate/complementary colour to the ears. Lower active values affect tips; higher values can recolour the full ear.",
+                SWAP_BASE_SPOT:
+                    "Swaps the base coat colour with the spot/pattern colour, inverting the colour distribution.",
+                SWAP_ALT_SPOT:
+                    "Swaps the alternate colour layer with the spot colour layer. Can combine with SWAP_BASE_SPOT for additional colour arrangements.",
+                OLD_AGE:
+                    "Applies progressive physical degradation over time through visible body-coordinate perturbations. Does not affect retirement age, which is hardcoded.",
+                TAIL_ALT:
+                    "Selects between different prebuilt tail meshes. This is a mode selector, not a continuous adjustment.",
+                TAIL_SHAPE:
+                    "Controls tail curvature by bending the currently selected tail mesh. Higher values produce a stronger curve.",
+                TAIL_ASPECT:
+                    "Controls tail thickness/roundness in cross-section. Lower values make it flatter/thinner; higher values make it thicker/rounder.",
+                OSTO_SIZE:
+                    "Controls spike size if dorsal spikes are present. Guide observation: a G base can make spikes rounded independently of the numeric value.",
+                CHEST_SMALL:
+                    "Affects body size and chest shape. Guide observation: having an A base gives a sloped chest independently of the numeric value.",
+                SPEED_FACTOR:
+                    "Primary movement speed multiplier. Higher values produce faster horses; T is noted as the highest-value allele in racing guides.",
+                LEG_STRENGTH:
+                    "Controls leg force output. Higher values increase movement power; C is noted as the highest-value allele in racing guides.",
+                LEG_LENGTH:
+                    "Controls leg length. Higher values increase stride length and can improve speed; T is noted as the highest-value allele in racing guides.",
+                HEAD_SIZE:
+                    "Controls head scale. This appears to be an additive-style gene in guide examples, where both allele values are summed.",
+                EYE_STYLE:
+                    "Selects eye type/style variant. Treated as a discrete style selector rather than a continuous physical parameter.",
+                BUGEYE: "Controls eye protrusion. Higher values result in more bulging eyes.",
+                EYE_SIZE:
+                    "Controls eye size. Guide examples indicate this behaves additively, with both allele values summed.",
+                PUPIL_SIZE:
+                    "Controls pupil diameter. Higher values produce larger pupils.",
             };
 
             const GENES = {
@@ -1555,6 +1931,114 @@
                 ],
             ];
 
+            function toTitleCaseWords(parts) {
+                return parts
+                    .filter(Boolean)
+                    .map((part) =>
+                        /^[A-Z0-9]+$/.test(part)
+                            ? part.charAt(0) + part.slice(1).toLowerCase()
+                            : part,
+                    )
+                    .join(" ");
+            }
+
+            function createHumanGeneName(rawName) {
+                const overrides = {
+                    GUT_IS_UDDER: "Gut Is Udder",
+                    WHITE_IS_LETHAL: "White Is Lethal",
+                    SPINAL_LOCO: "Spinal Locomotion",
+                    LOCO_SYNC: "Locomotion Sync",
+                    LITTER_SIZE: "Litter Size",
+                    OLD_AGE: "Old Age",
+                    HIGH_INTELLECT: "High Intellect",
+                    FLU_IMMUNITY: "Flu Immunity",
+                    HEAD_X_GROWTH: "Head X Growth",
+                    HEAD_Y_GROWTH: "Head Y Growth",
+                    EYEBOX_X: "Eye Box X",
+                    EYEBOX_Y: "Eye Box Y",
+                    EYEBOX_SIZE: "Eye Box Size",
+                    UPARM_Y: "Upper Arm Y",
+                    UPARM_TAG: "Upper Arm Tag",
+                    UPARM_GOOFY: "Upper Arm Goofy",
+                    UPARM_ANGLE: "Upper Arm Angle",
+                    NECK_ONTOP: "Neck On Top",
+                    FOOT_IS_HOOF: "Foot Is Hoof",
+                    FOOT_IS_CIRCLE: "Foot Is Circle",
+                    LEG_IS_CIRCLE: "Leg Is Circle",
+                    HAT_POM_IS_LID: "Hat Pom Is Lid",
+                    POM_USECOLOR: "Pom Use Color",
+                    ANTLER_SCALEH: "Antler Scale Height",
+                    ANTLER_SCALEW: "Antler Scale Width",
+                    ANTLER_ANGLE_RAND: "Antler Angle Randomness",
+                    HAT_ANGLE_RAND: "Hat Angle Randomness",
+                    BASE_BROWN: "Base Brown",
+                    BASE_BLACK: "Base Black",
+                    BASE_RED: "Base Red",
+                    BASE_GREEN: "Base Green",
+                    ALT_BLUE: "Alt Blue",
+                    SPOT_YELLOW: "Spot Yellow",
+                    SKIN_HUE: "Skin Hue",
+                    SKIN_HUE2: "Skin Hue 2",
+                    SWAP_BASE_SPOT: "Swap Base / Spot",
+                    SWAP_ALT_SPOT: "Swap Alt / Spot",
+                    PAT_SPLIT: "Pattern Split",
+                    PAT_BELLY: "Pattern Belly",
+                    PAT_STRIPE: "Pattern Stripe",
+                    PAT_SPOT: "Pattern Spot",
+                    PAT_PERLIN: "Pattern Perlin",
+                    PAT_PERLIN2: "Pattern Perlin 2",
+                    PAT_PERLIN_SIZE: "Pattern Perlin Size",
+                    L_LEG_SIGNAL: "Leg Signal",
+                    L_ARM_SIGNAL: "Arm Signal",
+                    L_TAIL_SIGNAL: "Tail Signal",
+                    L_NECK_SIGNAL: "Neck Signal",
+                    L_LEG_FTOB_REACT: "Leg Forward-To-Back React",
+                    L_LEG_FTOB_EVENT: "Leg Forward-To-Back Event",
+                    L_LEG_BTOF_REACT: "Leg Back-To-Forward React",
+                    L_LEG_BTOF_EVENT: "Leg Back-To-Forward Event",
+                    L_ARM_FTOB_REACT: "Arm Forward-To-Back React",
+                    L_ARM_FTOB_EVENT: "Arm Forward-To-Back Event",
+                    L_ARM_BTOF_REACT: "Arm Back-To-Forward React",
+                    L_ARM_BTOF_EVENT: "Arm Back-To-Forward Event",
+                    L_TAIL_FTOB_REACT: "Tail Forward-To-Back React",
+                    L_TAIL_FTOB_EVENT: "Tail Forward-To-Back Event",
+                    L_TAIL_BTOF_REACT: "Tail Back-To-Forward React",
+                    L_TAIL_BTOF_EVENT: "Tail Back-To-Forward Event",
+                    L_NECK_FTOB_REACT: "Neck Forward-To-Back React",
+                    L_NECK_FTOB_EVENT: "Neck Forward-To-Back Event",
+                    L_NECK_BTOF_REACT: "Neck Back-To-Forward React",
+                    L_NECK_BTOF_EVENT: "Neck Back-To-Forward Event",
+                };
+
+                if (overrides[rawName]) return overrides[rawName];
+
+                // Step 1: split underscores
+                const parts = rawName.split("_");
+
+                // Step 2: split letters/numbers (e.g. STRETCH2 -> ["STRETCH", "2"])
+                const splitParts = parts.flatMap(
+                    (part) => part.match(/[A-Z]+|\d+/g) || [],
+                );
+
+                // Step 3: title-case words, leave numbers as-is
+                return splitParts
+                    .map((part) =>
+                        /^\d+$/.test(part)
+                            ? part
+                            : part.charAt(0) + part.slice(1).toLowerCase(),
+                    )
+                    .join(" ");
+            }
+
+            const GENE_HUMAN_NAMES = Object.freeze(
+                Object.fromEntries(
+                    Object.keys(GENES).map((name) => [
+                        name,
+                        createHumanGeneName(name),
+                    ]),
+                ),
+            );
+
             for (const [name, description] of Object.entries(
                 GENE_DESCRIPTIONS,
             )) {
@@ -1634,6 +2118,14 @@
                 )
                     return null;
                 return gene.g[BASE_INDEX[base]];
+            }
+
+            function getHelixDisplayName(helixIndex) {
+                return `Helix ${helixIndex + 1}`;
+            }
+
+            function getHelixDescription(helixIndex) {
+                return HELIX_DESCRIPTIONS[helixIndex] || "Unknown";
             }
 
             function getHelixIndexFactory() {
@@ -1770,11 +2262,42 @@
             function createApp(root) {
                 const state = {
                     genome: EMPTY_GENOME(),
-                    editorCollapsed: true,
                     autoCopy: false,
                 };
 
-                const inputCard = createElement("div", { class: "card" });
+                const inputCard = createElement("div", {
+                    class: "card card-with-header",
+                });
+
+                const inputHeader = createElement(
+                    "div",
+                    { class: "card-header" },
+                    [
+                        createElement("div", {
+                            class: "card-header-title",
+                            text: "Horsey C.R.I.S.P.R Editor",
+                        }),
+                        createElement("div", { class: "card-header-meta" }, [
+                            createElement("span", {
+                                html: '<b style="color: var(--A)">A</b> = Yellow',
+                            }),
+                            createElement("span", {
+                                html: '<b style="color: var(--T)">T</b> = Red',
+                            }),
+                            createElement("span", {
+                                html: '<b style="color: var(--C)">C</b> = Blue',
+                            }),
+                            createElement("span", {
+                                html: '<b style="color: var(--G)">G</b> = Green',
+                            }),
+                        ]),
+                    ],
+                );
+
+                const inputContent = createElement("div", {
+                    class: "card-content",
+                });
+
                 const inputField = createElement("div", { class: "field" });
                 inputField.appendChild(
                     createElement("label", {
@@ -1787,7 +2310,10 @@
                     placeholder: `XX:ttttttttttt\nXX:cccccccccccc\nYY:aaaaaaaaaaaa\nYY:gggggggggggg\n\n(or older formats also work)`,
                 });
                 inputField.appendChild(genomeInput);
-                inputCard.appendChild(inputField);
+
+                inputContent.appendChild(inputField);
+                inputCard.appendChild(inputHeader);
+                inputCard.appendChild(inputContent);
 
                 const analyzeButton = createElement("button", {
                     class: "btn",
@@ -1800,6 +2326,10 @@
                 const randomizeButton = createElement("button", {
                     class: "btn btn-ghost",
                     text: "Randomize Genome",
+                });
+                const mergeAllButton = createElement("button", {
+                    class: "btn btn-ghost",
+                    text: "Merge All",
                 });
                 const clearButton = createElement("button", {
                     class: "btn btn-ghost",
@@ -1825,49 +2355,22 @@
                     ],
                 );
 
-                inputCard.appendChild(
+                inputContent.appendChild(
                     createElement("div", { class: "button-row" }, [
                         analyzeButton,
                         loadBlankButton,
                         randomizeButton,
+                        mergeAllButton,
                         clearButton,
                         copyButton,
                         autoCopyToggle,
                     ]),
                 );
 
-                const editorCard = createElement("div", { class: "card" });
-                const editorToggle = createElement("button", {
-                    class: "collapsible-toggle",
-                    type: "button",
-                });
-                const editorToggleLeft = createElement("div");
-                const editorTitle = createElement("div", {
-                    class: "editor-title",
-                    text: "Genome Editor",
-                });
-                const editorSubtitle = createElement("div", {
-                    class: "info",
-                    text: "Click any base below to cycle A → T → C → G. Changes update the live analysis and the original pasted genome output.",
-                    style: "margin-top:4px",
-                });
-                editorToggleLeft.appendChild(editorTitle);
-                editorToggleLeft.appendChild(editorSubtitle);
-                const editorToggleRight = createElement("span", {
-                    class: "collapse-indicator",
-                });
-                editorToggle.appendChild(editorToggleLeft);
-                editorToggle.appendChild(editorToggleRight);
-
-                const editorBody = createElement("div");
                 const resultsRoot = createElement("div");
-
-                editorCard.appendChild(editorToggle);
-                editorCard.appendChild(editorBody);
 
                 root.innerHTML = "";
                 root.appendChild(inputCard);
-                root.appendChild(editorCard);
                 root.appendChild(resultsRoot);
 
                 function syncTextAreaFromState() {
@@ -1910,20 +2413,6 @@
                     void copyGenomeToClipboard({ temporaryLabel: true });
                 }
 
-                function updateEditorCollapseUI() {
-                    editorBody.classList.toggle(
-                        "is-collapsed",
-                        state.editorCollapsed,
-                    );
-                    editorToggleRight.textContent = state.editorCollapsed
-                        ? "[ expand ]"
-                        : "[ collapse ]";
-                    editorToggle.setAttribute(
-                        "aria-expanded",
-                        String(!state.editorCollapsed),
-                    );
-                }
-
                 function setBase(helixIndex, strandIndex, baseIndex, nextBase) {
                     const strand = state.genome[helixIndex][strandIndex] || "";
                     const chars = strand.split("");
@@ -1933,24 +2422,73 @@
 
                 function cycleGeneAt(helixIndex, geneIndex) {
                     const [strand1, strand2] = state.genome[helixIndex];
-                    if (strand1[geneIndex]) {
-                        setBase(
-                            helixIndex,
-                            0,
-                            geneIndex,
-                            cycleBase(strand1[geneIndex]),
-                        );
+                    const base1 = strand1?.[geneIndex];
+                    const base2 = strand2?.[geneIndex];
+
+                    if (!base1 && !base2) return;
+
+                    if (base1 && base2 && base1 === base2) {
+                        const nextBase = cycleBase(base1);
+                        setBase(helixIndex, 0, geneIndex, nextBase);
+                        setBase(helixIndex, 1, geneIndex, nextBase);
+                    } else if (base1 && !base2) {
+                        setBase(helixIndex, 0, geneIndex, cycleBase(base1));
+                    } else if (!base1 && base2) {
+                        setBase(helixIndex, 1, geneIndex, cycleBase(base2));
                     }
-                    if (strand2[geneIndex]) {
-                        setBase(
-                            helixIndex,
-                            1,
-                            geneIndex,
-                            cycleBase(strand2[geneIndex]),
-                        );
-                    }
+
                     render();
                     maybeAutoCopy();
+                }
+
+                function mergeGeneAlleles(helixIndex, geneIndex, options = {}) {
+                    const { silent = false } = options;
+                    const [strand1, strand2] = state.genome[helixIndex];
+                    const base1 = strand1?.[geneIndex];
+                    const base2 = strand2?.[geneIndex];
+
+                    if (!base1 && !base2) return;
+
+                    const mergedBase = base1 || base2;
+                    if (base1) setBase(helixIndex, 0, geneIndex, mergedBase);
+                    if (base2) setBase(helixIndex, 1, geneIndex, mergedBase);
+
+                    if (!silent) {
+                        render();
+                        maybeAutoCopy();
+                    }
+                }
+
+                function hasMergeableAlleles() {
+                    return HELIX_MAP.some((genes, helixIndex) => {
+                        const [strand1 = "", strand2 = ""] = state.genome[
+                            helixIndex
+                        ] || ["", ""];
+
+                        return genes.some((_, geneIndex) => {
+                            const base1 = strand1[geneIndex];
+                            const base2 = strand2[geneIndex];
+                            return Boolean(base1 && base2 && base1 !== base2);
+                        });
+                    });
+                }
+
+                function mergeAllAlleles() {
+                    HELIX_MAP.forEach((genes, helixIndex) => {
+                        genes.forEach((_, geneIndex) => {
+                            const [strand1 = "", strand2 = ""] = state.genome[
+                                helixIndex
+                            ] || ["", ""];
+                            const base1 = strand1[geneIndex];
+                            const base2 = strand2[geneIndex];
+
+                            if (base1 && base2 && base1 !== base2) {
+                                mergeGeneAlleles(helixIndex, geneIndex, {
+                                    silent: true,
+                                });
+                            }
+                        });
+                    });
                 }
 
                 function cycleStrandBase(helixIndex, strandIndex, baseIndex) {
@@ -1990,7 +2528,7 @@
                                         strandIndex,
                                         baseIndex,
                                     ),
-                                `Helix ${helixIndex} strand ${strandIndex + 1} position ${baseIndex}. Click to cycle base.`,
+                                `${getHelixDisplayName(helixIndex)} strand ${strandIndex + 1} position ${baseIndex + 1}. Click to cycle base.`,
                             ),
                         );
                     });
@@ -1998,70 +2536,24 @@
                     return row;
                 }
 
-                function renderEditor() {
-                    editorBody.innerHTML = "";
-                    const editorGrid = createElement("div", {
-                        class: "editor-grid",
+                function buildStrandStack(helixIndex, strand1, strand2) {
+                    const stack = createElement("div", {
+                        class: "strand-stack",
                     });
 
-                    state.genome.forEach(([strand1, strand2], helixIndex) => {
-                        const helixCard = createElement("div", {
-                            class: "card helix-editor",
-                        });
-                        helixCard.appendChild(
-                            createElement("div", {
-                                class: "helix-name",
-                                text: `HELIX ${helixIndex}`,
-                            }),
+                    if (strand1) {
+                        stack.appendChild(
+                            buildStrandPreviewRow("S1", strand1, helixIndex, 0),
                         );
+                    }
 
-                        const strandOneField = createElement("div", {
-                            class: "field",
-                        });
-                        strandOneField.appendChild(
-                            createElement("label", { text: "Strand 1" }),
+                    if (strand2) {
+                        stack.appendChild(
+                            buildStrandPreviewRow("S2", strand2, helixIndex, 1),
                         );
-                        strandOneField.appendChild(
-                            strand1
-                                ? buildStrandPreviewRow(
-                                      "S1",
-                                      strand1,
-                                      helixIndex,
-                                      0,
-                                  )
-                                : createElement("div", {
-                                      class: "info",
-                                      text: "No strand 1 data",
-                                  }),
-                        );
-                        helixCard.appendChild(strandOneField);
+                    }
 
-                        const strandTwoField = createElement("div", {
-                            class: "field",
-                            style: "margin-bottom:0",
-                        });
-                        strandTwoField.appendChild(
-                            createElement("label", { text: "Strand 2" }),
-                        );
-                        strandTwoField.appendChild(
-                            strand2
-                                ? buildStrandPreviewRow(
-                                      "S2",
-                                      strand2,
-                                      helixIndex,
-                                      1,
-                                  )
-                                : createElement("div", {
-                                      class: "info",
-                                      text: "No strand 2 data",
-                                  }),
-                        );
-                        helixCard.appendChild(strandTwoField);
-
-                        editorGrid.appendChild(helixCard);
-                    });
-
-                    editorBody.appendChild(editorGrid);
+                    return stack;
                 }
 
                 function renderResults() {
@@ -2077,54 +2569,41 @@
                         const helixBlock = createElement("div", {
                             class: "result-helix",
                         });
+
                         const header = createElement("div", {
                             class: "result-header",
-                            style: `margin-bottom:${hasData ? "8px" : "0"}`,
                         });
 
-                        header.appendChild(
-                            createElement("span", {
-                                text: `HELIX ${helixIndex}`,
-                                style: "color:var(--accent);font-weight:bold;font-size:13px;min-width:65px",
+                        const heading = createElement("div", {
+                            class: "result-heading",
+                        });
+
+                        heading.appendChild(
+                            createElement("div", {
+                                class: "helix-title",
+                                text: getHelixDisplayName(helixIndex),
                             }),
                         );
 
-                        if (strand1) {
-                            header.appendChild(
-                                buildStrandPreviewRow(
-                                    "S1",
-                                    strand1,
-                                    helixIndex,
-                                    0,
-                                ),
-                            );
-                        }
+                        heading.appendChild(
+                            createElement("div", {
+                                class: "helix-subtitle",
+                                text: getHelixDescription(helixIndex),
+                            }),
+                        );
 
-                        if (strand2 && strand2 !== strand1) {
-                            header.appendChild(
-                                buildStrandPreviewRow(
-                                    "S2",
-                                    strand2,
-                                    helixIndex,
-                                    1,
-                                ),
-                            );
-                        } else if (strand2 && strand2 === strand1) {
-                            header.appendChild(
-                                createElement("span", {
-                                    class: "dim",
-                                    text: "S2 = S1",
-                                    style: "font-size:10px",
-                                }),
-                            );
-                        }
+                        header.appendChild(heading);
 
-                        if (!hasData) {
+                        if (hasData) {
+                            header.appendChild(
+                                buildStrandStack(helixIndex, strand1, strand2),
+                            );
+                        } else {
                             header.appendChild(
                                 createElement("span", {
                                     class: "dim",
                                     text: "no data",
-                                    style: "font-size:11px",
+                                    style: "font-size:11px;align-self:center;",
                                 }),
                             );
                         }
@@ -2132,12 +2611,18 @@
                         helixBlock.appendChild(header);
 
                         if (hasData) {
+                            const body = createElement("div", {
+                                class: "result-body",
+                            });
+
                             const geneList = createElement("div", {
                                 class: "result-genes",
                             });
 
                             genes.forEach((geneName, geneIndex) => {
                                 const gene = GENES[geneName];
+                                const humanName =
+                                    GENE_HUMAN_NAMES[geneName] || geneName;
                                 const categoryColor = gene
                                     ? CAT_COLOR[gene.cat] || "#64748b"
                                     : "#475569";
@@ -2147,45 +2632,91 @@
                                     strand2?.[geneIndex]?.toUpperCase();
                                 const value1 = getGeneValue(gene, base1);
                                 const value2 = getGeneValue(gene, base2);
-                                const hasDescription = Boolean(gene?.desc);
+                                const isMixed =
+                                    Boolean(base1 && base2) && base1 !== base2;
+                                const tooltipLines = [];
+
+                                tooltipLines.push(
+                                    createElement("span", {
+                                        class: "tooltip-code",
+                                        text: geneName,
+                                    }),
+                                );
+
+                                if (gene?.desc) {
+                                    tooltipLines.push(
+                                        createElement("span", {
+                                            text: gene.desc,
+                                        }),
+                                    );
+                                }
 
                                 const card = createElement("button", {
                                     type: "button",
-                                    class: `result-gene${hasDescription ? " has-desc" : ""}`,
+                                    class: "result-gene",
                                     style: `border-color:${categoryColor}33`,
-                                    title: hasDescription
-                                        ? `${gene.desc} Click to cycle both strands for this gene.`
-                                        : "Click to cycle both strands for this gene.",
-                                    "aria-label": `Gene ${geneName} on helix ${helixIndex} position ${geneIndex}. Click to cycle associated bases.`,
+                                    title: geneName,
+                                    "aria-label": `Gene ${geneName} on ${getHelixDisplayName(helixIndex)} position ${geneIndex + 1}.`,
                                 });
 
-                                card.addEventListener("click", () =>
-                                    cycleGeneAt(helixIndex, geneIndex),
+                                if (!isMixed) {
+                                    card.addEventListener("click", () =>
+                                        cycleGeneAt(helixIndex, geneIndex),
+                                    );
+                                }
+
+                                card.appendChild(
+                                    createElement("div", {
+                                        class: "rname",
+                                        text: humanName,
+                                        style: `color:${categoryColor}`,
+                                    }),
                                 );
 
                                 card.appendChild(
                                     createElement("div", {
                                         class: "rpos",
-                                        text: `H${helixIndex} · P${geneIndex}`,
-                                    }),
-                                );
-                                card.appendChild(
-                                    createElement("div", {
-                                        class: "rname",
-                                        text: geneName,
-                                        style: `color:${categoryColor}`,
+                                        text: `${getHelixDisplayName(helixIndex)} · P${geneIndex}`,
                                     }),
                                 );
 
                                 const valueRow = createElement("div", {
                                     class: "rval",
                                 });
+
                                 if (base1) {
-                                    valueRow.insertAdjacentHTML(
-                                        "beforeend",
-                                        `${baseChip(base1)}<span class="muted">=</span><span style="color:${valueColor(value1)};font-weight:bold">${value1}</span>`,
+                                    valueRow.appendChild(
+                                        createElement(
+                                            "div",
+                                            { class: "allele-line" },
+                                            `${
+                                                createElement("span", {
+                                                    class: "dim",
+                                                    text: isMixed
+                                                        ? "S1:"
+                                                        : "Allele:",
+                                                }).outerHTML
+                                            }${baseChip(base1)}<span class="muted">=</span><span style="color:${valueColor(value1)};font-weight:bold">${value1}</span>`,
+                                        ),
                                     );
-                                } else {
+                                }
+
+                                if (isMixed && base2) {
+                                    valueRow.appendChild(
+                                        createElement(
+                                            "div",
+                                            { class: "allele-line" },
+                                            `${
+                                                createElement("span", {
+                                                    class: "dim",
+                                                    text: "S2:",
+                                                }).outerHTML
+                                            }${baseChip(base2)}<span class="muted">=</span><span style="color:${valueColor(value2)};font-weight:bold">${value2}</span>`,
+                                        ),
+                                    );
+                                }
+
+                                if (!base1 && !base2) {
                                     valueRow.appendChild(
                                         createElement("span", {
                                             class: "dim",
@@ -2194,28 +2725,57 @@
                                     );
                                 }
 
-                                if (base2 && base2 !== base1) {
-                                    valueRow.insertAdjacentHTML(
-                                        "beforeend",
-                                        `<span class="dim" style="font-size:9px;margin-left:3px">S2:</span>${baseChip(base2)}<span class="muted">=</span><span style="color:${valueColor(value2)};font-weight:bold">${value2}</span>`,
-                                    );
-                                }
-
                                 card.appendChild(valueRow);
 
-                                if (hasDescription) {
-                                    card.appendChild(
-                                        createElement("div", {
-                                            class: "gene-tooltip",
-                                            text: gene.desc,
+                                if (isMixed) {
+                                    const mixedRow = createElement("div", {
+                                        class: "gene-mixed-row",
+                                    });
+
+                                    mixedRow.appendChild(
+                                        createElement("span", {
+                                            class: "gene-warning",
+                                            text: "MIXED ALLELES",
                                         }),
                                     );
+
+                                    const mergeButton = createElement(
+                                        "button",
+                                        {
+                                            type: "button",
+                                            class: "btn-mini",
+                                            text: "Merge",
+                                        },
+                                    );
+
+                                    mergeButton.addEventListener(
+                                        "click",
+                                        (event) => {
+                                            event.stopPropagation();
+                                            mergeGeneAlleles(
+                                                helixIndex,
+                                                geneIndex,
+                                            );
+                                        },
+                                    );
+
+                                    mixedRow.appendChild(mergeButton);
+                                    card.appendChild(mixedRow);
                                 }
+
+                                card.appendChild(
+                                    createElement(
+                                        "div",
+                                        { class: "gene-tooltip" },
+                                        tooltipLines,
+                                    ),
+                                );
 
                                 geneList.appendChild(card);
                             });
 
-                            helixBlock.appendChild(geneList);
+                            body.appendChild(geneList);
+                            helixBlock.appendChild(body);
                         }
 
                         resultsRoot.appendChild(helixBlock);
@@ -2224,8 +2784,9 @@
 
                 function render() {
                     syncTextAreaFromState();
-                    updateEditorCollapseUI();
-                    renderEditor();
+                    mergeAllButton.style.display = hasMergeableAlleles()
+                        ? ""
+                        : "none";
                     renderResults();
                 }
 
@@ -2268,6 +2829,12 @@
                     maybeAutoCopy();
                 });
 
+                mergeAllButton.addEventListener("click", () => {
+                    mergeAllAlleles();
+                    render();
+                    maybeAutoCopy();
+                });
+
                 copyButton.addEventListener("click", async () => {
                     await copyGenomeToClipboard({ temporaryLabel: true });
                 });
@@ -2280,11 +2847,6 @@
                     state.genome = EMPTY_GENOME();
                     genomeInput.value = "";
                     render();
-                });
-
-                editorToggle.addEventListener("click", () => {
-                    state.editorCollapsed = !state.editorCollapsed;
-                    updateEditorCollapseUI();
                 });
 
                 render();

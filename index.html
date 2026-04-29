@@ -7,90 +7,56 @@
         <style>
             :root {
                 --bg: #1b1f27;
-                --bg-elevated: #222834;
                 --bg-gradient-top: #151922;
                 --surface: #222834;
                 --surface-alt: #293140;
-                --surface-soft: #313a4b;
                 --surface-deep: #1c222c;
-                --surface-overlay: #161c25;
-
                 --border: #394355;
                 --border-strong: #4a566c;
                 --border-soft: rgba(148, 163, 184, 0.12);
-
                 --accent: #7dd3fc;
                 --accent-strong: #38bdf8;
                 --accent-soft: rgba(56, 189, 248, 0.16);
                 --accent-ring: rgba(125, 211, 252, 0.18);
                 --accent-ring-strong: rgba(125, 211, 252, 0.62);
                 --accent-hover: #bae6fd;
-
                 --text: #f3f7fb;
                 --text-soft: #d6deea;
                 --muted: #9aa8bb;
                 --dim: #748297;
                 --inverse-text: #181b22;
-
                 --shadow: rgba(0, 0, 0, 0.3);
                 --shadow-soft: rgba(0, 0, 0, 0.18);
                 --shadow-strong: rgba(0, 0, 0, 0.38);
-
                 --green-hi: #86efac;
                 --red-lo: #fca5a5;
                 --warn: #fbbf24;
                 --warn-soft: #fde68a;
-
                 --A: #facc15;
                 --T: #fb7185;
                 --C: #60a5fa;
                 --G: #4ade80;
-
                 --button-primary-top: #215a75;
                 --button-primary-bottom: #183f53;
                 --button-primary-border: #46c5fb;
-
                 --header-top: #344051;
                 --header-bottom: #2a3443;
-
                 --input-bg: #171d26;
                 --chip-label: #c8d3df;
-
                 --scrollbar-track: #161b22;
                 --scrollbar-thumb: #556276;
-
                 --gene-card-bg: #202733;
                 --tooltip-bg: #161d26;
-
                 --radius-sm: 8px;
                 --radius-md: 12px;
                 --radius-lg: 16px;
                 --radius-xl: 18px;
-
-                --cat-body: #fb923c;
-                --cat-legs: #a78bfa;
-                --cat-arms: #fb7185;
-                --cat-neck: #34d399;
-                --cat-tail: #f59e0b;
-                --cat-feet: #38bdf8;
-                --cat-head: #e879f9;
-                --cat-face: #818cf8;
-                --cat-mouth: #fdba74;
-                --cat-antlers: #86efac;
-                --cat-hat: #fbbf24;
-                --cat-color: #6ee7b7;
-                --cat-pattern: #67e8f9;
-                --cat-locomotion: #f472b6;
-                --cat-behavior: #94a3b8;
-                --cat-signals: #c084fc;
             }
-
             * {
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
             }
-
             body {
                 background:
                     radial-gradient(
@@ -98,11 +64,7 @@
                         rgba(56, 189, 248, 0.08),
                         transparent 30%
                     ),
-                    linear-gradient(
-                        180deg,
-                        var(--bg-gradient-top) 0%,
-                        var(--bg) 100%
-                    );
+                    linear-gradient(180deg, var(--bg-gradient-top), var(--bg));
                 color: var(--text);
                 font-family:
                     Inter,
@@ -117,12 +79,10 @@
                 min-height: 100vh;
                 padding: 24px 18px;
             }
-
             #app {
                 max-width: 1200px;
                 margin: 0 auto;
             }
-
             .card {
                 background:
                     linear-gradient(
@@ -140,12 +100,10 @@
                     inset 0 1px 0 rgba(255, 255, 255, 0.03);
                 backdrop-filter: blur(10px);
             }
-
             .card-with-header {
                 padding: 0;
                 overflow: visible;
             }
-
             .card-header {
                 display: flex;
                 align-items: center;
@@ -160,23 +118,19 @@
                     ),
                     linear-gradient(
                         180deg,
-                        var(--header-top) 0%,
-                        var(--header-bottom) 100%
+                        var(--header-top),
+                        var(--header-bottom)
                     );
                 border-bottom: 1px solid var(--border-strong);
                 border-top-left-radius: var(--radius-xl);
                 border-top-right-radius: var(--radius-xl);
-                box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.02);
             }
-
             .card-header-title {
-                color: var(--text);
                 font-size: 22px;
                 letter-spacing: 0.02em;
                 font-weight: 800;
                 line-height: 1.2;
             }
-
             .card-header-meta {
                 margin-left: auto;
                 display: flex;
@@ -185,19 +139,12 @@
                 font-size: 13px;
                 color: var(--text-soft);
             }
-
-            .card-header-meta span b {
-                font-size: 13px;
-            }
-
             .card-content {
                 padding: 20px;
             }
-
             .field {
                 margin-bottom: 12px;
             }
-
             .field label {
                 display: block;
                 color: var(--text-soft);
@@ -205,13 +152,6 @@
                 font-weight: 700;
                 margin-bottom: 8px;
             }
-
-            .info {
-                color: var(--muted);
-                font-size: 13px;
-                line-height: 1.65;
-            }
-
             .button-row {
                 display: flex;
                 gap: 10px;
@@ -219,7 +159,6 @@
                 margin-top: 14px;
                 align-items: center;
             }
-
             .toggle-option {
                 display: inline-flex;
                 align-items: center;
@@ -232,80 +171,12 @@
                 color: var(--text-soft);
                 font-size: 13px;
                 font-weight: 600;
-                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
             }
-
             .toggle-option input {
                 width: auto;
                 margin: 0;
                 accent-color: var(--accent-strong);
             }
-
-            .editor-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                gap: 12px;
-            }
-
-            .helix-editor {
-                margin-bottom: 0;
-                padding: 14px;
-                background: var(--surface-alt);
-                border-color: var(--border);
-                box-shadow: none;
-            }
-
-            .editor-title,
-            .result-title {
-                color: var(--accent);
-                font-weight: 700;
-                font-size: 16px;
-            }
-
-            .helix-name {
-                color: var(--accent);
-                font-weight: 700;
-                margin-bottom: 4px;
-                font-size: 14px;
-                letter-spacing: 0.02em;
-            }
-
-            .helix-desc {
-                color: var(--muted);
-                font-size: 12px;
-                margin-bottom: 12px;
-            }
-
-            .collapsible-toggle {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 12px;
-                background: transparent;
-                border: 0;
-                color: inherit;
-                cursor: pointer;
-                padding: 0;
-                margin-bottom: 12px;
-                text-align: left;
-                font: inherit;
-            }
-
-            .collapsible-toggle:hover .editor-title {
-                color: var(--accent-hover);
-            }
-
-            .collapse-indicator {
-                color: var(--muted);
-                font-size: 12px;
-                font-weight: 600;
-            }
-
-            .is-collapsed {
-                display: none;
-            }
-
             input,
             textarea {
                 background: var(--input-bg);
@@ -324,12 +195,10 @@
                     box-shadow 0.14s ease,
                     background 0.14s ease;
             }
-
             input::placeholder,
             textarea::placeholder {
                 color: var(--dim);
             }
-
             input:focus,
             textarea:focus {
                 outline: none;
@@ -338,13 +207,11 @@
                     0 0 0 3px var(--accent-ring),
                     inset 0 1px 0 rgba(255, 255, 255, 0.02);
             }
-
             textarea {
                 resize: vertical;
                 line-height: 1.55;
                 min-height: 170px;
             }
-
             button.btn {
                 padding: 9px 16px;
                 background:
@@ -355,8 +222,8 @@
                     ),
                     linear-gradient(
                         180deg,
-                        var(--button-primary-top) 0%,
-                        var(--button-primary-bottom) 100%
+                        var(--button-primary-top),
+                        var(--button-primary-bottom)
                     );
                 border: 1px solid var(--button-primary-border);
                 border-radius: var(--radius-md);
@@ -374,15 +241,10 @@
                     0 10px 22px rgba(29, 78, 104, 0.24),
                     inset 0 1px 0 rgba(255, 255, 255, 0.08);
             }
-
             button.btn:hover {
                 filter: brightness(1.06);
                 transform: translateY(-1px);
-                box-shadow:
-                    0 14px 26px rgba(29, 78, 104, 0.32),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
             }
-
             button.btn-ghost {
                 background:
                     linear-gradient(
@@ -397,7 +259,6 @@
                     0 6px 16px rgba(0, 0, 0, 0.16),
                     inset 0 1px 0 rgba(255, 255, 255, 0.03);
             }
-
             button.btn-mini {
                 padding: 5px 8px;
                 font-size: 11px;
@@ -407,12 +268,6 @@
                 color: var(--warn-soft);
                 box-shadow: none;
             }
-
-            button.btn-mini:hover {
-                filter: brightness(1.08);
-                transform: translateY(-1px);
-            }
-
             .base {
                 display: inline-flex;
                 align-items: center;
@@ -423,33 +278,27 @@
                 flex-shrink: 0;
                 user-select: none;
             }
-
             .base-A {
                 background: var(--A);
                 color: var(--inverse-text);
             }
-
             .base-T {
                 background: var(--T);
                 color: var(--inverse-text);
             }
-
             .base-C {
                 background: var(--C);
-                color: #ffffff;
+                color: #fff;
             }
-
             .base-G {
                 background: var(--G);
                 color: var(--inverse-text);
             }
-
             .base-sm {
                 width: 22px;
                 height: 22px;
                 font-size: 11px;
             }
-
             .editable-base {
                 cursor: pointer;
                 box-shadow: inset 0 0 0 1px transparent;
@@ -457,7 +306,6 @@
                     transform 0.08s ease,
                     box-shadow 0.08s ease;
             }
-
             .editable-base:hover,
             .editable-base:focus-visible {
                 transform: translateY(-1px);
@@ -466,7 +314,6 @@
                     0 0 0 2px var(--accent-ring-strong);
                 outline: none;
             }
-
             .result-helix {
                 background:
                     linear-gradient(
@@ -483,14 +330,12 @@
                     inset 0 1px 0 rgba(255, 255, 255, 0.02);
                 overflow: visible;
             }
-
             .result-header {
                 display: flex;
                 align-items: stretch;
                 justify-content: space-between;
                 gap: 14px;
                 padding: 13px 15px;
-                margin-bottom: 0;
                 background:
                     linear-gradient(
                         180deg,
@@ -499,51 +344,43 @@
                     ),
                     linear-gradient(
                         180deg,
-                        var(--header-top) 0%,
-                        var(--header-bottom) 100%
+                        var(--header-top),
+                        var(--header-bottom)
                     );
                 border-bottom: 1px solid var(--border-strong);
                 border-top-left-radius: var(--radius-lg);
                 border-top-right-radius: var(--radius-lg);
             }
-
             .result-header:only-child {
                 border-bottom-left-radius: var(--radius-lg);
                 border-bottom-right-radius: var(--radius-lg);
                 border-bottom: none;
             }
-
             .result-heading {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-start;
                 justify-content: center;
                 gap: 3px;
                 min-width: 0;
                 flex: 1 1 auto;
             }
-
             .helix-title {
-                color: var(--text);
                 font-weight: 800;
                 font-size: 14px;
                 letter-spacing: 0.01em;
                 line-height: 1.25;
             }
-
             .helix-subtitle {
                 color: var(--text-soft);
                 font-size: 12px;
                 font-weight: 600;
                 opacity: 0.92;
             }
-
             .result-body {
                 padding: 14px 16px 16px;
                 border-bottom-left-radius: var(--radius-lg);
                 border-bottom-right-radius: var(--radius-lg);
             }
-
             .strand-stack {
                 display: flex;
                 flex-direction: column;
@@ -553,7 +390,6 @@
                 flex: 0 0 auto;
                 max-width: 58%;
             }
-
             .strand-row {
                 display: flex;
                 align-items: center;
@@ -562,7 +398,6 @@
                 flex-wrap: nowrap;
                 min-height: 22px;
             }
-
             .strand-label {
                 color: var(--chip-label);
                 font-size: 10px;
@@ -572,15 +407,12 @@
                 text-align: right;
                 letter-spacing: 0.06em;
             }
-
             .result-genes {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 8px;
-                margin-top: 0;
                 align-items: stretch;
             }
-
             .result-gene {
                 position: relative;
                 z-index: 0;
@@ -602,13 +434,11 @@
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: flex-start;
-                vertical-align: top;
                 transition:
                     border-color 0.12s ease,
                     transform 0.08s ease,
                     box-shadow 0.12s ease;
             }
-
             .result-gene:hover,
             .result-gene:focus-visible {
                 z-index: 20;
@@ -619,14 +449,12 @@
                     0 0 0 3px var(--accent-soft),
                     0 10px 20px rgba(0, 0, 0, 0.18);
             }
-
             .result-gene .rpos {
                 color: var(--dim);
                 font-size: 10px;
                 font-weight: 600;
                 margin-top: 3px;
             }
-
             .result-gene .rname {
                 font-size: 12px;
                 font-weight: 800;
@@ -634,7 +462,6 @@
                 letter-spacing: 0.02em;
                 line-height: 1.3;
             }
-
             .result-gene .rval {
                 display: flex;
                 flex-direction: column;
@@ -643,14 +470,12 @@
                 font-size: 11px;
                 margin-top: 8px;
             }
-
             .allele-line {
                 display: flex;
                 align-items: center;
                 gap: 4px;
                 flex-wrap: wrap;
             }
-
             .gene-mixed-row {
                 display: flex;
                 align-items: center;
@@ -659,20 +484,18 @@
                 margin-top: 8px;
                 width: 100%;
             }
-
             .gene-warning {
                 color: var(--warn-soft);
                 font-size: 10px;
                 font-weight: 700;
                 letter-spacing: 0.03em;
             }
-
             .gene-tooltip {
                 position: absolute;
                 left: 0;
                 top: calc(100% + 8px);
                 z-index: 21;
-                width: min(320px, 65vw);
+                width: min(360px, 65vw);
                 padding: 10px 12px;
                 background: var(--tooltip-bg);
                 color: var(--text);
@@ -685,7 +508,6 @@
                 white-space: normal;
                 pointer-events: none;
             }
-
             .gene-tooltip::before {
                 content: "";
                 position: absolute;
@@ -698,7 +520,6 @@
                 border-top: 1px solid var(--accent);
                 transform: rotate(45deg);
             }
-
             .tooltip-code {
                 display: block;
                 color: var(--accent);
@@ -707,61 +528,52 @@
                 margin-bottom: 6px;
                 letter-spacing: 0.04em;
             }
-
+            .tooltip-values {
+                display: block;
+                color: var(--text-soft);
+                font-size: 11px;
+                margin-top: 6px;
+            }
             .result-gene:hover .gene-tooltip,
             .result-gene:focus-visible .gene-tooltip {
                 display: block;
             }
-
             .muted {
                 color: var(--muted);
             }
-
             .dim {
                 color: var(--dim);
             }
-
             @media (max-width: 720px) {
-                .card-header {
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-
-                .card-header-meta {
-                    margin-left: 0;
-                }
-
+                .card-header,
                 .result-header {
                     flex-direction: column;
                     align-items: flex-start;
                 }
-
+                .card-header-meta {
+                    margin-left: 0;
+                }
                 .strand-stack {
                     align-items: flex-start;
                     max-width: 100%;
                     width: 100%;
                 }
-
                 .strand-row {
                     flex-wrap: wrap;
                     justify-content: flex-start;
                 }
-
                 .strand-label {
                     width: auto;
                     flex-basis: 100%;
                     text-align: left;
                 }
             }
-
             ::-webkit-scrollbar {
                 width: 8px;
             }
-
             ::-webkit-scrollbar-track {
                 background: var(--scrollbar-track);
             }
-
             ::-webkit-scrollbar-thumb {
                 background: var(--scrollbar-thumb);
                 border-radius: 999px;
@@ -769,18 +581,13 @@
         </style>
     </head>
     <body>
-        <div id="app">
-            <div id="editor"></div>
-        </div>
-
+        <div id="app"><div id="editor"></div></div>
         <script>
             "use strict";
-
             const HELIX_COUNT = 20;
             const VALID_BASE_RE = /[^ATCG]/g;
             const BASES = ["A", "T", "C", "G"];
             const BASE_INDEX = Object.freeze({ A: 0, T: 1, C: 2, G: 3 });
-
             const HELIX_DESCRIPTIONS = Object.freeze([
                 "Body Structure",
                 "Gut, Behavior, Pattern",
@@ -803,16 +610,6 @@
                 "Speed & Locomotion Control",
                 "Locomotion Signals",
             ]);
-
-            const makeUniformGenome = (base = "A") =>
-                Array.from({ length: HELIX_COUNT }, (_, helixIndex) => {
-                    const geneCount = HELIX_MAP[helixIndex]?.length ?? 0;
-                    const strand = base.repeat(geneCount);
-                    return [strand, strand];
-                });
-
-            const EMPTY_GENOME = () => makeUniformGenome("");
-
             const CAT_COLOR = Object.freeze({
                 Body: "#f97316",
                 Legs: "#a78bfa",
@@ -831,320 +628,180 @@
                 Behavior: "#94a3b8",
                 Signals: "#c084fc",
             });
-
-            const GENE_DESCRIPTIONS = {
-                NARCOLEPSY:
-                    "Horse randomly falls asleep when idle if nonzero. Internally switches idle behaviour to sleep when active. Values: A/T/C = 0 (safe), G = 1 (narcoleptic). Avoid G for racing builds.",
-                RAMPAGE:
-                    "Controls aggression threshold at rest. Also used as a runtime state: when lassoed, the game writes 1 to this field, forcing rampage mode. During rampage, locomotion signals are overridden and the horse fights, bolts, and flees.",
-                HIGH_INTELLECT:
-                    "Enables progression to genius behaviour. Required for philosophical/refusal states. This gene is a gate: without it active, the horse cannot reach genius state regardless of other factors.",
-                BRAIN_SPASTIC:
-                    "Applies random positional jitter each tick, causing twitching and erratic movement. Values: A = strong spasms, G = mild spasms, T/C = none. When active, it also clears OLD_AGE runtime effects, so it can partially suppress visible age-related degradation.",
-                WHITE_IS_LETHAL:
-                    "If active and WHITE coat is expressed in a foal, a lethal check is applied at birth and the foal may die. Mirrors lethal white behaviour. Most relevant when WHITE is also active.",
-                FLU_IMMUNITY:
-                    "Grants immunity to the flu mechanic. Values: A/T/C = susceptible, G = immune. This gene also appears to be tied to the sickness/immunity mechanic sometimes referred to as 'Sweetie'.",
-                LIMP: "Affects gait asymmetry. C produces a strong limp, G a slight limp, A/T are normal. Likely worsens with age.",
-                LEG_AND_ARM_LIMP:
-                    "Applies limp to all limbs simultaneously instead of just an asymmetric gait. Full-body limp flag. Related to LIMP, but broader in scope.",
-                OMNIVORE:
-                    "Enables carnivorous behaviour. When active, the horse may chase and eat NPCs or other horses instead of grazing normally. This gene appears to be part of the feeding/diet behaviour system rather than being purely cosmetic.",
-                LITTER_SIZE:
-                    "Directly controls number of offspring per birth. Values: A = 3, T = 2, C = 1, G = 5. G appears to be the high-litter allele.",
-                SPINAL_LOCO:
-                    "Controls locomotion mode: 0 = legs only, 1 = mild spinal undulation, 2 = full serpentine/worm-like movement. A gives the maximum serpentine mode and is unstable; C/G are safest for normal racing movement.",
-                LOCO_SYNC:
-                    "Global locomotion synchronisation flag. T enables coordinated limb timing; A/C/G leave limbs free-running, which can produce chaotic motion. Works alongside the locomotion signal genes.",
-                L_LEG_SIGNAL:
-                    "Broadcast signal ID emitted by the legs when they complete a movement phase. Other limbs react when their listener values match this signal. Part of the locomotion signalling network with L_ARM_SIGNAL, L_TAIL_SIGNAL, L_NECK_SIGNAL, and the *_REACT / *_EVENT genes.",
-                L_ARM_SIGNAL:
-                    "Broadcast signal ID emitted by the arms/front limbs when they complete a movement phase. Helps coordinate front limb timing. Part of the locomotion signalling network shared with the other L_* signal genes.",
-                L_TAIL_SIGNAL:
-                    "Tail synchronisation signal. Controls when the tail moves relative to the gait cycle. Part of the same signalling system as the leg, arm, and neck signal genes.",
-                L_NECK_SIGNAL:
-                    "Neck synchronisation signal. Controls when neck motion occurs relative to the rest of the locomotion chain. Part of the same signalling system as the leg, arm, and tail signal genes.",
-                L_NECK_BTOF_EVENT:
-                    "Primary locomotion timing signal and likely the master gait clock. One of the most important locomotion genes; incorrect values can desynchronise the whole body. Closely related to the other *_EVENT, *_REACT, and *_SIGNAL genes.",
-                L_LEG_FTOB_REACT:
-                    "Leg listener value for starting the forward-to-back power stroke when a matching signal is received. Pairs with L_LEG_FTOB_EVENT and is influenced by the general leg signalling genes.",
-                L_LEG_FTOB_EVENT:
-                    "Signal emitted by the leg after completing the forward-to-back power stroke. Intended to chain into other limbs' matching *_REACT genes.",
-                L_LEG_BTOF_REACT:
-                    "Leg listener value for starting the back-to-front recovery stroke when a matching signal is received. Pairs with L_LEG_BTOF_EVENT.",
-                L_LEG_BTOF_EVENT:
-                    "Signal emitted by the leg after completing the back-to-front recovery stroke. Feeds the wider locomotion signalling network.",
-                L_ARM_FTOB_REACT:
-                    "Arm/front limb listener value for starting the forward-to-back power stroke when a matching signal is received. Pairs with L_ARM_FTOB_EVENT.",
-                L_ARM_FTOB_EVENT:
-                    "Signal emitted by the arm/front limb after completing the forward-to-back power stroke. Feeds the wider locomotion signalling network.",
-                L_ARM_BTOF_REACT:
-                    "Arm/front limb listener value for starting the back-to-front recovery stroke when a matching signal is received. Pairs with L_ARM_BTOF_EVENT.",
-                L_ARM_BTOF_EVENT:
-                    "Signal emitted by the arm/front limb after completing the back-to-front recovery stroke. Feeds the wider locomotion signalling network.",
-                L_TAIL_FTOB_REACT:
-                    "Tail listener value for starting its forward movement phase when a matching signal is received. Pairs with L_TAIL_FTOB_EVENT.",
-                L_TAIL_FTOB_EVENT:
-                    "Signal emitted by the tail after completing its forward movement phase. Used to synchronise tail motion with the broader gait cycle.",
-                L_TAIL_BTOF_REACT:
-                    "Tail listener value for starting its recovery movement phase when a matching signal is received. Pairs with L_TAIL_BTOF_EVENT.",
-                L_TAIL_BTOF_EVENT:
-                    "Signal emitted by the tail after completing its recovery movement phase. Used to synchronise tail motion with the broader gait cycle.",
-                L_NECK_FTOB_REACT:
-                    "Neck listener value for starting its forward movement phase when a matching signal is received. Pairs with L_NECK_FTOB_EVENT.",
-                L_NECK_FTOB_EVENT:
-                    "Signal emitted by the neck after completing its forward movement phase. Used to synchronise neck motion with the broader gait cycle.",
-                L_NECK_BTOF_REACT:
-                    "Neck listener value for starting its recovery movement phase when a matching signal is received. Pairs with L_NECK_BTOF_EVENT.",
-                BREAK_FORCE:
-                    "Controls stamina drain rate. Higher values make the horse tire faster. T/G give 0, effectively meaning the horse never needs rest.",
-                MUSCLE_USE:
-                    "Global body-wide force multiplier used throughout movement physics. Higher values give more power but can also make motion more erratic. C/G give maximum output.",
-                STIFF_JOINTS:
-                    "Reduces joint flexibility. Higher values restrict range of motion and make movement stiffer. Likely interacts visibly with the various limb, neck, and tail flexibility genes.",
-                OSTODERM:
-                    "Adds bony skin plates/osteoderms. Primarily visual based on current evidence, likely toggling plate style or prominence. Related to OSTO_SIZE, which appears to control their scale.",
-                TAIL_BOTTOM:
-                    "Controls tail attachment position visually, but also appears to serve as an important internal structural anchor/sentinel in game data.",
-                NECK_STIFF:
-                    "Disables neck flexibility. When active, the neck behaves rigidly and the head does not swing or bob during locomotion. Likely overrides or suppresses the effect of NECK_FLEXIBILITY and related neck motion genes.",
-                GUT_IS_UDDER:
-                    "Transforms the body mesh into an udder-like shape by offsetting ventral geometry. Visual effect only.",
-                GIANT_DWARF:
-                    "Applies a body scale preset: dwarf, normal, or giant. Multiplies overall size rather than replacing it. Likely stacks with other body proportion genes such as SIZE, ASPECT, and CHEST_SMALL / CHEST_BIG.",
-                WHITE: "Activates white coat expression. If WHITE_IS_LETHAL is also active, white foals may die at birth. This is the main gene that exposes the lethal-white interaction.",
-                AGOUTI: "Restricts pigment to the extremities, producing a bay-like pattern with darker points and lighter body/belly regions. Acts on the expressed coat colours rather than replacing them outright.",
-                COON_EYE:
-                    "Applies a dark eye-mask marking. Higher values strengthen the mask.",
-                EAR_COMP:
-                    "Applies alternate/complementary colour to the ears. Lower active values affect tips; higher values can recolour the full ear.",
-                SWAP_BASE_SPOT:
-                    "Swaps the base coat colour with the spot/pattern colour, inverting the colour distribution. Can combine with SWAP_ALT_SPOT for additional colour remapping.",
-                SWAP_ALT_SPOT:
-                    "Swaps the alternate colour layer with the spot colour layer. Can combine with SWAP_BASE_SPOT for additional colour arrangements and more extreme colour inversions.",
-                OLD_AGE:
-                    "Applies progressive physical degradation over time through visible body-coordinate perturbations. Does not affect retirement age, which is hardcoded. BRAIN_SPASTIC appears to clear or suppress these runtime effects while active. This gene also appears to influence aging or lifespan outcome more broadly than visible deformation alone.",
-                TAIL_ALT:
-                    "Selects between different prebuilt tail meshes. This is a mode selector, not a continuous adjustment. TAIL_SHAPE and TAIL_ASPECT then modify the chosen mesh.",
-                TAIL_SHAPE:
-                    "Controls tail curvature by bending the currently selected tail mesh. Higher values produce a stronger curve. Most directly affects the mesh chosen by TAIL_ALT.",
-                TAIL_ASPECT:
-                    "Controls tail thickness/roundness in cross-section. Lower values make it flatter/thinner; higher values make it thicker/rounder. Applies to the currently selected tail form, likely after TAIL_ALT chooses the mesh.",
-                OSTO_SIZE:
-                    "Controls spike size if dorsal spikes / osteoderms are present. Most relevant when OSTODERM is active. One observed effect is that a G base can make spikes rounded independently of the numeric value.",
-                CHEST_SMALL:
-                    "Affects body size and chest shape. One observed effect is that an A base can give a sloped chest independently of the numeric value. Likely complements or opposes CHEST_BIG depending on expression.",
-                SPEED_FACTOR:
-                    "Primary movement speed multiplier. Higher values produce faster horses; T appears to be the highest-value allele for speed-focused builds.",
-                LEG_STRENGTH:
-                    "Controls leg force output. Higher values increase movement power; C appears to be the highest-value allele for raw leg force. Strong candidate for racing builds when stable locomotion is preserved.",
-                LEG_LENGTH:
-                    "Controls leg length. Higher values increase stride length and can improve speed; T appears to be the highest-value allele for leg length.",
-                HEAD_SIZE:
-                    "Controls head scale. This appears to behave additively, with both allele values summed. Other head shape genes such as HEAD_ASPECT, HEAD_GIANT, and HEAD_SHRUNK then further modify the result.",
-                EYE_STYLE:
-                    "Selects eye type/style variant. Treated as a discrete style selector rather than a continuous physical parameter.",
-                BUGEYE: "Controls eye protrusion. Higher values result in more bulging eyes. Likely combines visually with EYE_SIZE and EYE_STYLE.",
-                EYE_SIZE:
-                    "Controls eye size. This appears to behave additively, with both allele values summed. Likely combines with BUGEYE and EYE_STYLE for the final look.",
-                PUPIL_SIZE:
-                    "Controls pupil diameter. Higher values produce larger pupils. Most visible when a pupil is present and the eye style supports it.",
-                LEG_IS_CIRCLE:
-                    "Changes the leg geometry into a circular form rather than a conventional limb shape. It appears to be part of the structural setup used for wheel-like builds, rather than a simple cosmetic toggle.",
-                FOOT_IS_CIRCLE:
-                    "Changes the foot geometry into a circular form rather than a normal foot or hoof-like end. It appears to be part of the structural setup used for wheel-like builds, rather than a simple cosmetic toggle.",
-                HAS_MOUTH:
-                    "Controls whether a mouth exists. Disabling the mouth may also disable or bypass the normal feeding requirement. This suggests the gene affects both visible anatomy and feeding capability.",
-                TEETH_SHAPE:
-                    "Selects tooth form/style. This gene may also affect whether the horse behaves more like a herbivore, carnivore, or omnivore, in addition to visible tooth shape.",
-                LEG_COUNT:
-                    "Controls number of legs. A appears to be the high-leg-count setting used for seven-legged builds.",
-                HEAD_ASPECT:
-                    "Controls the aspect ratio of the head (width vs height scaling). Works alongside HEAD_SIZE to determine final head proportions.",
-                HEAD_GIANT:
-                    "Applies an additional scaling factor to increase head size beyond normal proportions. Likely stacks multiplicatively or additively with HEAD_SIZE.",
-                HEAD_SHRUNK:
-                    "Applies an additional scaling factor to reduce head size below normal proportions. Likely stacks with HEAD_SIZE as a secondary modifier.",
-                HEAD_X_GROWTH:
-                    "Applies directional scaling along the horizontal (X) axis of the head. Positive values widen the head, negative values narrow it.",
-                HEAD_Y_GROWTH:
-                    "Applies directional scaling along the vertical (Y) axis of the head. Positive values increase height, negative values compress it.",
-                HEAD_SQUARE:
-                    "Biases the head shape toward a more square or block-like form. Likely modifies proportions after HEAD_ASPECT is applied.",
-                HEAD_HAS_BACK:
-                    "Controls whether the rear portion of the head mesh is present or extended. Likely toggles or modifies back-of-head geometry.",
-                HEAD_CHIMERA:
-                    "Enables mixed or blended head structure. Likely combines or interpolates between multiple head configurations, producing unusual or asymmetrical results.",
-                EYEBOX_X:
-                    "Controls horizontal offset/spacing of the eye sockets relative to the head center. Higher values likely move eyes further apart.",
-                EYEBOX_Y:
-                    "Controls vertical offset of the eye sockets. Higher values raise or lower eye placement on the head.",
-                EYEBOX_SIZE:
-                    "Controls the size of the eye socket region that contains the eyes. Works alongside EYE_SIZE to determine final eye appearance.",
-                HAS_PUPIL:
-                    "Toggles whether pupils are rendered inside the eyes. When disabled, eyes may appear flat or stylised regardless of PUPIL_SIZE.",
-                BROW_SIZE:
-                    "Controls the size or prominence of the brow ridge above the eyes. Larger values produce heavier or more pronounced brows.",
-                BROW_SLANT:
-                    "Controls the angle of the brow ridge. Positive or negative values tilt the brows, affecting perceived expression (e.g. aggressive or relaxed).",
-                EYE_HUE:
-                    "Controls primary eye colour. Likely selects from a palette or applies a hue shift rather than a continuous RGB value.",
-                EAR_STYLE:
-                    "Selects discrete ear type/style. Acts as a mesh or structural selector rather than a continuous modifier.",
-                EAR_SHAPE:
-                    "Controls general ear form within the selected style (e.g. rounded vs pointed). Works alongside EAR_STYLE.",
-                EAR_SIZE:
-                    "Controls overall ear scale. Larger values produce bigger ears relative to the head.",
-                EAR_ASPECT:
-                    "Controls ear aspect ratio (height vs width). Higher values may produce taller or thinner ears depending on implementation.",
-                EAR_SLANT:
-                    "Controls the angle/tilt of the ears relative to the head. Affects posture and silhouette.",
-                EAR_INTERIOR:
-                    "Controls the appearance or presence of inner ear detail. Likely affects colour or geometry of the inner ear region.",
-                EAR_FLOP:
-                    "Controls how much the ears droop or flop downward. Higher values produce more pronounced floppy ears.",
-                NECK_FLEXIBILITY:
-                    "Controls how freely the neck can bend during movement. Higher values allow greater motion range; interacts with NECK_STIFF.",
-                NECK_FLEX_BIAS:
-                    "Applies directional bias to neck bending. Determines preferred direction or resting angle when flexing.",
-                ARM_FLEXIBILITY:
-                    "Controls how freely the arms/front limbs can bend. Higher values increase range of motion.",
-                ARM_FLEX_BIAS:
-                    "Applies directional bias to arm bending. Influences default bend direction or resting pose.",
-                LEG_FLEXIBILITY:
-                    "Controls how freely the legs can bend during locomotion. Higher values allow wider movement arcs.",
-                LEG_FLEX_BIAS:
-                    "Applies directional bias to leg bending. Affects gait shape and preferred joint orientation.",
-                TAIL_FLEXIBILITY:
-                    "Controls how freely the tail can bend and deform. Higher values produce more fluid or exaggerated motion.",
-                TAIL_STIFF:
-                    "Binary or low-range modifier that reduces or disables tail flexibility. Likely overrides or clamps TAIL_FLEXIBILITY.",
-                TAIL_SPEED:
-                    "Controls how quickly the tail moves or oscillates. Higher values increase animation speed or responsiveness.",
-                ARM_STRETCH:
-                    "Applies scaling/stretching to arm length beyond base ARM_LENGTH. Likely used for exaggerated or stylised proportions.",
-                LEG_STRETCH:
-                    "Applies scaling/stretching to leg length beyond base LEG_LENGTH. Similar role to ARM_STRETCH for legs.",
-                ARM_SKEW:
-                    "Applies angular or positional skew to arms, offsetting them from their default alignment.",
-                LEG_SKEW:
-                    "Applies angular or positional skew to legs, affecting stance and gait alignment.",
-                ARM_NODE_SCALE:
-                    "Controls scaling of internal arm segments/nodes. Likely affects thickness or segment proportions rather than total length.",
-                LEG_TYPE:
-                    "Selects leg structural type or configuration. Likely determines base rig or topology before other modifiers are applied.",
-                ARM_TYPE:
-                    "Selects arm structural type or configuration. Works similarly to LEG_TYPE for front limbs.",
-                HAS_FOOT:
-                    "Toggles whether feet are present on limbs. When disabled, limbs may terminate differently or use alternate geometry.",
-                FOOT_SIZE:
-                    "Controls overall size of the feet. Works alongside FOOT_THICKNESS and FOOT_TOE.",
-                FOOT_THICKNESS:
-                    "Controls how thick or bulky the feet are. Higher values produce chunkier feet.",
-                FOOT_TOE:
-                    "Controls toe size or count influence. Likely affects toe prominence or distribution rather than exact count.",
-                FOOT_BACKWARDS:
-                    "Reverses or flips foot orientation. Can produce backwards-facing feet.",
-                HAS_HAND:
-                    "Toggles whether hands are present on arms. Similar to HAS_FOOT but for upper limbs.",
-                HAND_WIDTH:
-                    "Controls horizontal size of hands. Higher values produce wider hands.",
-                HAND_LENGTH:
-                    "Controls vertical/forward size of hands. Higher values produce longer hands.",
-                HAND_FINGER:
-                    "Controls finger length, count influence, or prominence. Likely affects how distinct or extended fingers appear.",
-                SKIN_HANDS:
-                    "Controls whether hands use skin-like rendering instead of alternate materials (e.g. hooves or claws).",
-                SKIN_HEAD:
-                    "Controls whether the head uses skin-like rendering/material. Likely affects shading or texture selection.",
-                BASE_BROWN:
-                    "Controls contribution of brown pigment to the base coat colour. Works with other BASE_* genes.",
-                BASE_BLACK:
-                    "Controls contribution of black pigment to the base coat colour. Works with other BASE_* genes.",
-                BASE_RED:
-                    "Controls contribution of red pigment to the base coat colour. Works with other BASE_* genes.",
-                BASE_GREEN:
-                    "Controls contribution of green pigment to the base coat colour. Unusual biologically, but used for stylised colouring.",
-                GREEN_KNOCKOUT:
-                    "Suppresses or removes green pigment from the final coat colour, even if BASE_GREEN is active.",
-                BASE_CREAM:
-                    "Adds or blends cream/light pigment into the base coat colour. Likely lightens overall appearance.",
-                ALT_BLUE:
-                    "Controls contribution of blue tint in alternate/secondary colour layers.",
-                SPOT_YELLOW:
-                    "Controls yellow pigmentation in spot/pattern regions rather than the base coat.",
-                SKIN_HUE:
-                    "Controls primary skin colour hue. Likely used for exposed skin regions (e.g. nose, inner ears).",
-                SKIN_HUE2:
-                    "Controls secondary or alternate skin hue layer. Can blend or override SKIN_HUE depending on configuration.",
-                NOSE_HUE:
-                    "Controls nose colour independently of overall skin tone.",
-                HOOF_COLOR:
-                    "Controls colour of hooves or hoof-like structures.",
-                PAT_SPLIT:
-                    "Controls split between different colour regions (e.g. top vs bottom or left vs right). Higher values increase separation.",
-                PAT_STRIPE:
-                    "Controls stripe pattern intensity or presence across the body.",
-                PAT_SPOT:
-                    "Controls spot pattern intensity or presence across the body.",
-                PAT_PERLIN:
-                    "Applies noise-based patterning (Perlin-like) to the coat. Produces organic/randomised markings.",
-                PAT_PERLIN2:
-                    "Secondary noise layer for patterning. Can combine with PAT_PERLIN for more complex textures.",
-                PAT_PERLIN_SIZE:
-                    "Controls scale of Perlin noise patterns. Higher values produce larger, smoother patches; lower values produce finer detail.",
-                TAIL_JOINT_TYPE:
-                    "Selects the joint type used for the tail. Likely determines how the tail bends (e.g. hinge vs multi-axis), similar to LEG_JOINT_TYPE and ARM_JOINT_TYPE.",
-                LEG_JOINT_TYPE:
-                    "Selects the joint type used for legs. Determines how legs articulate during movement (e.g. hinge vs more flexible joints). Works with HAS_KNEE, KNEE_MIN, and KNEE_MAX.",
-                ARM_JOINT_TYPE:
-                    "Selects the joint type used for arms/front limbs. Determines how arms articulate, similar to LEG_JOINT_TYPE.",
-                NECK_JOINT_TYPE:
-                    "Selects the joint type used for the neck. Controls how the neck bends and rotates. Works alongside NECK_FLEXIBILITY and NECK_STIFF.",
-                HEAD_JOINTED:
-                    "Controls whether the head is attached via a joint or rigidly fixed to the neck. When enabled, the head can rotate independently.",
-                HAS_KNEE:
-                    "Toggles the presence of a knee joint in legs. When disabled, legs likely behave as single rigid segments.",
-                KNEE_MIN:
-                    "Controls the minimum angle limit of the knee joint. Defines how far the knee can bend inward.",
-                KNEE_MAX:
-                    "Controls the maximum angle limit of the knee joint. Defines how far the knee can extend outward.",
-                HAS_ELBOW:
-                    "Toggles the presence of an elbow joint in arms/front limbs. Similar role to HAS_KNEE for legs.",
-                ELBOW_RANGE:
-                    "Controls the angular range of the elbow joint. Higher values allow greater bending freedom.",
-                BIPED: "Enables bipedal locomotion mode. Works alongside QUADRUPED and limb configuration genes.",
-                QUADRUPED:
-                    "Enables quadrupedal locomotion mode. Works alongside BIPED and limb configuration genes.",
-                TAIL_EXISTS:
-                    "Controls whether a tail is present. When disabled, no tail geometry is rendered regardless of other tail settings.",
-                LEG_HAS_FOOT:
-                    "Controls whether legs terminate with feet. Similar to HAS_FOOT but applied at the leg-structure level.",
-                ARM_HAS_HAND:
-                    "Controls whether arms terminate with hands. Similar to HAS_HAND but applied at the arm-structure level.",
-                FOOT_IS_HOOF:
-                    "Switches foot geometry to hoof-like structures instead of toes or pads.",
-                UPARM_Y:
-                    "Controls vertical placement of upper arms relative to the body. Higher values move arms upward along the torso.",
-                EAR_X: "Controls horizontal placement of ears relative to the head center. Higher values move ears further apart or outward.",
-                LEG_TAG:
-                    "Selects the leg style/type preset. Changing it swaps the leg structure between different built-in forms, such as wheels, horse legs, and other limb archetypes.",
-                ARM_TAG:
-                    "Selects the arm/front-limb style/type preset. Likely swaps the arm structure between different built-in limb archetypes in the same way as LEG_TAG.",
-                NECK_TAG:
-                    "Selects the neck style/type preset. Likely switches between different built-in neck structures or attachment forms.",
-                TAIL_TAG:
-                    "Selects the tail style/type preset. Likely switches between different built-in tail structures before size and shape modifiers are applied.",
-                UPARM_TAG:
-                    "Selects the upper-arm style/type preset. Likely changes the structure or attachment form of the upper arm segment.",
-            };
-
             const GENES = {
                 SIZE: { m: 95, s: 100, g: [100, 50, 35, 75], cat: "Body" },
-                ASPECT: { m: 95, s: 100, g: [200, 310, 150, 250], cat: "Body" },
-                SKINNY: { m: 100, s: 100, g: [100, 200, 100, 75], cat: "Body" },
-                BONES: { m: 95, s: 100, g: [0, -14, 14, 0], cat: "Body" },
-                BONES2: { m: 60, s: 100, g: [0, 16, -16, 0], cat: "Body" },
+                BONES: { m: 95, s: 100, g: [14, 0, -14, 0], cat: "Body" },
+                BONES2: { m: 60, s: 100, g: [0, 0, -16, 16], cat: "Body" },
+                OSTODERM: { m: 100, s: 1, g: [0, 1, 2, 1], cat: "Body" },
+                OSTO_SIZE: { m: 100, s: 100, g: [15, 30, 45, 30], cat: "Body" },
+                GIANT_DWARF: {
+                    m: 100,
+                    s: 100,
+                    g: [66, 100, 133, 100],
+                    cat: "Body",
+                },
+                TAIL_BOTTOM: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Tail" },
+                LEG_STRETCH2: {
+                    m: 100,
+                    s: 100,
+                    g: [0, -16, 16, 0],
+                    cat: "Legs",
+                },
+                ARM_STRETCH2: {
+                    m: 100,
+                    s: 100,
+                    g: [16, 0, -16, 0],
+                    cat: "Arms",
+                },
+                HEAD_THICK_SKULL: {
+                    m: 100,
+                    s: 100,
+                    g: [0, 0, 0, 20],
+                    cat: "Head",
+                },
+                NECK_STIFF: { m: 100, s: 1, g: [1, 0, 0, 1], cat: "Neck" },
+                GUT: { m: 100, s: 100, g: [45, 0, 0, 25], cat: "Body" },
+                GUT_IS_UDDER: { m: 100, s: 1, g: [0, 2, 1, 0], cat: "Body" },
+                DERRIERE: { m: 85, s: 100, g: [10, 40, 0, 70], cat: "Body" },
+                LEG_IS_CIRCLE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Legs" },
+                FOOT_IS_CIRCLE: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Feet" },
+                TONGUE: { m: 100, s: 100, g: [60, 0, 0, 40], cat: "Mouth" },
+                TONGUE_SEGS: { m: 100, s: 1, g: [0, 0, 1, 2], cat: "Mouth" },
+                BELLY_ALT: { m: 100, s: 1, g: [1, 0, 2, 1], cat: "Color" },
+                PAT_BELLY: {
+                    m: 100,
+                    s: 100,
+                    g: [100, 33, 50, 75],
+                    cat: "Pattern",
+                },
+                LITTER_SIZE: { m: 100, s: 1, g: [3, 2, 1, 5], cat: "Behavior" },
+                OLD_AGE: { m: 100, s: 1, g: [0, 0, -1, 2], cat: "Behavior" },
+                OMNIVORE: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Behavior" },
+                LIMP: { m: 100, s: 1, g: [0, 0, 2, 1], cat: "Behavior" },
+                MUSCLE_USE: {
+                    m: 100,
+                    s: 100,
+                    g: [80, 50, 100, 100],
+                    cat: "Body",
+                },
+                TAIL_STIFF: { m: 100, s: 1, g: [0, 1, 1, 0], cat: "Tail" },
+                LEG_FLEXIBILITY: {
+                    m: 80,
+                    s: 1,
+                    g: [50, 20, 40, 30],
+                    cat: "Legs",
+                },
+                LEG_FLEX_BIAS: {
+                    m: 100,
+                    s: 1,
+                    g: [10, -10, 15, 20],
+                    cat: "Legs",
+                },
+                TAIL_FLEXIBILITY: {
+                    m: 100,
+                    s: 1,
+                    g: [45, 90, 15, 135],
+                    cat: "Tail",
+                },
+                TAIL_SPEED: { m: 100, s: 10, g: [60, 0, 200, 60], cat: "Tail" },
+                LEG_AND_ARM_LIMP: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 0, 1, 0],
+                    cat: "Legs",
+                },
+                ARM_STRENGTH: {
+                    m: 60,
+                    s: 100,
+                    g: [95, 120, 80, 104],
+                    cat: "Arms",
+                },
+                ARM_FLEXIBILITY: {
+                    m: 100,
+                    s: 1,
+                    g: [30, 40, 20, 30],
+                    cat: "Arms",
+                },
+                ARM_FLEX_BIAS: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 10, 20, 15],
+                    cat: "Arms",
+                },
+                NECK_FLEXIBILITY: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 10, 40, 23],
+                    cat: "Neck",
+                },
+                NECK_FLEX_BIAS: {
+                    m: 100,
+                    s: 1,
+                    g: [0, -25, 30, -8],
+                    cat: "Neck",
+                },
+                BRAIN_SPASTIC: {
+                    m: 100,
+                    s: 1,
+                    g: [2, 0, 0, 1],
+                    cat: "Locomotion",
+                },
+                SPLAY: { m: 100, s: 1, g: [0, -5, 10, 45], cat: "Legs" },
+                LEG_IN: { m: 50, s: 100, g: [6, 0, 0, 18], cat: "Legs" },
+                LEG_IN2: { m: 100, s: 100, g: [0, 1, 0, 13], cat: "Legs" },
+                TAIL_ANGLE: { m: 100, s: 1, g: [135, 60, 90, 45], cat: "Tail" },
+                TAIL_JOINT_TYPE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Tail" },
+                LEG_JOINT_TYPE: { m: 100, s: 1, g: [0, 2, 0, 1], cat: "Legs" },
+                HAS_KNEE: { m: 100, s: 1, g: [0, 0, 1, 0], cat: "Legs" },
+                KNEE_MIN: { m: 100, s: 1, g: [-15, 0, 0, -90], cat: "Legs" },
+                KNEE_MAX: { m: 100, s: 1, g: [90, 20, 20, 45], cat: "Legs" },
+                ARM_JOINT_TYPE: { m: 100, s: 1, g: [0, 2, 1, 0], cat: "Arms" },
+                HAS_ELBOW: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Arms" },
+                ELBOW_RANGE: { m: 100, s: 1, g: [10, 90, 30, 30], cat: "Arms" },
+                NECK_JOINT_TYPE: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Neck" },
+                HEAD_JOINTED: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Head" },
+                STIFF_JOINTS: {
+                    m: 100,
+                    s: 100,
+                    g: [50, 0, 0, 18],
+                    cat: "Legs",
+                },
+                LEG_TAG: { m: 100, s: 1, g: [1, 2, 3, 4], cat: "Legs" },
+                LEG_HAS_FOOT: { m: 100, s: 1, g: [1, 0, 0, 1], cat: "Legs" },
+                LEG_COUNT: { m: 100, s: 1, g: [7, 2, 1, 1], cat: "Legs" },
+                LEG_THRUST_BACK: { m: 100, s: 1, g: [2, 0, 1, 0], cat: "Legs" },
+                ARM_TAG: { m: 100, s: 1, g: [4, 2, 3, 1], cat: "Arms" },
+                ARM_HAS_HAND: { m: 100, s: 1, g: [0, 1, 1, 0], cat: "Arms" },
+                NECK_TAG: { m: 100, s: 1, g: [4, 1, 2, 3], cat: "Neck" },
+                NECK_SLOUCH: { m: 60, s: 100, g: [0, 50, 0, 20], cat: "Neck" },
+                NECK_ONTOP: { m: 100, s: 100, g: [20, 50, 70, 0], cat: "Neck" },
+                BREAK_FORCE: {
+                    m: 100,
+                    s: 10,
+                    g: [50, 0, 30, 0],
+                    cat: "Locomotion",
+                },
+                EAR_X: { m: 90, s: 100, g: [100, 0, 0, 50], cat: "Face" },
+                QUADRUPED: { m: 100, s: 1, g: [1, 0, 1, 0], cat: "Locomotion" },
+                BIPED: { m: 100, s: 1, g: [1, 0, 1, 0], cat: "Locomotion" },
+                UPARM_TAG: { m: 100, s: 1, g: [0, 2, 1, 4], cat: "Arms" },
+                UPARM_Y: { m: 80, s: 100, g: [30, 10, 30, 50], cat: "Arms" },
+                UPARM_GOOFY: { m: 100, s: 1, g: [0, 3, 1, 2], cat: "Arms" },
+                ARM_FORWARD: { m: 100, s: 1, g: [40, 0, -20, 60], cat: "Arms" },
+                UPARM_ANGLE: {
+                    m: 100,
+                    s: 1,
+                    g: [-30, -45, 30, 0],
+                    cat: "Arms",
+                },
+                WHITE_IS_LETHAL: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 0, 0, 1],
+                    cat: "Color",
+                },
+                ASPECT: { m: 95, s: 100, g: [150, 250, 310, 200], cat: "Body" },
+                SKINNY: { m: 100, s: 100, g: [200, 75, 100, 100], cat: "Body" },
                 CHEST_BIG: {
                     m: 100,
                     s: 100,
@@ -1154,553 +811,368 @@
                 CHEST_SMALL: {
                     m: 100,
                     s: 100,
-                    g: [95, 100, 90, 95],
+                    g: [95, 90, 100, 95],
                     cat: "Body",
                 },
-                GIANT_DWARF: {
+                NECK_TYPE: { m: 100, s: 1, g: [1, 1, 2, 0], cat: "Neck" },
+                NECK_LENGTH: {
+                    m: 90,
+                    s: 100,
+                    g: [60, 70, 30, 90],
+                    cat: "Neck",
+                },
+                NECK_GIRAFFE: {
+                    m: 90,
+                    s: 100,
+                    g: [85, 110, 0, 120],
+                    cat: "Neck",
+                },
+                NECK_THICKNESS: {
+                    m: 60,
+                    s: 100,
+                    g: [80, 120, 95, 110],
+                    cat: "Neck",
+                },
+                NECK_ANGLE: { m: 90, s: 1, g: [30, 45, 60, 75], cat: "Neck" },
+                NECK_COCK: { m: 100, s: 1, g: [20, -25, 0, 30], cat: "Neck" },
+                TAIL_TAG: { m: 100, s: 1, g: [4, 3, 1, 2], cat: "Tail" },
+                TAIL_EXISTS: { m: 100, s: 1, g: [1, 2, 0, 1], cat: "Tail" },
+                TAIL_SIZE: {
+                    m: 60,
+                    s: 100,
+                    g: [120, 140, 80, 100],
+                    cat: "Tail",
+                },
+                TAIL_SHORT: {
                     m: 100,
                     s: 100,
-                    g: [100, 66, 133, 100],
-                    cat: "Body",
+                    g: [50, 100, 100, 35],
+                    cat: "Tail",
                 },
-                MUSCLE_USE: {
-                    m: 100,
+                TAIL_ASPECT: {
+                    m: 90,
                     s: 100,
-                    g: [100, 50, 80, 100],
-                    cat: "Body",
+                    g: [20, 20, 30, 10],
+                    cat: "Tail",
                 },
-                GUT: { m: 100, s: 100, g: [0, 25, 45, 0], cat: "Body" },
-                GUT_IS_UDDER: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Body" },
-                DERRIERE: { m: 85, s: 100, g: [0, 40, 70, 10], cat: "Body" },
-                OSTODERM: { m: 100, s: 1, g: [1, 0, 1, 2], cat: "Body" },
-                OSTO_SIZE: { m: 100, s: 100, g: [30, 15, 45, 30], cat: "Body" },
-                SPLAY: { m: 100, s: 1, g: [0, 10, -5, 45], cat: "Legs" },
-                LEG_IN: { m: 50, s: 100, g: [0, 18, 6, 0], cat: "Legs" },
-                LEG_IN2: { m: 100, s: 100, g: [0, 13, 0, 1], cat: "Legs" },
-                LEG_TAG: { m: 100, s: 1, g: [1, 2, 4, 3], cat: "Legs" },
-                LEG_TYPE: { m: 100, s: 1, g: [1, 2, 0, 1], cat: "Legs" },
+                TAIL_SHAPE: { m: 100, s: 1, g: [2, 5, 6, 1], cat: "Tail" },
+                TAIL_SEGMENTS: { m: 100, s: 1, g: [5, 0, 3, 3], cat: "Tail" },
+                TAIL_WAG: { m: 100, s: 1, g: [0, 0, 1, 0], cat: "Tail" },
+                LEG_TYPE: { m: 100, s: 1, g: [2, 1, 0, 1], cat: "Legs" },
                 LEG_LENGTH: {
                     m: 90,
                     s: 100,
-                    g: [80, 50, 120, 100],
+                    g: [50, 120, 80, 100],
                     cat: "Legs",
                 },
-                LEG_STRETCH: { m: 60, s: 100, g: [0, 14, -14, 0], cat: "Legs" },
-                LEG_STRETCH2: {
-                    m: 100,
-                    s: 100,
-                    g: [0, -16, 16, 0],
-                    cat: "Legs",
-                },
+                LEG_STRETCH: { m: 60, s: 100, g: [14, 0, -14, 0], cat: "Legs" },
+                LEG_SKEW: { m: 60, s: 100, g: [0, 0, 24, -16], cat: "Legs" },
                 LEG_STRENGTH: {
                     m: 60,
                     s: 100,
-                    g: [95, 120, 80, 104],
+                    g: [104, 80, 120, 95],
                     cat: "Legs",
                 },
-                LEG_HAS_FOOT: { m: 100, s: 1, g: [1, 1, 0, 0], cat: "Legs" },
-                LEG_JOINT_TYPE: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Legs" },
-                LEG_FLEXIBILITY: {
-                    m: 80,
-                    s: 1,
-                    g: [30, 20, 40, 50],
-                    cat: "Legs",
-                },
-                LEG_FLEX_BIAS: {
-                    m: 100,
-                    s: 1,
-                    g: [15, 20, 10, -10],
-                    cat: "Legs",
-                },
-                LEG_THRUST_BACK: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Legs" },
-                LEG_IS_CIRCLE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Legs" },
-                LEG_COUNT: { m: 100, s: 1, g: [1, 1, 2, 7], cat: "Legs" },
-                LEG_SKEW: { m: 60, s: 100, g: [0, 24, -16, 0], cat: "Legs" },
                 LEG_PENCIL: { m: 100, s: 100, g: [0, 10, 0, 0], cat: "Legs" },
-                LEG_AND_ARM_LIMP: {
-                    m: 100,
-                    s: 1,
-                    g: [0, 0, 0, 1],
-                    cat: "Legs",
-                },
-                HAS_KNEE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Legs" },
-                KNEE_MIN: { m: 100, s: 1, g: [0, -90, -15, 0], cat: "Legs" },
-                KNEE_MAX: { m: 100, s: 1, g: [20, 90, 45, 20], cat: "Legs" },
-                STIFF_JOINTS: {
-                    m: 100,
-                    s: 100,
-                    g: [0, 18, 50, 0],
-                    cat: "Legs",
-                },
-                QUADRUPED: { m: 100, s: 1, g: [1, 0, 1, 0], cat: "Locomotion" },
-                BIPED: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Locomotion" },
-                SPEED_FACTOR: {
-                    m: 75,
-                    s: 100,
-                    g: [54, 133, 30, 100],
-                    cat: "Locomotion",
-                },
-                BREAK_FORCE: {
-                    m: 100,
-                    s: 10,
-                    g: [0, 50, 0, 30],
-                    cat: "Locomotion",
-                },
-                SPINAL_LOCO: {
-                    m: 100,
-                    s: 1,
-                    g: [0, 1, 0, 2],
-                    cat: "Locomotion",
-                },
-                LOCO_SYNC: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Locomotion" },
-                RAMPAGE: { m: 100, s: 1, g: [0, 0, 0, 1], cat: "Locomotion" },
-                BRAIN_SPASTIC: {
-                    m: 100,
-                    s: 1,
-                    g: [0, 1, 2, 0],
-                    cat: "Locomotion",
-                },
-                NARCOLEPSY: {
-                    m: 100,
-                    s: 1,
-                    g: [0, 0, 1, 0],
-                    cat: "Locomotion",
-                },
-                ARM_TAG: { m: 100, s: 1, g: [1, 2, 4, 3], cat: "Arms" },
-                ARM_TYPE: { m: 100, s: 1, g: [1, 2, 0, 0], cat: "Arms" },
+                ARM_TYPE: { m: 100, s: 1, g: [0, 0, 1, 2], cat: "Arms" },
                 ARM_LENGTH: {
                     m: 90,
                     s: 100,
                     g: [80, 50, 120, 25],
                     cat: "Arms",
                 },
-                ARM_STRETCH: { m: 60, s: 100, g: [0, 14, -14, 0], cat: "Arms" },
-                ARM_STRETCH2: {
-                    m: 100,
-                    s: 100,
-                    g: [0, -16, 16, 0],
-                    cat: "Arms",
-                },
-                ARM_STRENGTH: {
-                    m: 60,
-                    s: 100,
-                    g: [95, 120, 80, 104],
-                    cat: "Arms",
-                },
-                ARM_HAS_HAND: { m: 100, s: 1, g: [1, 0, 1, 0], cat: "Arms" },
-                ARM_JOINT_TYPE: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Arms" },
-                ARM_FLEXIBILITY: {
-                    m: 100,
-                    s: 1,
-                    g: [30, 20, 40, 30],
-                    cat: "Arms",
-                },
-                ARM_FLEX_BIAS: {
-                    m: 100,
-                    s: 1,
-                    g: [15, 20, 10, 0],
-                    cat: "Arms",
-                },
-                ARM_FORWARD: { m: 100, s: 1, g: [-20, 0, 60, 40], cat: "Arms" },
-                ARM_SKEW: { m: 100, s: 100, g: [0, 20, -20, 0], cat: "Arms" },
+                ARM_STRETCH: { m: 60, s: 100, g: [14, 0, -14, 0], cat: "Arms" },
+                ARM_SKEW: { m: 100, s: 100, g: [0, 0, 20, -20], cat: "Arms" },
                 ARM_NODE_SCALE: {
                     m: 50,
                     s: 100,
-                    g: [100, 70, 130, 100],
+                    g: [100, 70, 100, 130],
                     cat: "Arms",
                 },
-                HAS_ELBOW: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Arms" },
-                ELBOW_RANGE: { m: 100, s: 1, g: [30, 90, 10, 30], cat: "Arms" },
-                UPARM_TAG: { m: 100, s: 1, g: [0, 2, 1, 4], cat: "Arms" },
-                UPARM_Y: { m: 80, s: 100, g: [30, 10, 30, 50], cat: "Arms" },
-                UPARM_ANGLE: {
-                    m: 100,
-                    s: 1,
-                    g: [0, 30, -30, -45],
-                    cat: "Arms",
-                },
-                UPARM_GOOFY: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Arms" },
-                NECK_TAG: { m: 100, s: 1, g: [4, 3, 1, 2], cat: "Neck" },
-                NECK_TYPE: { m: 100, s: 1, g: [1, 1, 2, 0], cat: "Neck" },
-                NECK_LENGTH: {
-                    m: 90,
-                    s: 100,
-                    g: [60, 70, 90, 30],
-                    cat: "Neck",
-                },
-                NECK_GIRAFFE: {
-                    m: 90,
-                    s: 100,
-                    g: [110, 0, 85, 120],
-                    cat: "Neck",
-                },
-                NECK_THICKNESS: {
-                    m: 60,
-                    s: 100,
-                    g: [95, 110, 120, 80],
-                    cat: "Neck",
-                },
-                NECK_ANGLE: { m: 90, s: 1, g: [45, 30, 60, 75], cat: "Neck" },
-                NECK_COCK: { m: 100, s: 1, g: [0, 30, 20, -25], cat: "Neck" },
-                NECK_JOINT_TYPE: { m: 100, s: 1, g: [1, 0, 2, 0], cat: "Neck" },
-                NECK_FLEXIBILITY: {
-                    m: 100,
-                    s: 1,
-                    g: [23, 10, 40, 0],
-                    cat: "Neck",
-                },
-                NECK_FLEX_BIAS: {
-                    m: 100,
-                    s: 1,
-                    g: [-8, 0, -25, 30],
-                    cat: "Neck",
-                },
-                NECK_SLOUCH: { m: 60, s: 100, g: [0, 50, 20, 0], cat: "Neck" },
-                NECK_ONTOP: { m: 100, s: 100, g: [0, 50, 70, 20], cat: "Neck" },
-                NECK_STIFF: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Neck" },
-                NECK_SPEED: { m: 100, s: 10, g: [60, 25, 50, 10], cat: "Neck" },
-                TAIL_TAG: { m: 100, s: 1, g: [3, 4, 2, 1], cat: "Tail" },
-                TAIL_EXISTS: { m: 100, s: 1, g: [1, 0, 1, 2], cat: "Tail" },
-                TAIL_SIZE: {
-                    m: 60,
-                    s: 100,
-                    g: [100, 80, 120, 140],
-                    cat: "Tail",
-                },
-                TAIL_SHORT: {
-                    m: 100,
-                    s: 100,
-                    g: [100, 50, 35, 100],
-                    cat: "Tail",
-                },
-                TAIL_ASPECT: {
-                    m: 90,
-                    s: 100,
-                    g: [20, 10, 30, 20],
-                    cat: "Tail",
-                },
-                TAIL_ANGLE: { m: 100, s: 1, g: [45, 90, 135, 60], cat: "Tail" },
-                TAIL_JOINT_TYPE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Tail" },
-                TAIL_STIFF: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Tail" },
-                TAIL_SPEED: { m: 100, s: 10, g: [60, 200, 60, 0], cat: "Tail" },
-                TAIL_FLEXIBILITY: {
-                    m: 100,
-                    s: 1,
-                    g: [135, 90, 45, 15],
-                    cat: "Tail",
-                },
-                TAIL_SHAPE: { m: 100, s: 1, g: [2, 1, 5, 6], cat: "Tail" },
-                TAIL_BOTTOM: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Tail" },
-                TAIL_SEGMENTS: { m: 100, s: 1, g: [3, 0, 3, 5], cat: "Tail" },
-                TAIL_WAG: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Tail" },
-                TAIL_ALT: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Tail" },
-                HAS_FOOT: { m: 100, s: 1, g: [1, 0, 1, 0], cat: "Feet" },
-                FOOT_SIZE: { m: 60, s: 100, g: [0, 20, 12, 30], cat: "Feet" },
+                HAS_FOOT: { m: 100, s: 1, g: [0, 1, 1, 0], cat: "Feet" },
+                FOOT_SIZE: { m: 60, s: 100, g: [12, 20, 30, 0], cat: "Feet" },
                 FOOT_CLOWN: { m: 100, s: 100, g: [0, 30, 0, 0], cat: "Feet" },
                 FOOT_THICKNESS: {
                     m: 80,
                     s: 100,
-                    g: [20, 15, 30, 7],
+                    g: [30, 20, 15, 7],
                     cat: "Feet",
                 },
-                FOOT_TOE: { m: 100, s: 100, g: [100, 0, 50, 100], cat: "Feet" },
-                FOOT_IS_CIRCLE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Feet" },
-                FOOT_BACKWARDS: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Feet" },
-                FOOT_IS_HOOF: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Feet" },
-                HAS_HAND: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Feet" },
-                HAND_WIDTH: { m: 100, s: 100, g: [0, 7, 20, 0], cat: "Feet" },
+                FOOT_TOE: { m: 100, s: 100, g: [100, 100, 50, 0], cat: "Feet" },
+                FOOT_BACKWARDS: { m: 100, s: 1, g: [0, 2, 0, 1], cat: "Feet" },
+                HAS_HAND: { m: 100, s: 1, g: [1, 0, 0, 1], cat: "Feet" },
+                HAND_WIDTH: { m: 100, s: 100, g: [7, 0, 20, 0], cat: "Feet" },
                 HAND_LENGTH: {
                     m: 90,
                     s: 100,
-                    g: [20, 30, 15, 20],
+                    g: [15, 20, 20, 30],
                     cat: "Feet",
                 },
-                HAND_FINGER: { m: 80, s: 100, g: [0, 100, 0, 50], cat: "Feet" },
-                SKIN_HANDS: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Feet" },
+                HAND_FINGER: { m: 80, s: 100, g: [50, 100, 0, 0], cat: "Feet" },
+                SKIN_HANDS: { m: 100, s: 1, g: [0, 2, 1, 0], cat: "Feet" },
                 HEAD_SIZE: {
                     m: 95,
                     s: 100,
-                    g: [100, 50, 133, 75],
-                    cat: "Head",
-                },
-                HEAD_THICK_SKULL: {
-                    m: 100,
-                    s: 100,
-                    g: [0, 20, 0, 0],
+                    g: [75, 133, 50, 100],
                     cat: "Head",
                 },
                 HEAD_X_GROWTH: {
                     m: 100,
                     s: 100,
-                    g: [0, 5, 10, -5],
+                    g: [0, -5, 5, 10],
                     cat: "Head",
                 },
                 HEAD_Y_GROWTH: {
                     m: 100,
                     s: 100,
-                    g: [0, 5, -5, 0],
+                    g: [5, 0, -5, 0],
                     cat: "Head",
                 },
                 HEAD_ASPECT: {
                     m: 85,
                     s: 100,
-                    g: [200, 175, 250, 300],
+                    g: [250, 200, 175, 300],
                     cat: "Head",
                 },
                 HEAD_SQUARE: {
                     m: 100,
                     s: 100,
-                    g: [0, 150, 100, 0],
+                    g: [100, 150, 0, 0],
                     cat: "Head",
                 },
-                HEAD_HAS_BACK: { m: 100, s: 1, g: [11, 0, 0, 1], cat: "Head" },
+                HEAD_HAS_BACK: { m: 100, s: 1, g: [1, 0, 0, 11], cat: "Head" },
                 HEAD_GIANT: {
                     m: 90,
                     s: 100,
-                    g: [100, 200, 180, 100],
+                    g: [180, 200, 100, 100],
                     cat: "Head",
                 },
                 HEAD_SHRUNK: {
                     m: 90,
                     s: 100,
-                    g: [100, 70, 50, 100],
+                    g: [70, 50, 100, 100],
                     cat: "Head",
                 },
-                HEAD_JOINTED: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Head" },
                 HEAD_CHIMERA: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Head" },
-                SKIN_HEAD: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Head" },
-                EYE_STYLE: { m: 100, s: 1, g: [1, 2, 1, 0], cat: "Face" },
-                BUGEYE: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Face" },
-                EYEBOX_X: { m: 90, s: 100, g: [33, 0, 50, 15], cat: "Face" },
+                EYEBOX_X: { m: 90, s: 100, g: [33, 15, 50, 0], cat: "Face" },
                 EYEBOX_Y: {
                     m: 100,
                     s: 100,
-                    g: [-100, 0, -50, -25],
+                    g: [-25, -50, -100, 0],
                     cat: "Face",
                 },
                 EYEBOX_SIZE: {
                     m: 60,
                     s: 100,
-                    g: [25, 15, 33, 50],
+                    g: [25, 15, 50, 33],
                     cat: "Face",
                 },
-                EYE_SIZE: { m: 100, s: 100, g: [50, 75, 125, 50], cat: "Face" },
+                SKIN_HEAD: { m: 100, s: 1, g: [0, 2, 1, 0], cat: "Head" },
+                EYE_STYLE: { m: 100, s: 1, g: [2, 1, 1, 0], cat: "Face" },
+                BUGEYE: { m: 100, s: 1, g: [1, 2, 0, 0], cat: "Face" },
+                EYE_SIZE: { m: 100, s: 100, g: [50, 125, 75, 50], cat: "Face" },
                 PUPIL_SIZE: {
                     m: 100,
                     s: 100,
-                    g: [66, 80, 40, 40],
+                    g: [80, 40, 66, 40],
                     cat: "Face",
                 },
                 HAS_PUPIL: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Face" },
-                BROW_SIZE: { m: 100, s: 100, g: [0, 150, 125, 0], cat: "Face" },
-                BROW_SLANT: { m: 100, s: 1, g: [0, -15, 15, 0], cat: "Face" },
-                EYE_HUE: { m: 100, s: 1, g: [36, 237, 153, 198], cat: "Face" },
-                EAR_STYLE: { m: 100, s: 1, g: [1, 2, 0, 0], cat: "Face" },
-                EAR_SHAPE: { m: 100, s: 1, g: [2, 1, 4, 2], cat: "Face" },
-                EAR_FLOP: { m: 100, s: 1, g: [0, 30, 60, 200], cat: "Face" },
-                EAR_X: { m: 90, s: 100, g: [0, 100, 50, 0], cat: "Face" },
-                EAR_SIZE: { m: 70, s: 100, g: [20, 30, 10, 40], cat: "Face" },
+                BROW_SIZE: { m: 100, s: 100, g: [150, 125, 0, 0], cat: "Face" },
+                BROW_SLANT: { m: 100, s: 1, g: [15, -15, 0, 0], cat: "Face" },
+                EYE_HUE: { m: 100, s: 1, g: [198, 153, 237, 36], cat: "Face" },
+                EAR_STYLE: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Face" },
+                EAR_SHAPE: { m: 100, s: 1, g: [4, 2, 2, 1], cat: "Face" },
+                EAR_SIZE: { m: 70, s: 100, g: [40, 20, 30, 10], cat: "Face" },
                 EAR_ASPECT: {
                     m: 100,
                     s: 100,
                     g: [100, 250, 300, 100],
                     cat: "Face",
                 },
-                EAR_SLANT: { m: 70, s: 100, g: [0, 100, 50, -33], cat: "Face" },
-                EAR_INTERIOR: { m: 100, s: 100, g: [5, 0, 0, 0], cat: "Face" },
-                EAR_COMP: { m: 100, s: 1, g: [0, 0, 2, 1], cat: "Face" },
-                COON_EYE: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Face" },
-                TEETH_SHAPE: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Mouth" },
-                HAS_MOUTH: { m: 100, s: 1, g: [1, 1, 0, 1], cat: "Mouth" },
-                MOUTH_Y: { m: 80, s: 100, g: [70, 84, 50, 100], cat: "Mouth" },
+                EAR_SLANT: { m: 70, s: 100, g: [100, -33, 50, 0], cat: "Face" },
+                EAR_INTERIOR: { m: 100, s: 100, g: [0, 5, 0, 0], cat: "Face" },
+                EAR_FLOP: { m: 100, s: 1, g: [60, 30, 0, 200], cat: "Face" },
+                TEETH_SHAPE: { m: 100, s: 1, g: [3, 0, 1, 2], cat: "Mouth" },
+                HAS_MOUTH: { m: 100, s: 1, g: [1, 1, 1, 0], cat: "Mouth" },
+                MOUTH_Y: { m: 80, s: 100, g: [50, 100, 70, 84], cat: "Mouth" },
                 MOUTH_SIZE: {
                     m: 70,
                     s: 100,
-                    g: [20, 30, 10, 40],
+                    g: [40, 30, 20, 10],
                     cat: "Mouth",
                 },
-                JAW: { m: 50, s: 100, g: [0, 15, -8, -13], cat: "Mouth" },
-                TEETH_UPPER: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Mouth" },
-                TEETH_UPPER2: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Mouth" },
-                TONGUE: { m: 100, s: 100, g: [0, 40, 60, 0], cat: "Mouth" },
-                TONGUE_SEGS: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Mouth" },
-                NOSE_STYLE: { m: 100, s: 1, g: [1, 2, 3, 0], cat: "Mouth" },
-                NOSE_INNY: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Mouth" },
-                NOSE_Y: { m: 90, s: 100, g: [0, 100, 50, 0], cat: "Mouth" },
-                NOSE_SIZE: { m: 70, s: 100, g: [10, 5, 20, 100], cat: "Mouth" },
+                JAW: { m: 50, s: 100, g: [15, -13, 0, -8], cat: "Mouth" },
+                TEETH_UPPER: { m: 100, s: 1, g: [0, 0, 0, 1], cat: "Mouth" },
+                TEETH_UPPER2: { m: 100, s: 1, g: [0, 0, 1, 0], cat: "Mouth" },
+                NOSE_STYLE: { m: 100, s: 1, g: [0, 2, 3, 1], cat: "Mouth" },
+                NOSE_INNY: { m: 100, s: 1, g: [0, 0, 1, 0], cat: "Mouth" },
+                NOSE_Y: { m: 90, s: 100, g: [50, 100, 0, 0], cat: "Mouth" },
+                NOSE_SIZE: { m: 70, s: 100, g: [10, 100, 20, 5], cat: "Mouth" },
                 NOSE_INTERIOR: {
                     m: 100,
                     s: 100,
-                    g: [0, 100, 50, 0],
+                    g: [0, 100, 0, 50],
                     cat: "Mouth",
                 },
-                NOSE_HUE: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Mouth" },
                 FLU_IMMUNITY: { m: 100, s: 1, g: [0, 0, 0, 1], cat: "Mouth" },
                 HAS_ANTLERS: { m: 100, s: 1, g: [1, 0, 1, 1], cat: "Antlers" },
-                ANTLER_X: { m: 100, s: 1, g: [1, 0, 2, 1], cat: "Antlers" },
+                ANTLER_X: { m: 100, s: 1, g: [2, 1, 1, 0], cat: "Antlers" },
                 ANTLER_W: {
                     m: 100,
                     s: 100,
-                    g: [15, 12, 8, 12],
+                    g: [12, 15, 8, 12],
                     cat: "Antlers",
                 },
                 ANTLER_H: {
                     m: 80,
                     s: 100,
-                    g: [65, 45, 100, 25],
+                    g: [45, 65, 100, 25],
                     cat: "Antlers",
                 },
                 ANTLER_TAPER: {
                     m: 100,
                     s: 100,
-                    g: [0, 100, 50, 100],
+                    g: [50, 100, 0, 100],
                     cat: "Antlers",
                 },
                 ANTLER_POM: {
                     m: 100,
                     s: 100,
-                    g: [0, 150, 200, 100],
+                    g: [100, 150, 0, 200],
                     cat: "Antlers",
                 },
-                ANTLER_COLOR: { m: 100, s: 1, g: [2, 8, 1, 3], cat: "Antlers" },
-                POM_COLOR: { m: 100, s: 1, g: [2, 0, 1, 17], cat: "Antlers" },
-                POM_USECOLOR: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Antlers" },
-                ANTLER_REC: { m: 100, s: 1, g: [2, 1, 3, 0], cat: "Antlers" },
-                ANTLER_REC2: { m: 100, s: 1, g: [2, 1, 3, 0], cat: "Antlers" },
-                ANTLER_FLIP: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Antlers" },
-                ANTLER_MOD: { m: 100, s: 1, g: [3, 2, 1, 3], cat: "Antlers" },
+                ANTLER_COLOR: { m: 100, s: 1, g: [2, 3, 8, 1], cat: "Antlers" },
+                POM_COLOR: { m: 100, s: 1, g: [17, 1, 0, 2], cat: "Antlers" },
+                POM_USECOLOR: { m: 100, s: 1, g: [0, 0, 0, 1], cat: "Antlers" },
+                HAT_POM: { m: 100, s: 100, g: [50, 0, 0, 25], cat: "Hat" },
+                HAT_POM_IS_LID: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Hat" },
+                ANTLER_REC: { m: 100, s: 1, g: [1, 2, 0, 3], cat: "Antlers" },
+                ANTLER_REC2: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Antlers" },
+                ANTLER_FLIP: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Antlers" },
+                ANTLER_MOD: { m: 100, s: 1, g: [1, 3, 2, 3], cat: "Antlers" },
                 ANTLER_SCALEH: {
                     m: 80,
                     s: 100,
-                    g: [100, 75, 40, 100],
+                    g: [100, 40, 75, 100],
                     cat: "Antlers",
                 },
                 ANTLER_SCALEW: {
                     m: 100,
                     s: 100,
-                    g: [100, 75, 50, 100],
+                    g: [100, 100, 75, 50],
                     cat: "Antlers",
                 },
                 ANTLER_ANGLE: {
                     m: 100,
                     s: 1,
-                    g: [45, -45, -25, 25],
+                    g: [-45, -25, 25, 45],
                     cat: "Antlers",
                 },
                 ANTLER_ANGLE2: {
                     m: 100,
                     s: 1,
-                    g: [45, -45, 90, -90],
+                    g: [45, 90, -45, -90],
                     cat: "Antlers",
                 },
                 ANTLER_ANGLE_RAND: {
                     m: 100,
                     s: 1,
-                    g: [0, 5, 45, 15],
+                    g: [45, 5, 15, 0],
                     cat: "Antlers",
                 },
                 ANTLER_T1: {
                     m: 100,
                     s: 100,
-                    g: [0, 100, 40, 25],
+                    g: [40, 25, 0, 100],
                     cat: "Antlers",
                 },
                 ANTLER_T2: {
                     m: 100,
                     s: 100,
-                    g: [100, 40, 0, 25],
+                    g: [100, 40, 25, 0],
                     cat: "Antlers",
                 },
                 HAT_EXISTS: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Hat" },
-                HAT_SIZE: { m: 85, s: 100, g: [60, 40, 100, 20], cat: "Hat" },
-                HAT_RAKE: { m: 100, s: 100, g: [0, 25, -15, 0], cat: "Hat" },
+                HAT_SIZE: { m: 85, s: 100, g: [40, 100, 60, 20], cat: "Hat" },
+                HAT_RAKE: { m: 100, s: 100, g: [0, -15, 0, 25], cat: "Hat" },
                 HAT_ASPECT: {
                     m: 85,
                     s: 100,
-                    g: [100, 300, 200, 100],
+                    g: [100, 300, 100, 200],
                     cat: "Hat",
                 },
-                HAT_TAPER: { m: 100, s: 100, g: [0, 100, 50, 0], cat: "Hat" },
-                HAT_POM: { m: 100, s: 100, g: [0, 25, 50, 0], cat: "Hat" },
-                HAT_POM_IS_LID: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Hat" },
-                HAT_CLONE: { m: 100, s: 100, g: [0, 33, 66, 0], cat: "Hat" },
+                HAT_TAPER: { m: 100, s: 100, g: [0, 0, 50, 100], cat: "Hat" },
+                HAT_CLONE: { m: 100, s: 100, g: [0, 66, 0, 33], cat: "Hat" },
                 HAT_BACK_SCALE: {
                     m: 100,
                     s: 100,
-                    g: [100, 0, 60, 100],
+                    g: [0, 100, 100, 60],
                     cat: "Hat",
                 },
                 HAT_FRONT_SCALE: {
                     m: 100,
                     s: 100,
-                    g: [100, 0, 60, 100],
+                    g: [100, 60, 100, 0],
                     cat: "Hat",
                 },
                 HAT_BACK_ANGLE: {
                     m: 75,
                     s: 1,
-                    g: [45, 90, 120, 60],
+                    g: [45, 60, 90, 120],
                     cat: "Hat",
                 },
                 HAT_FRONT_ANGLE: {
                     m: 100,
                     s: 1,
-                    g: [-45, -90, -120, -60],
+                    g: [-120, -60, -45, -90],
                     cat: "Hat",
                 },
                 HAT_ANGLE_RAND: {
                     m: 100,
                     s: 1,
-                    g: [0, 15, 45, 15],
+                    g: [15, 0, 15, 45],
                     cat: "Hat",
                 },
-                HAT_FLIP: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Hat" },
-                HAT_T: { m: 100, s: 100, g: [0, 100, 40, 0], cat: "Hat" },
+                HAT_FLIP: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Hat" },
+                HAT_T: { m: 100, s: 100, g: [40, 100, 0, 0], cat: "Hat" },
                 BASE_BROWN: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Color" },
-                BASE_BLACK: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Color" },
-                BASE_RED: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Color" },
-                BASE_GREEN: { m: 70, s: 1, g: [0, 1, 2, 3], cat: "Color" },
-                GREEN_KNOCKOUT: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Color" },
-                BASE_CREAM: { m: 50, s: 100, g: [0, 100, 0, 0], cat: "Color" },
-                ALT_BLUE: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Color" },
-                SPOT_YELLOW: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Color" },
-                SKIN_HUE: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Color" },
-                SKIN_HUE2: { m: 100, s: 1, g: [0, 1, 2, 3], cat: "Color" },
+                BASE_BLACK: { m: 100, s: 1, g: [1, 0, 0, 1], cat: "Color" },
+                BASE_RED: { m: 100, s: 1, g: [3, 1, 2, 0], cat: "Color" },
+                BASE_GREEN: { m: 70, s: 1, g: [2, 0, 1, 3], cat: "Color" },
+                GREEN_KNOCKOUT: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Color" },
+                BASE_CREAM: { m: 50, s: 100, g: [0, 0, 0, 100], cat: "Color" },
+                ALT_BLUE: { m: 100, s: 1, g: [1, 0, 3, 2], cat: "Color" },
+                SPOT_YELLOW: { m: 100, s: 1, g: [1, 0, 0, 1], cat: "Color" },
+                SKIN_HUE: { m: 100, s: 1, g: [2, 3, 0, 1], cat: "Color" },
+                SKIN_HUE2: { m: 100, s: 1, g: [1, 0, 3, 2], cat: "Color" },
                 SWAP_BASE_SPOT: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Color" },
-                SWAP_ALT_SPOT: { m: 100, s: 1, g: [0, 1, 0, 1], cat: "Color" },
-                WHITE: { m: 100, s: 1, g: [1, 0, 0, 0], cat: "Color" },
-                WHITE_IS_LETHAL: {
-                    m: 100,
-                    s: 1,
-                    g: [0, 1, 0, 0],
-                    cat: "Color",
-                },
-                HOOF_COLOR: { m: 100, s: 1, g: [0, 1, 2, 0], cat: "Color" },
-                AGOUTI: { m: 100, s: 1, g: [1, 0, 0, 1], cat: "Color" },
-                BELLY_ALT: { m: 100, s: 1, g: [0, 1, 2, 1], cat: "Color" },
+                SWAP_ALT_SPOT: { m: 100, s: 1, g: [1, 0, 0, 1], cat: "Color" },
+                WHITE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Color" },
+                NOSE_HUE: { m: 100, s: 1, g: [1, 3, 2, 0], cat: "Mouth" },
+                HOOF_COLOR: { m: 100, s: 1, g: [2, 1, 0, 0], cat: "Color" },
+                AGOUTI: { m: 100, s: 1, g: [1, 0, 1, 0], cat: "Color" },
+                FOOT_IS_HOOF: { m: 100, s: 1, g: [1, 1, 0, 0], cat: "Feet" },
+                COON_EYE: { m: 100, s: 1, g: [2, 0, 1, 0], cat: "Face" },
+                EAR_COMP: { m: 100, s: 1, g: [1, 0, 2, 0], cat: "Face" },
+                TAIL_ALT: { m: 100, s: 1, g: [0, 2, 0, 1], cat: "Tail" },
                 PAT_SPLIT: {
                     m: 100,
                     s: 100,
-                    g: [0, 100, 65, 0],
-                    cat: "Pattern",
-                },
-                PAT_BELLY: {
-                    m: 100,
-                    s: 100,
-                    g: [100, 50, 33, 75],
+                    g: [65, 0, 0, 100],
                     cat: "Pattern",
                 },
                 PAT_STRIPE: {
                     m: 100,
                     s: 100,
-                    g: [0, 90, 51, 0],
+                    g: [51, 90, 0, 0],
                     cat: "Pattern",
                 },
-                PAT_SPOT: { m: 100, s: 100, g: [0, 90, 51, 0], cat: "Pattern" },
+                PAT_SPOT: { m: 100, s: 100, g: [0, 0, 90, 51], cat: "Pattern" },
                 PAT_PERLIN: {
                     m: 100,
                     s: 100,
-                    g: [0, 100, 60, 0],
+                    g: [60, 0, 100, 0],
                     cat: "Pattern",
                 },
                 PAT_PERLIN2: {
@@ -1712,8 +1184,28 @@
                 PAT_PERLIN_SIZE: {
                     m: 100,
                     s: 1,
-                    g: [8, 2, 4, 4],
+                    g: [2, 4, 4, 8],
                     cat: "Pattern",
+                },
+                NARCOLEPSY: {
+                    m: 100,
+                    s: 1,
+                    g: [0, 0, 0, 1],
+                    cat: "Locomotion",
+                },
+                SPEED_FACTOR: {
+                    m: 75,
+                    s: 100,
+                    g: [50, 133, 30, 100],
+                    cat: "Locomotion",
+                },
+                NECK_SPEED: { m: 100, s: 10, g: [60, 10, 50, 25], cat: "Neck" },
+                RAMPAGE: { m: 100, s: 1, g: [0, 0, 1, 0], cat: "Locomotion" },
+                SPINAL_LOCO: {
+                    m: 100,
+                    s: 1,
+                    g: [2, 1, 0, 0],
+                    cat: "Locomotion",
                 },
                 HIGH_INTELLECT: {
                     m: 100,
@@ -1721,61 +1213,64 @@
                     g: [0, 1, 0, 1],
                     cat: "Behavior",
                 },
-                OMNIVORE: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Behavior" },
-                LITTER_SIZE: { m: 100, s: 1, g: [1, 2, 3, 5], cat: "Behavior" },
-                OLD_AGE: { m: 100, s: 1, g: [0, 0, -1, 2], cat: "Behavior" },
-                LIMP: { m: 100, s: 1, g: [0, 1, 0, 2], cat: "Behavior" },
-                L_LEG_SIGNAL: { m: 100, s: 1, g: [1, 1, 1, 2], cat: "Signals" },
+                L_LEG_SIGNAL: { m: 100, s: 1, g: [2, 1, 1, 1], cat: "Signals" },
+                L_ARM_SIGNAL: { m: 100, s: 1, g: [2, 1, 2, 2], cat: "Signals" },
+                L_TAIL_SIGNAL: {
+                    m: 100,
+                    s: 1,
+                    g: [3, 2, 1, 4],
+                    cat: "Signals",
+                },
+                L_NECK_SIGNAL: {
+                    m: 100,
+                    s: 1,
+                    g: [2, 4, 3, 1],
+                    cat: "Signals",
+                },
+                LOCO_SYNC: { m: 100, s: 1, g: [0, 1, 0, 0], cat: "Locomotion" },
                 L_LEG_FTOB_REACT: {
                     m: 100,
                     s: 1,
-                    g: [1, 2, 1, 3],
+                    g: [1, 1, 2, 3],
                     cat: "Signals",
                 },
                 L_LEG_FTOB_EVENT: {
                     m: 100,
                     s: 1,
-                    g: [3, 1, 2, 4],
+                    g: [1, 2, 4, 3],
                     cat: "Signals",
                 },
                 L_LEG_BTOF_REACT: {
                     m: 100,
                     s: 1,
-                    g: [2, 1, 2, 3],
+                    g: [2, 3, 1, 2],
                     cat: "Signals",
                 },
                 L_LEG_BTOF_EVENT: {
                     m: 100,
                     s: 1,
-                    g: [2, 3, 1, 4],
+                    g: [1, 2, 4, 3],
                     cat: "Signals",
                 },
-                L_ARM_SIGNAL: { m: 100, s: 1, g: [2, 2, 2, 1], cat: "Signals" },
                 L_ARM_FTOB_REACT: {
                     m: 100,
                     s: 1,
-                    g: [2, 1, 2, 3],
+                    g: [2, 3, 1, 2],
                     cat: "Signals",
                 },
                 L_ARM_FTOB_EVENT: {
                     m: 100,
                     s: 1,
-                    g: [3, 1, 2, 4],
+                    g: [2, 3, 4, 1],
                     cat: "Signals",
                 },
                 L_ARM_BTOF_REACT: {
                     m: 100,
                     s: 1,
-                    g: [1, 2, 1, 3],
+                    g: [2, 1, 3, 1],
                     cat: "Signals",
                 },
                 L_ARM_BTOF_EVENT: {
-                    m: 100,
-                    s: 1,
-                    g: [2, 3, 1, 4],
-                    cat: "Signals",
-                },
-                L_TAIL_SIGNAL: {
                     m: 100,
                     s: 1,
                     g: [3, 1, 2, 4],
@@ -1784,19 +1279,19 @@
                 L_TAIL_FTOB_REACT: {
                     m: 100,
                     s: 1,
-                    g: [0, 1, 3, 2],
+                    g: [3, 2, 0, 1],
                     cat: "Signals",
                 },
                 L_TAIL_FTOB_EVENT: {
                     m: 100,
                     s: 1,
-                    g: [1, 2, 3, 4],
+                    g: [4, 1, 2, 3],
                     cat: "Signals",
                 },
                 L_TAIL_BTOF_REACT: {
                     m: 100,
                     s: 1,
-                    g: [0, 1, 3, 2],
+                    g: [2, 1, 3, 0],
                     cat: "Signals",
                 },
                 L_TAIL_BTOF_EVENT: {
@@ -1805,38 +1300,31 @@
                     g: [2, 1, 3, 4],
                     cat: "Signals",
                 },
-                L_NECK_SIGNAL: {
-                    m: 100,
-                    s: 1,
-                    g: [4, 1, 2, 3],
-                    cat: "Signals",
-                },
                 L_NECK_FTOB_REACT: {
                     m: 100,
                     s: 1,
-                    g: [0, 1, 4, 2],
+                    g: [4, 1, 2, 0],
                     cat: "Signals",
                 },
                 L_NECK_FTOB_EVENT: {
                     m: 100,
                     s: 1,
-                    g: [1, 2, 3, 4],
+                    g: [2, 3, 1, 4],
                     cat: "Signals",
                 },
                 L_NECK_BTOF_REACT: {
                     m: 100,
                     s: 1,
-                    g: [0, 1, 4, 2],
+                    g: [4, 0, 1, 2],
                     cat: "Signals",
                 },
                 L_NECK_BTOF_EVENT: {
                     m: 100,
                     s: 1,
-                    g: [2, 1, 3, 4],
+                    g: [3, 2, 1, 4],
                     cat: "Signals",
                 },
             };
-
             const HELIX_MAP = [
                 [
                     "BONES",
@@ -2118,18 +1606,273 @@
                     "L_NECK_BTOF_EVENT",
                 ],
             ];
-
-            function toTitleCaseWords(parts) {
-                return parts
-                    .filter(Boolean)
-                    .map((part) =>
-                        /^[A-Z0-9]+$/.test(part)
-                            ? part.charAt(0) + part.slice(1).toLowerCase()
-                            : part,
-                    )
-                    .join(" ");
+            const GENE_DESCRIPTIONS = {
+                NARCOLEPSY:
+                    "Horse randomly falls asleep when idle if nonzero. Keep A, T, or C to avoid random sleep; G is the only narcoleptic value.",
+                RAMPAGE:
+                    "Rampage/aggression state value. Wiki mapping places C as active value 1; A, T, and G are 0. During rampage, locomotion signals may be overridden and the horse may fight, bolt, and flee.",
+                HIGH_INTELLECT:
+                    "Enables progression to genius behaviour. T and G are active; A and C are inactive. Required for philosophical/refusal states.",
+                BRAIN_SPASTIC:
+                    "Applies random positional jitter each tick, causing twitching and erratic movement. A is the strongest spasm value, G is mild, T/C are none. When active, it may suppress visible old-age perturbation effects.",
+                WHITE_IS_LETHAL:
+                    "If active and WHITE coat is expressed in a foal, a lethal check may be applied at birth. G is the active lethal-white value according to the wiki table.",
+                FLU_IMMUNITY:
+                    "Grants immunity to the flu mechanic. G is immune; A/T/C are susceptible. This appears tied to the sickness/immunity mechanic sometimes referred to as Sweetie.",
+                LIMP: "Affects gait asymmetry. C produces the strong limp value, G the slight limp value, A/T are normal. Likely worsens with age.",
+                LEG_AND_ARM_LIMP:
+                    "Applies limp to all limbs simultaneously instead of just an asymmetric gait. C is active in the wiki table.",
+                OMNIVORE:
+                    "Enables carnivorous/omnivorous behaviour. A is active in the wiki table; T/C/G are inactive. When active, the horse may chase and eat NPCs or other horses instead of grazing normally.",
+                LITTER_SIZE:
+                    "Directly controls number of offspring per birth. A=3, T=2, C=1, G=5. G is the high-litter allele.",
+                SPINAL_LOCO:
+                    "Controls locomotion mode: 0 = legs only, 1 = mild spinal undulation, 2 = full serpentine/worm-like movement. A gives the maximum serpentine mode; C/G are safest for normal racing movement.",
+                LOCO_SYNC:
+                    "Global locomotion synchronisation flag. T enables coordinated limb timing; A/C/G leave limbs free-running, which can produce chaotic motion.",
+                BREAK_FORCE:
+                    "Controls stamina/rest drain behaviour. T or G gives 0, which may help speed because lower values reduce braking/rest pressure.",
+                MUSCLE_USE:
+                    "Global body-wide force multiplier used throughout movement physics. C/G give maximum output; higher values give more power but can make movement more erratic.",
+                STIFF_JOINTS:
+                    "Reduces joint flexibility. A is the stiffest value in the wiki table; T/C are 0 and G is moderate.",
+                OSTODERM:
+                    "Adds bony skin plates/osteoderms. Related to OSTO_SIZE, which controls their scale.",
+                TAIL_BOTTOM:
+                    "Controls tail attachment/bottom setting visually and appears to serve as an internal structural anchor/sentinel in game data.",
+                NECK_STIFF:
+                    "Disables or reduces neck flexibility. A and G are stiff values; T/C are flexible values. May suppress NECK_FLEXIBILITY and related neck motion.",
+                GUT_IS_UDDER:
+                    "Transforms the body mesh into an udder-like shape by offsetting ventral geometry. Visual effect only.",
+                GIANT_DWARF:
+                    "Applies a body scale preset: A=66 dwarf, C=133 giant, T/G=100 normal. Stacks with other body proportion genes.",
+                WHITE: "Activates white coat expression. T is active in the wiki table. If WHITE_IS_LETHAL is also active, white foals may die at birth.",
+                AGOUTI: "Restricts pigment to the extremities, producing a bay-like pattern with darker points and lighter body/belly regions.",
+                COON_EYE:
+                    "Applies a dark eye-mask marking. A is strongest, C is partial, T/G are off.",
+                EAR_COMP:
+                    "Applies alternate/complementary colour to the ears. C is the strongest value, A is lower, T/G are off.",
+                SWAP_BASE_SPOT:
+                    "Swaps the base coat colour with the spot/pattern colour, inverting the colour distribution.",
+                SWAP_ALT_SPOT:
+                    "Swaps the alternate colour layer with the spot colour layer. Can combine with SWAP_BASE_SPOT.",
+                OLD_AGE:
+                    "Applies progressive physical degradation over time through visible body-coordinate perturbations. C=-1, G=2, A/T=0. Retirement age itself appears hardcoded.",
+                TAIL_ALT:
+                    "Selects between different prebuilt tail meshes. This is a mode selector, not a continuous adjustment.",
+                TAIL_SHAPE:
+                    "Controls tail curvature by bending the currently selected tail mesh. Higher values produce stronger curve.",
+                TAIL_ASPECT:
+                    "Controls tail thickness/roundness in cross-section. Lower values make it flatter/thinner; higher values thicker/rounder.",
+                OSTO_SIZE:
+                    "Controls spike size if dorsal spikes/osteoderms are present. Most relevant when OSTODERM is active.",
+                CHEST_SMALL:
+                    "Affects body size and chest shape. Likely complements or opposes CHEST_BIG depending on expression.",
+                SPEED_FACTOR:
+                    "Primary movement speed multiplier. T=133 is the highest-value allele for speed-focused builds.",
+                LEG_STRENGTH:
+                    "Controls leg force output. C=120 is the highest-value allele for raw leg force; useful for racing if stable locomotion is preserved.",
+                LEG_LENGTH:
+                    "Controls leg length. T=120 is the longest-leg allele and can improve stride length.",
+                HEAD_SIZE:
+                    "Controls head scale. Values are additive across both strands: A=75, T=133, C=50, G=100.",
+                EYE_STYLE:
+                    "Selects eye type/style variant. Treated as a discrete style selector rather than a continuous physical parameter.",
+                BUGEYE: "Controls eye protrusion. T=2 is most bulging, A=1 is partial, C/G are flat.",
+                EYE_SIZE:
+                    "Controls eye size. Values are additive across both strands: A=50, T=125, C=75, G=50.",
+                PUPIL_SIZE:
+                    "Controls pupil diameter. A=80 is largest; T/G=40 are smallest; C=66 is mid-sized.",
+                LEG_IS_CIRCLE:
+                    "Changes leg geometry into a circular/wheel-like form. T is active.",
+                FOOT_IS_CIRCLE:
+                    "Changes foot geometry into a circular/wheel-like form. A is active.",
+                HAS_MOUTH:
+                    "Controls whether a mouth exists. G disables the mouth; A/T/C keep it present.",
+                TEETH_SHAPE:
+                    "Selects tooth form/style. May affect whether the horse behaves more like a herbivore, carnivore, or omnivore in addition to visible tooth shape.",
+                LEG_COUNT:
+                    "Controls number of legs. A=7 is the high-leg-count setting.",
+                HEAD_ASPECT:
+                    "Controls the aspect ratio of the head. Works alongside HEAD_SIZE.",
+                HEAD_GIANT:
+                    "Additional head enlargement modifier. A/T are large; C/G are normal.",
+                HEAD_SHRUNK:
+                    "Additional head reduction modifier. T=50 is most shrunken, A=70 partial, C/G normal.",
+                HEAD_X_GROWTH:
+                    "Directional scaling along head X axis. T narrows, C/G widen.",
+                HEAD_Y_GROWTH:
+                    "Directional scaling along head Y axis. A increases, C compresses, T/G neutral.",
+                HEAD_SQUARE:
+                    "Biases the head toward a square/block-like form. T is strongest, A partial, C/G off.",
+                HEAD_HAS_BACK:
+                    "Controls rear/back-of-head geometry. G=11 is extended, A=1 is present, T/C are off.",
+                HEAD_CHIMERA:
+                    "Enables mixed or blended head structure. T is active.",
+                EYEBOX_X: "Controls horizontal eye-box placement/spacing.",
+                EYEBOX_Y: "Controls vertical eye-box offset.",
+                EYEBOX_SIZE:
+                    "Controls the size of the eye socket region containing the eyes.",
+                HAS_PUPIL: "Toggles pupils. A is active; T/C/G disable pupils.",
+                BROW_SIZE:
+                    "Controls brow ridge size. A/T are prominent; C/G are off.",
+                BROW_SLANT:
+                    "Controls brow ridge angle. A and T tilt in opposite directions.",
+                EYE_HUE: "Controls primary eye colour/hue.",
+                EAR_STYLE: "Selects discrete ear type/style.",
+                EAR_SHAPE:
+                    "Controls general ear form within the selected style.",
+                EAR_SIZE: "Controls overall ear scale.",
+                EAR_ASPECT: "Controls ear aspect ratio.",
+                EAR_SLANT: "Controls ear angle/tilt relative to the head.",
+                EAR_INTERIOR: "Controls inner-ear detail. T is active.",
+                EAR_FLOP:
+                    "Controls how much the ears droop or flop downward. G is very floppy.",
+                NECK_FLEXIBILITY:
+                    "Controls how freely the neck can bend during movement. C is high, G/A/T are lower depending on desired stiffness.",
+                NECK_FLEX_BIAS: "Directional bias for neck bending.",
+                ARM_FLEXIBILITY:
+                    "Controls how freely the arms/front limbs bend.",
+                ARM_FLEX_BIAS: "Directional bias for arm bending.",
+                LEG_FLEXIBILITY:
+                    "Controls how freely the legs bend during locomotion.",
+                LEG_FLEX_BIAS: "Directional bias for leg bending.",
+                TAIL_FLEXIBILITY:
+                    "Controls tail bending range. G is highest, C is lowest.",
+                TAIL_STIFF:
+                    "Binary/low-range modifier that reduces or disables tail flexibility. T and C are stiff values.",
+                TAIL_SPEED:
+                    "Controls tail movement speed. C=200 is fastest; T=0 is still.",
+                ARM_STRETCH:
+                    "Applies stretching to arm length beyond base ARM_LENGTH.",
+                LEG_STRETCH:
+                    "Applies stretching to leg length beyond base LEG_LENGTH.",
+                ARM_SKEW: "Applies positional/angular skew to arms.",
+                LEG_SKEW: "Applies positional/angular skew to legs.",
+                ARM_NODE_SCALE:
+                    "Controls scaling of internal arm segments/nodes.",
+                LEG_TYPE: "Selects leg structural type/configuration.",
+                ARM_TYPE: "Selects arm structural type/configuration.",
+                HAS_FOOT:
+                    "Toggles whether feet are present. T/C present, A/G absent.",
+                FOOT_SIZE: "Controls foot size.",
+                FOOT_THICKNESS: "Controls how thick or bulky feet are.",
+                FOOT_TOE: "Controls toe size/prominence.",
+                FOOT_BACKWARDS: "Reverses/flips foot orientation. T=2, G=1.",
+                HAS_HAND:
+                    "Toggles whether hands are present on arms. A/G present, T/C absent.",
+                HAND_WIDTH: "Controls horizontal hand size.",
+                HAND_LENGTH: "Controls hand length.",
+                HAND_FINGER: "Controls finger length/count/prominence.",
+                SKIN_HANDS:
+                    "Controls whether hands use skin-like rendering/material.",
+                SKIN_HEAD:
+                    "Controls whether head uses skin-like rendering/material.",
+                BASE_BROWN:
+                    "Controls contribution of brown pigment to base coat colour.",
+                BASE_BLACK:
+                    "Controls contribution of black pigment to base coat colour.",
+                BASE_RED:
+                    "Controls contribution of red pigment to base coat colour.",
+                BASE_GREEN:
+                    "Controls contribution of green pigment to base coat colour.",
+                GREEN_KNOCKOUT:
+                    "Suppresses/removes green pigment from final coat colour. A is active.",
+                BASE_CREAM:
+                    "Adds cream/light pigment into base coat colour. G=100 is active.",
+                ALT_BLUE:
+                    "Controls blue tint in alternate/secondary colour layers.",
+                SPOT_YELLOW:
+                    "Controls yellow pigmentation in spot/pattern regions.",
+                SKIN_HUE: "Controls primary skin hue.",
+                SKIN_HUE2: "Controls secondary skin hue layer.",
+                NOSE_HUE:
+                    "Controls nose colour independently of overall skin tone.",
+                HOOF_COLOR:
+                    "Controls colour of hooves or hoof-like structures.",
+                PAT_SPLIT: "Controls split between coat colour regions.",
+                PAT_STRIPE: "Controls stripe pattern intensity/presence.",
+                PAT_SPOT: "Controls spot pattern intensity/presence.",
+                PAT_PERLIN: "Applies noise-based coat patterning.",
+                PAT_PERLIN2: "Secondary noise layer for coat patterning.",
+                PAT_PERLIN_SIZE: "Controls scale of Perlin/noise patterns.",
+                TAIL_JOINT_TYPE: "Selects tail joint type.",
+                LEG_JOINT_TYPE: "Selects leg joint type and articulation.",
+                ARM_JOINT_TYPE: "Selects arm/front-limb joint type.",
+                NECK_JOINT_TYPE: "Selects neck joint type.",
+                HEAD_JOINTED:
+                    "Controls whether head is jointed or rigidly fixed. A is active.",
+                HAS_KNEE: "Toggles knee joint presence. C is active.",
+                KNEE_MIN: "Controls minimum knee angle limit.",
+                KNEE_MAX: "Controls maximum knee angle limit.",
+                HAS_ELBOW: "Toggles elbow joint presence. A is active.",
+                ELBOW_RANGE: "Controls elbow angular range.",
+                BIPED: "Enables bipedal locomotion mode. A/C are active according to the wiki table.",
+                QUADRUPED:
+                    "Enables quadrupedal locomotion mode. A/C are active according to the wiki table.",
+                TAIL_EXISTS:
+                    "Controls whether a tail is present. C disables; A/G present; T has value 2.",
+                LEG_HAS_FOOT:
+                    "Controls whether legs terminate with feet. A/G present; T/C absent.",
+                ARM_HAS_HAND:
+                    "Controls whether arms terminate with hands. T/C present; A/G absent.",
+                FOOT_IS_HOOF:
+                    "Switches feet to hoof-like structures. A/T active; C/G off.",
+                UPARM_Y:
+                    "Controls vertical placement of upper arms relative to the body.",
+                EAR_X: "Controls horizontal ear placement relative to head center.",
+                LEG_TAG: "Selects leg style/type preset.",
+                ARM_TAG: "Selects arm/front-limb style/type preset.",
+                NECK_TAG: "Selects neck style/type preset.",
+                TAIL_TAG: "Selects tail style/type preset.",
+                UPARM_TAG: "Selects upper-arm style/type preset.",
+                L_LEG_SIGNAL:
+                    "Broadcast signal ID emitted by legs during locomotion.",
+                L_ARM_SIGNAL:
+                    "Broadcast signal ID emitted by arms/front limbs during locomotion.",
+                L_TAIL_SIGNAL: "Tail synchronisation signal.",
+                L_NECK_SIGNAL: "Neck synchronisation signal.",
+                L_LEG_FTOB_REACT:
+                    "Leg listener for forward-to-back power stroke.",
+                L_LEG_FTOB_EVENT:
+                    "Signal emitted by leg after forward-to-back stroke.",
+                L_LEG_BTOF_REACT:
+                    "Leg listener for back-to-forward recovery stroke.",
+                L_LEG_BTOF_EVENT:
+                    "Signal emitted by leg after back-to-forward stroke.",
+                L_ARM_FTOB_REACT:
+                    "Arm listener for forward-to-back power stroke.",
+                L_ARM_FTOB_EVENT:
+                    "Signal emitted by arm after forward-to-back stroke.",
+                L_ARM_BTOF_REACT:
+                    "Arm listener for back-to-forward recovery stroke.",
+                L_ARM_BTOF_EVENT:
+                    "Signal emitted by arm after back-to-forward stroke.",
+                L_TAIL_FTOB_REACT: "Tail listener for forward movement phase.",
+                L_TAIL_FTOB_EVENT:
+                    "Signal emitted by tail after forward phase.",
+                L_TAIL_BTOF_REACT: "Tail listener for recovery movement phase.",
+                L_TAIL_BTOF_EVENT:
+                    "Signal emitted by tail after recovery phase.",
+                L_NECK_FTOB_REACT: "Neck listener for forward movement phase.",
+                L_NECK_FTOB_EVENT:
+                    "Signal emitted by neck after forward phase.",
+                L_NECK_BTOF_REACT: "Neck listener for recovery movement phase.",
+                L_NECK_BTOF_EVENT:
+                    "Signal emitted by neck after recovery phase.",
+            };
+            for (const [name, description] of Object.entries(
+                GENE_DESCRIPTIONS,
+            )) {
+                if (GENES[name]) GENES[name].desc = description;
             }
-
+            const makeUniformGenome = (base = "A") =>
+                Array.from({ length: HELIX_COUNT }, (_, i) => {
+                    const n = HELIX_MAP[i]?.length ?? 0;
+                    const s = base.repeat(n);
+                    return [s, s];
+                });
+            const EMPTY_GENOME = () => makeUniformGenome("");
             function createHumanGeneName(rawName) {
                 const overrides = {
                     GUT_IS_UDDER: "Gut Is Udder",
@@ -2159,65 +1902,20 @@
                     ANTLER_SCALEW: "Antler Scale Width",
                     ANTLER_ANGLE_RAND: "Antler Angle Randomness",
                     HAT_ANGLE_RAND: "Hat Angle Randomness",
-                    BASE_BROWN: "Base Brown",
-                    BASE_BLACK: "Base Black",
-                    BASE_RED: "Base Red",
-                    BASE_GREEN: "Base Green",
-                    ALT_BLUE: "Alt Blue",
-                    SPOT_YELLOW: "Spot Yellow",
-                    SKIN_HUE: "Skin Hue",
-                    SKIN_HUE2: "Skin Hue 2",
                     SWAP_BASE_SPOT: "Swap Base / Spot",
                     SWAP_ALT_SPOT: "Swap Alt / Spot",
-                    PAT_SPLIT: "Pattern Split",
-                    PAT_BELLY: "Pattern Belly",
-                    PAT_STRIPE: "Pattern Stripe",
-                    PAT_SPOT: "Pattern Spot",
-                    PAT_PERLIN: "Pattern Perlin",
-                    PAT_PERLIN2: "Pattern Perlin 2",
-                    PAT_PERLIN_SIZE: "Pattern Perlin Size",
-                    L_LEG_SIGNAL: "Leg Signal",
-                    L_ARM_SIGNAL: "Arm Signal",
-                    L_TAIL_SIGNAL: "Tail Signal",
-                    L_NECK_SIGNAL: "Neck Signal",
-                    L_LEG_FTOB_REACT: "Leg Forward-To-Back React",
-                    L_LEG_FTOB_EVENT: "Leg Forward-To-Back Event",
-                    L_LEG_BTOF_REACT: "Leg Back-To-Forward React",
-                    L_LEG_BTOF_EVENT: "Leg Back-To-Forward Event",
-                    L_ARM_FTOB_REACT: "Arm Forward-To-Back React",
-                    L_ARM_FTOB_EVENT: "Arm Forward-To-Back Event",
-                    L_ARM_BTOF_REACT: "Arm Back-To-Forward React",
-                    L_ARM_BTOF_EVENT: "Arm Back-To-Forward Event",
-                    L_TAIL_FTOB_REACT: "Tail Forward-To-Back React",
-                    L_TAIL_FTOB_EVENT: "Tail Forward-To-Back Event",
-                    L_TAIL_BTOF_REACT: "Tail Back-To-Forward React",
-                    L_TAIL_BTOF_EVENT: "Tail Back-To-Forward Event",
-                    L_NECK_FTOB_REACT: "Neck Forward-To-Back React",
-                    L_NECK_FTOB_EVENT: "Neck Forward-To-Back Event",
-                    L_NECK_BTOF_REACT: "Neck Back-To-Forward React",
-                    L_NECK_BTOF_EVENT: "Neck Back-To-Forward Event",
                 };
-
                 if (overrides[rawName]) return overrides[rawName];
-
-                // Step 1: split underscores
-                const parts = rawName.split("_");
-
-                // Step 2: split letters/numbers (e.g. STRETCH2 -> ["STRETCH", "2"])
-                const splitParts = parts.flatMap(
-                    (part) => part.match(/[A-Z]+|\d+/g) || [],
-                );
-
-                // Step 3: title-case words, leave numbers as-is
-                return splitParts
-                    .map((part) =>
-                        /^\d+$/.test(part)
-                            ? part
-                            : part.charAt(0) + part.slice(1).toLowerCase(),
+                return rawName
+                    .split("_")
+                    .flatMap((p) => p.match(/[A-Z]+|\d+/g) || [])
+                    .map((p) =>
+                        /^\d+$/.test(p)
+                            ? p
+                            : p.charAt(0) + p.slice(1).toLowerCase(),
                     )
                     .join(" ");
             }
-
             const GENE_HUMAN_NAMES = Object.freeze(
                 Object.fromEntries(
                     Object.keys(GENES).map((name) => [
@@ -2226,79 +1924,56 @@
                     ]),
                 ),
             );
-
-            for (const [name, description] of Object.entries(
-                GENE_DESCRIPTIONS,
-            )) {
-                if (GENES[name]) {
-                    GENES[name].desc = description;
-                }
-            }
-
             function createElement(tag, attrs = {}, children = []) {
-                const element = document.createElement(tag);
-
-                for (const [key, value] of Object.entries(attrs)) {
-                    if (value == null) continue;
-                    if (key === "class") element.className = value;
-                    else if (key === "text") element.textContent = value;
-                    else if (key === "html") element.innerHTML = value;
-                    else if (key === "value") element.value = value;
-                    else if (key === "checked")
-                        element.checked = Boolean(value);
-                    else if (key === "style") element.style.cssText = value;
-                    else if (
-                        key.startsWith("on") &&
-                        typeof value === "function"
-                    )
-                        element.addEventListener(key.slice(2), value);
-                    else element.setAttribute(key, value);
+                const e = document.createElement(tag);
+                for (const [k, v] of Object.entries(attrs)) {
+                    if (v == null) continue;
+                    if (k === "class") e.className = v;
+                    else if (k === "text") e.textContent = v;
+                    else if (k === "html") e.innerHTML = v;
+                    else if (k === "value") e.value = v;
+                    else if (k === "checked") e.checked = Boolean(v);
+                    else if (k === "style") e.style.cssText = v;
+                    else if (k.startsWith("on") && typeof v === "function")
+                        e.addEventListener(k.slice(2), v);
+                    else e.setAttribute(k, v);
                 }
-
                 for (const child of Array.isArray(children)
                     ? children
                     : [children]) {
                     if (child == null) continue;
                     if (typeof child === "string")
-                        element.insertAdjacentHTML("beforeend", child);
-                    else element.appendChild(child);
+                        e.insertAdjacentHTML("beforeend", child);
+                    else e.appendChild(child);
                 }
-
-                return element;
+                return e;
             }
-
             function sanitizeSequence(value) {
                 return String(value || "")
                     .toUpperCase()
                     .replace(VALID_BASE_RE, "");
             }
-
             function normalizeGenome(genome) {
-                return genome.map(([strand1 = "", strand2 = ""]) => [
-                    sanitizeSequence(strand1),
-                    sanitizeSequence(strand2),
+                return genome.map(([s1 = "", s2 = ""]) => [
+                    sanitizeSequence(s1),
+                    sanitizeSequence(s2),
                 ]);
             }
-
             function cycleBase(base) {
-                const currentIndex = BASES.indexOf(base);
-                return BASES[(currentIndex + 1 + BASES.length) % BASES.length];
+                const i = BASES.indexOf(base);
+                return BASES[(i + 1 + BASES.length) % BASES.length];
             }
-
             function baseChip(base, size = "sm") {
-                if (!BASES.includes(base)) {
-                    return '<span class="muted">?</span>';
-                }
-                return `<span class="base base-${base} base-${size}">${base}</span>`;
+                return BASES.includes(base)
+                    ? `<span class="base base-${base} base-${size}">${base}</span>`
+                    : '<span class="muted">?</span>';
             }
-
-            function valueColor(value) {
-                if (value == null) return "var(--muted)";
-                if (value > 0) return "var(--green-hi)";
-                if (value < 0) return "var(--red-lo)";
+            function valueColor(v) {
+                if (v == null) return "var(--muted)";
+                if (v > 0) return "var(--green-hi)";
+                if (v < 0) return "var(--red-lo)";
                 return "var(--muted)";
             }
-
             function getGeneValue(gene, base) {
                 if (
                     !gene ||
@@ -2307,47 +1982,40 @@
                     return null;
                 return gene.g[BASE_INDEX[base]];
             }
-
-            function getHelixDisplayName(helixIndex) {
-                return `Helix ${helixIndex}`;
+            function getHelixDisplayName(i) {
+                return `Helix ${i}`;
             }
-
-            function getHelixDescription(helixIndex) {
-                return HELIX_DESCRIPTIONS[helixIndex] || "Unknown";
+            function getHelixDescription(i) {
+                return HELIX_DESCRIPTIONS[i] || "Unknown";
             }
-
+            function alleleSummary(gene) {
+                return `A=${gene.g[0]}, T=${gene.g[1]}, C=${gene.g[2]}, G=${gene.g[3]}`;
+            }
             function getHelixIndexFactory() {
-                const labelToIndex = new Map();
-                let nextDynamicIndex = 0;
-
-                return function getHelixIndex(rawLabel) {
-                    const label = String(rawLabel).toUpperCase();
-
+                const m = new Map();
+                let next = 0;
+                return (raw) => {
+                    const label = String(raw).toUpperCase();
                     if (/^\d{1,2}$/.test(label)) {
-                        const index = Number.parseInt(label, 10);
-                        return index >= 0 && index < HELIX_COUNT ? index : -1;
+                        const i = Number.parseInt(label, 10);
+                        return i >= 0 && i < HELIX_COUNT ? i : -1;
                     }
-
-                    if (!labelToIndex.has(label)) {
-                        if (nextDynamicIndex >= HELIX_COUNT) return -1;
-                        labelToIndex.set(label, nextDynamicIndex++);
+                    if (!m.has(label)) {
+                        if (next >= HELIX_COUNT) return -1;
+                        m.set(label, next++);
                     }
-
-                    return labelToIndex.get(label);
+                    return m.get(label);
                 };
             }
-
             function parseGenome(text) {
                 const genome = EMPTY_GENOME();
                 const lines = String(text || "")
                     .trim()
                     .split("\n")
-                    .map((line) => line.trim())
+                    .map((l) => l.trim())
                     .filter(Boolean);
-
                 const getHelixIndex = getHelixIndexFactory();
-                let currentHelix = -1;
-
+                let current = -1;
                 const patterns = {
                     newFormat: /^([A-Za-z0-9]+)\s*:\s*([atcg]+)$/i,
                     numbered: /^(\d{1,2})\s*:\s*([atcg]+)$/i,
@@ -2359,104 +2027,83 @@
                         /^(?:second\s*strand|strand\s*2)[^:]*:\s*([atcg]+)$/i,
                     bareStrand: /^[atcg]+$/i,
                 };
-
-                function assignStrand(index, sequence) {
-                    if (index < 0 || index >= HELIX_COUNT) return;
-                    if (!genome[index][0]) genome[index][0] = sequence;
-                    else genome[index][1] = sequence;
+                function assign(i, seq) {
+                    if (i < 0 || i >= HELIX_COUNT) return;
+                    if (!genome[i][0]) genome[i][0] = seq;
+                    else genome[i][1] = seq;
                 }
-
                 for (const line of lines) {
                     let match = line.match(patterns.newFormat);
                     if (match) {
-                        assignStrand(
-                            getHelixIndex(match[1]),
-                            match[2].toUpperCase(),
-                        );
+                        assign(getHelixIndex(match[1]), match[2].toUpperCase());
                         continue;
                     }
-
                     match = line.match(patterns.numbered);
                     if (match) {
-                        assignStrand(
+                        assign(
                             Number.parseInt(match[1], 10),
                             match[2].toUpperCase(),
                         );
                         continue;
                     }
-
                     match = line.match(patterns.verboseBoth);
                     if (match) {
-                        currentHelix = getHelixIndex(match[1]);
-                        if (currentHelix >= 0) {
-                            genome[currentHelix][0] = match[2].toUpperCase();
-                            genome[currentHelix][1] = match[3].toUpperCase();
+                        current = getHelixIndex(match[1]);
+                        if (current >= 0) {
+                            genome[current][0] = match[2].toUpperCase();
+                            genome[current][1] = match[3].toUpperCase();
                         }
                         continue;
                     }
-
                     match = line.match(patterns.verboseFirst);
                     if (match) {
-                        currentHelix = getHelixIndex(match[1]);
-                        if (currentHelix >= 0) {
-                            genome[currentHelix][0] = match[2].toUpperCase();
-                        }
+                        current = getHelixIndex(match[1]);
+                        if (current >= 0)
+                            genome[current][0] = match[2].toUpperCase();
                         continue;
                     }
-
                     match = line.match(patterns.verboseSecond);
-                    if (match && currentHelix >= 0) {
-                        genome[currentHelix][1] = match[1].toUpperCase();
+                    if (match && current >= 0) {
+                        genome[current][1] = match[1].toUpperCase();
                         continue;
                     }
-
                     if (
-                        currentHelix >= 0 &&
-                        !genome[currentHelix][1] &&
+                        current >= 0 &&
+                        !genome[current][1] &&
                         patterns.bareStrand.test(line)
-                    ) {
-                        genome[currentHelix][1] = line.toUpperCase();
-                    }
+                    )
+                        genome[current][1] = line.toUpperCase();
                 }
-
                 return normalizeGenome(genome);
             }
-
             function formatGenomeForExport(genome) {
                 const lines = [];
-                genome.forEach(([strand1, strand2], helixIndex) => {
-                    const label = String(helixIndex).padStart(2, "0");
-                    if (strand1) lines.push(`${label}:${strand1}`);
-                    if (strand2) lines.push(`${label}:${strand2}`);
+                genome.forEach(([s1, s2], i) => {
+                    const label = String(i).padStart(2, "0");
+                    if (s1) lines.push(`${label}:${s1}`);
+                    if (s2) lines.push(`${label}:${s2}`);
                 });
                 return lines.join("\n");
             }
-
             function createEditableBase(base, onActivate, label) {
-                const button = createElement("button", {
+                const b = createElement("button", {
                     type: "button",
                     class: `base base-${base} base-sm editable-base`,
                     title: label,
                     "aria-label": label,
                     text: base,
                 });
-                button.addEventListener("click", (event) => {
-                    event.stopPropagation();
+                b.addEventListener("click", (e) => {
+                    e.stopPropagation();
                     onActivate();
                 });
-                return button;
+                return b;
             }
-
             function createApp(root) {
-                const state = {
-                    genome: EMPTY_GENOME(),
-                    autoCopy: false,
-                };
-
+                const state = { genome: EMPTY_GENOME(), autoCopy: false };
                 const inputCard = createElement("div", {
                     class: "card card-with-header",
                 });
-
                 const inputHeader = createElement(
                     "div",
                     { class: "card-header" },
@@ -2481,28 +2128,22 @@
                         ]),
                     ],
                 );
-
                 const inputContent = createElement("div", {
                     class: "card-content",
                 });
-
-                const inputField = createElement("div", { class: "field" });
-                inputField.appendChild(
+                const inputField = createElement("div", { class: "field" }, [
                     createElement("label", {
                         text: "Paste genome (20 helices, both strands)",
                     }),
-                );
-
+                ]);
                 const genomeInput = createElement("textarea", {
                     rows: "8",
-                    placeholder: `XX:ttttttttttt\nXX:cccccccccccc\nYY:aaaaaaaaaaaa\nYY:gggggggggggg\n\n(or older formats also work)`,
+                    placeholder: `00:TTTTTTTTTT\n00:CCCCCCCCCC\n01:AAAAAAAAAAAAA\n01:GGGGGGGGGGGGG\n\n(or older formats also work)`,
                 });
                 inputField.appendChild(genomeInput);
-
                 inputContent.appendChild(inputField);
                 inputCard.appendChild(inputHeader);
                 inputCard.appendChild(inputContent);
-
                 const analyzeButton = createElement("button", {
                     class: "btn",
                     text: "Analyze Genome",
@@ -2527,13 +2168,11 @@
                     class: "btn btn-ghost",
                     text: "Copy Genome",
                 });
-
                 const autoCopyCheckbox = createElement("input", {
                     type: "checkbox",
                     checked: state.autoCopy,
                     "aria-label": "Automatically copy genome after changes",
                 });
-
                 const autoCopyToggle = createElement(
                     "label",
                     { class: "toggle-option" },
@@ -2542,7 +2181,6 @@
                         createElement("span", { text: "Auto-copy on edit" }),
                     ],
                 );
-
                 inputContent.appendChild(
                     createElement("div", { class: "button-row" }, [
                         analyzeButton,
@@ -2554,33 +2192,28 @@
                         autoCopyToggle,
                     ]),
                 );
-
                 const resultsRoot = createElement("div");
-
                 root.innerHTML = "";
                 root.appendChild(inputCard);
                 root.appendChild(resultsRoot);
-
                 function syncTextAreaFromState() {
                     genomeInput.value = formatGenomeForExport(state.genome);
                 }
-
                 function setCopyButtonLabel(label) {
                     copyButton.textContent = label;
                 }
-
                 async function copyGenomeToClipboard({
                     temporaryLabel = true,
                 } = {}) {
                     syncTextAreaFromState();
-
                     try {
                         await navigator.clipboard.writeText(genomeInput.value);
                         if (temporaryLabel) {
                             setCopyButtonLabel("Copied");
-                            window.setTimeout(() => {
-                                setCopyButtonLabel("Copy Genome");
-                            }, 1200);
+                            window.setTimeout(
+                                () => setCopyButtonLabel("Copy Genome"),
+                                1200,
+                            );
                         }
                         return true;
                     } catch {
@@ -2588,205 +2221,141 @@
                             genomeInput.focus();
                             genomeInput.select();
                             setCopyButtonLabel("Select & Copy");
-                            window.setTimeout(() => {
-                                setCopyButtonLabel("Copy Genome");
-                            }, 1200);
+                            window.setTimeout(
+                                () => setCopyButtonLabel("Copy Genome"),
+                                1200,
+                            );
                         }
                         return false;
                     }
                 }
-
                 function maybeAutoCopy() {
-                    if (!state.autoCopy) return;
-                    void copyGenomeToClipboard({ temporaryLabel: true });
+                    if (state.autoCopy)
+                        void copyGenomeToClipboard({ temporaryLabel: true });
                 }
-
-                function setBase(helixIndex, strandIndex, baseIndex, nextBase) {
-                    const strand = state.genome[helixIndex][strandIndex] || "";
+                function setBase(hi, si, bi, nextBase) {
+                    const strand = state.genome[hi][si] || "";
                     const chars = strand.split("");
-                    chars[baseIndex] = nextBase;
-                    state.genome[helixIndex][strandIndex] = chars.join("");
+                    chars[bi] = nextBase;
+                    state.genome[hi][si] = chars.join("");
                 }
-
-                function cycleGeneAt(helixIndex, geneIndex) {
-                    const [strand1, strand2] = state.genome[helixIndex];
-                    const base1 = strand1?.[geneIndex];
-                    const base2 = strand2?.[geneIndex];
-
-                    if (!base1 && !base2) return;
-
-                    if (base1 && base2 && base1 === base2) {
-                        const nextBase = cycleBase(base1);
-                        setBase(helixIndex, 0, geneIndex, nextBase);
-                        setBase(helixIndex, 1, geneIndex, nextBase);
-                    } else if (base1 && !base2) {
-                        setBase(helixIndex, 0, geneIndex, cycleBase(base1));
-                    } else if (!base1 && base2) {
-                        setBase(helixIndex, 1, geneIndex, cycleBase(base2));
-                    }
-
+                function cycleGeneAt(hi, gi) {
+                    const [s1, s2] = state.genome[hi];
+                    const b1 = s1?.[gi];
+                    const b2 = s2?.[gi];
+                    if (!b1 && !b2) return;
+                    if (b1 && b2 && b1 === b2) {
+                        const n = cycleBase(b1);
+                        setBase(hi, 0, gi, n);
+                        setBase(hi, 1, gi, n);
+                    } else if (b1 && !b2) setBase(hi, 0, gi, cycleBase(b1));
+                    else if (!b1 && b2) setBase(hi, 1, gi, cycleBase(b2));
                     render();
                     maybeAutoCopy();
                 }
-
-                function mergeGeneAlleles(helixIndex, geneIndex, options = {}) {
-                    const { silent = false } = options;
-                    const [strand1, strand2] = state.genome[helixIndex];
-                    const base1 = strand1?.[geneIndex];
-                    const base2 = strand2?.[geneIndex];
-
-                    if (!base1 && !base2) return;
-
-                    const mergedBase = base1 || base2;
-                    if (base1) setBase(helixIndex, 0, geneIndex, mergedBase);
-                    if (base2) setBase(helixIndex, 1, geneIndex, mergedBase);
-
+                function mergeGeneAlleles(hi, gi, { silent = false } = {}) {
+                    const [s1, s2] = state.genome[hi];
+                    const b1 = s1?.[gi];
+                    const b2 = s2?.[gi];
+                    if (!b1 && !b2) return;
+                    const merged = b1 || b2;
+                    if (b1) setBase(hi, 0, gi, merged);
+                    if (b2) setBase(hi, 1, gi, merged);
                     if (!silent) {
                         render();
                         maybeAutoCopy();
                     }
                 }
-
                 function hasMergeableAlleles() {
-                    return HELIX_MAP.some((genes, helixIndex) => {
-                        const [strand1 = "", strand2 = ""] = state.genome[
-                            helixIndex
-                        ] || ["", ""];
-
-                        return genes.some((_, geneIndex) => {
-                            const base1 = strand1[geneIndex];
-                            const base2 = strand2[geneIndex];
-                            return Boolean(base1 && base2 && base1 !== base2);
-                        });
+                    return HELIX_MAP.some((genes, hi) => {
+                        const [s1 = "", s2 = ""] = state.genome[hi] || ["", ""];
+                        return genes.some((_, gi) =>
+                            Boolean(s1[gi] && s2[gi] && s1[gi] !== s2[gi]),
+                        );
                     });
                 }
-
                 function mergeAllAlleles() {
-                    HELIX_MAP.forEach((genes, helixIndex) => {
-                        genes.forEach((_, geneIndex) => {
-                            const [strand1 = "", strand2 = ""] = state.genome[
-                                helixIndex
-                            ] || ["", ""];
-                            const base1 = strand1[geneIndex];
-                            const base2 = strand2[geneIndex];
-
-                            if (base1 && base2 && base1 !== base2) {
-                                mergeGeneAlleles(helixIndex, geneIndex, {
-                                    silent: true,
-                                });
-                            }
-                        });
-                    });
-                }
-
-                function cycleStrandBase(helixIndex, strandIndex, baseIndex) {
-                    const strand = state.genome[helixIndex][strandIndex] || "";
-                    if (!strand[baseIndex]) return;
-                    setBase(
-                        helixIndex,
-                        strandIndex,
-                        baseIndex,
-                        cycleBase(strand[baseIndex]),
+                    HELIX_MAP.forEach((genes, hi) =>
+                        genes.forEach((_, gi) => {
+                            const [s1 = "", s2 = ""] = state.genome[hi] || [
+                                "",
+                                "",
+                            ];
+                            if (s1[gi] && s2[gi] && s1[gi] !== s2[gi])
+                                mergeGeneAlleles(hi, gi, { silent: true });
+                        }),
                     );
+                }
+                function cycleStrandBase(hi, si, bi) {
+                    const strand = state.genome[hi][si] || "";
+                    if (!strand[bi]) return;
+                    setBase(hi, si, bi, cycleBase(strand[bi]));
                     render();
                     maybeAutoCopy();
                 }
-
-                function buildStrandPreviewRow(
-                    label,
-                    strand,
-                    helixIndex,
-                    strandIndex,
-                ) {
-                    const row = createElement("div", { class: "strand-row" });
-                    row.appendChild(
+                function buildStrandPreviewRow(label, strand, hi, si) {
+                    const row = createElement("div", { class: "strand-row" }, [
                         createElement("span", {
                             class: "strand-label",
                             text: label,
                         }),
-                    );
-
-                    strand.split("").forEach((base, baseIndex) => {
-                        row.appendChild(
-                            createEditableBase(
-                                base,
-                                () =>
-                                    cycleStrandBase(
-                                        helixIndex,
-                                        strandIndex,
-                                        baseIndex,
-                                    ),
-                                `${getHelixDisplayName(helixIndex)} strand ${strandIndex + 1} position ${baseIndex + 1}. Click to cycle base.`,
+                    ]);
+                    strand
+                        .split("")
+                        .forEach((base, bi) =>
+                            row.appendChild(
+                                createEditableBase(
+                                    base,
+                                    () => cycleStrandBase(hi, si, bi),
+                                    `${getHelixDisplayName(hi)} strand ${si + 1} position ${bi + 1}. Click to cycle base.`,
+                                ),
                             ),
                         );
-                    });
-
                     return row;
                 }
-
-                function buildStrandStack(helixIndex, strand1, strand2) {
+                function buildStrandStack(hi, s1, s2) {
                     const stack = createElement("div", {
                         class: "strand-stack",
                     });
-
-                    if (strand1) {
+                    if (s1)
                         stack.appendChild(
-                            buildStrandPreviewRow("S1", strand1, helixIndex, 0),
+                            buildStrandPreviewRow("S1", s1, hi, 0),
                         );
-                    }
-
-                    if (strand2) {
+                    if (s2)
                         stack.appendChild(
-                            buildStrandPreviewRow("S2", strand2, helixIndex, 1),
+                            buildStrandPreviewRow("S2", s2, hi, 1),
                         );
-                    }
-
                     return stack;
                 }
-
                 function renderResults() {
                     resultsRoot.innerHTML = "";
-
-                    HELIX_MAP.forEach((genes, helixIndex) => {
-                        const [strand1, strand2] = state.genome[helixIndex] || [
-                            "",
-                            "",
-                        ];
-                        const hasData = Boolean(strand1 || strand2);
-
+                    HELIX_MAP.forEach((genes, hi) => {
+                        const [s1, s2] = state.genome[hi] || ["", ""];
+                        const hasData = Boolean(s1 || s2);
                         const helixBlock = createElement("div", {
                             class: "result-helix",
                         });
-
                         const header = createElement("div", {
                             class: "result-header",
                         });
-
-                        const heading = createElement("div", {
-                            class: "result-heading",
-                        });
-
-                        heading.appendChild(
-                            createElement("div", {
-                                class: "helix-title",
-                                text: getHelixDisplayName(helixIndex),
-                            }),
+                        const heading = createElement(
+                            "div",
+                            { class: "result-heading" },
+                            [
+                                createElement("div", {
+                                    class: "helix-title",
+                                    text: getHelixDisplayName(hi),
+                                }),
+                                createElement("div", {
+                                    class: "helix-subtitle",
+                                    text: getHelixDescription(hi),
+                                }),
+                            ],
                         );
-
-                        heading.appendChild(
-                            createElement("div", {
-                                class: "helix-subtitle",
-                                text: getHelixDescription(helixIndex),
-                            }),
-                        );
-
                         header.appendChild(heading);
-
-                        if (hasData) {
-                            header.appendChild(
-                                buildStrandStack(helixIndex, strand1, strand2),
-                            );
-                        } else {
+                        if (hasData)
+                            header.appendChild(buildStrandStack(hi, s1, s2));
+                        else
                             header.appendChild(
                                 createElement("span", {
                                     class: "dim",
@@ -2794,65 +2363,57 @@
                                     style: "font-size:11px;align-self:center;",
                                 }),
                             );
-                        }
-
                         helixBlock.appendChild(header);
-
                         if (hasData) {
                             const body = createElement("div", {
                                 class: "result-body",
                             });
-
                             const geneList = createElement("div", {
                                 class: "result-genes",
                             });
-
-                            genes.forEach((geneName, geneIndex) => {
+                            genes.forEach((geneName, gi) => {
                                 const gene = GENES[geneName];
                                 const humanName =
                                     GENE_HUMAN_NAMES[geneName] || geneName;
                                 const categoryColor = gene
                                     ? CAT_COLOR[gene.cat] || "#64748b"
                                     : "#475569";
-                                const base1 =
-                                    strand1?.[geneIndex]?.toUpperCase();
-                                const base2 =
-                                    strand2?.[geneIndex]?.toUpperCase();
-                                const value1 = getGeneValue(gene, base1);
-                                const value2 = getGeneValue(gene, base2);
-                                const isMixed =
-                                    Boolean(base1 && base2) && base1 !== base2;
-                                const tooltipLines = [];
-
-                                tooltipLines.push(
+                                const b1 = s1?.[gi]?.toUpperCase();
+                                const b2 = s2?.[gi]?.toUpperCase();
+                                const v1 = getGeneValue(gene, b1);
+                                const v2 = getGeneValue(gene, b2);
+                                const isMixed = Boolean(b1 && b2) && b1 !== b2;
+                                const tooltip = [
                                     createElement("span", {
                                         class: "tooltip-code",
                                         text: geneName,
                                     }),
+                                ];
+                                tooltip.push(
+                                    createElement("span", {
+                                        text:
+                                            gene?.desc ||
+                                            "No custom description yet.",
+                                    }),
                                 );
-
-                                if (gene?.desc) {
-                                    tooltipLines.push(
+                                if (gene)
+                                    tooltip.push(
                                         createElement("span", {
-                                            text: gene.desc,
+                                            class: "tooltip-values",
+                                            text: `Wiki values: ${alleleSummary(gene)}. Baseline m=${gene.m}, scale s=${gene.s}.`,
                                         }),
                                     );
-                                }
-
                                 const card = createElement("button", {
                                     type: "button",
                                     class: "result-gene",
                                     style: `border-color:${categoryColor}33`,
                                     title: geneName,
-                                    "aria-label": `Gene ${geneName} on ${getHelixDisplayName(helixIndex)} position ${geneIndex + 1}.`,
+                                    "aria-label": `Gene ${geneName} on ${getHelixDisplayName(hi)} position ${gi + 1}.`,
                                 });
-
-                                if (!isMixed) {
+                                if (!isMixed)
                                     card.addEventListener("click", () =>
-                                        cycleGeneAt(helixIndex, geneIndex),
+                                        cycleGeneAt(hi, gi),
                                     );
-                                }
-
                                 card.appendChild(
                                     createElement("div", {
                                         class: "rname",
@@ -2860,73 +2421,50 @@
                                         style: `color:${categoryColor}`,
                                     }),
                                 );
-
                                 card.appendChild(
                                     createElement("div", {
                                         class: "rpos",
-                                        text: `${getHelixDisplayName(helixIndex)} · P${geneIndex}`,
+                                        text: `${getHelixDisplayName(hi)} · P${gi}`,
                                     }),
                                 );
-
                                 const valueRow = createElement("div", {
                                     class: "rval",
                                 });
-
-                                if (base1) {
+                                if (b1)
                                     valueRow.appendChild(
                                         createElement(
                                             "div",
                                             { class: "allele-line" },
-                                            `${
-                                                createElement("span", {
-                                                    class: "dim",
-                                                    text: isMixed
-                                                        ? "S1:"
-                                                        : "Allele:",
-                                                }).outerHTML
-                                            }${baseChip(base1)}<span class="muted">=</span><span style="color:${valueColor(value1)};font-weight:bold">${value1}</span>`,
+                                            `${createElement("span", { class: "dim", text: isMixed ? "S1:" : "Allele:" }).outerHTML}${baseChip(b1)}<span class="muted">=</span><span style="color:${valueColor(v1)};font-weight:bold">${v1}</span>`,
                                         ),
                                     );
-                                }
-
-                                if (isMixed && base2) {
+                                if (isMixed && b2)
                                     valueRow.appendChild(
                                         createElement(
                                             "div",
                                             { class: "allele-line" },
-                                            `${
-                                                createElement("span", {
-                                                    class: "dim",
-                                                    text: "S2:",
-                                                }).outerHTML
-                                            }${baseChip(base2)}<span class="muted">=</span><span style="color:${valueColor(value2)};font-weight:bold">${value2}</span>`,
+                                            `${createElement("span", { class: "dim", text: "S2:" }).outerHTML}${baseChip(b2)}<span class="muted">=</span><span style="color:${valueColor(v2)};font-weight:bold">${v2}</span>`,
                                         ),
                                     );
-                                }
-
-                                if (!base1 && !base2) {
+                                if (!b1 && !b2)
                                     valueRow.appendChild(
                                         createElement("span", {
                                             class: "dim",
                                             text: "—",
                                         }),
                                     );
-                                }
-
                                 card.appendChild(valueRow);
-
                                 if (isMixed) {
-                                    const mixedRow = createElement("div", {
-                                        class: "gene-mixed-row",
-                                    });
-
-                                    mixedRow.appendChild(
-                                        createElement("span", {
-                                            class: "gene-warning",
-                                            text: "MIXED ALLELES",
-                                        }),
+                                    const mixedRow = createElement(
+                                        "div",
+                                        { class: "gene-mixed-row" },
+                                        [
+                                            createElement("span", {
+                                                class: "gene-warning",
+                                                text: "MIXED ALLELES",
+                                            }),
+                                        ],
                                     );
-
                                     const mergeButton = createElement(
                                         "button",
                                         {
@@ -2935,41 +2473,31 @@
                                             text: "Merge",
                                         },
                                     );
-
                                     mergeButton.addEventListener(
                                         "click",
                                         (event) => {
                                             event.stopPropagation();
-                                            mergeGeneAlleles(
-                                                helixIndex,
-                                                geneIndex,
-                                            );
+                                            mergeGeneAlleles(hi, gi);
                                         },
                                     );
-
                                     mixedRow.appendChild(mergeButton);
                                     card.appendChild(mixedRow);
                                 }
-
                                 card.appendChild(
                                     createElement(
                                         "div",
                                         { class: "gene-tooltip" },
-                                        tooltipLines,
+                                        tooltip,
                                     ),
                                 );
-
                                 geneList.appendChild(card);
                             });
-
                             body.appendChild(geneList);
                             helixBlock.appendChild(body);
                         }
-
                         resultsRoot.appendChild(helixBlock);
                     });
                 }
-
                 function render() {
                     syncTextAreaFromState();
                     mergeAllButton.style.display = hasMergeableAlleles()
@@ -2977,69 +2505,49 @@
                         : "none";
                     renderResults();
                 }
-
                 function randomBase() {
                     return BASES[Math.floor(Math.random() * BASES.length)];
                 }
-
                 function randomGenome() {
-                    return Array.from(
-                        { length: HELIX_COUNT },
-                        (_, helixIndex) => {
-                            const geneCount =
-                                HELIX_MAP[helixIndex]?.length ?? 0;
-                            const strand1 = Array.from(
-                                { length: geneCount },
-                                randomBase,
-                            ).join("");
-                            const strand2 = Array.from(
-                                { length: geneCount },
-                                randomBase,
-                            ).join("");
-                            return [strand1, strand2];
-                        },
-                    );
+                    return Array.from({ length: HELIX_COUNT }, (_, hi) => {
+                        const n = HELIX_MAP[hi]?.length ?? 0;
+                        return [
+                            Array.from({ length: n }, randomBase).join(""),
+                            Array.from({ length: n }, randomBase).join(""),
+                        ];
+                    });
                 }
-
                 analyzeButton.addEventListener("click", () => {
                     state.genome = parseGenome(genomeInput.value);
                     render();
                 });
-
                 loadBlankButton.addEventListener("click", () => {
                     state.genome = makeUniformGenome("A");
                     render();
                 });
-
                 randomizeButton.addEventListener("click", () => {
                     state.genome = randomGenome();
                     render();
                     maybeAutoCopy();
                 });
-
                 mergeAllButton.addEventListener("click", () => {
                     mergeAllAlleles();
                     render();
                     maybeAutoCopy();
                 });
-
                 copyButton.addEventListener("click", async () => {
                     await copyGenomeToClipboard({ temporaryLabel: true });
                 });
-
                 autoCopyCheckbox.addEventListener("change", () => {
                     state.autoCopy = autoCopyCheckbox.checked;
                 });
-
                 clearButton.addEventListener("click", () => {
                     state.genome = EMPTY_GENOME();
                     genomeInput.value = "";
                     render();
                 });
-
                 render();
             }
-
             createApp(document.getElementById("editor"));
         </script>
     </body>
